@@ -76,8 +76,13 @@ Attack/                        membership inference, run against exported models
 Results/                       cross-dataset consolidation + paper figures
   dataset_results/             UTILITY:  ACL / accuracy / F1 vs ε
   attack_results/              PRIVACY:  leakage vs ε
-analysis/                      RQ correlation studies pairing utility with leakage
-revision/                      MDPI revision artifacts (tables, figures, provenance)
+analysis/                      the paper's tables and figures, + the statistics behind them
+  src/                         all 13 scripts
+  stats/                       intermediate correlation statistics
+  tables/csv/ tables/tex/      the nine paper tables
+  figures/pdf/ figures/png/    the paper figures (Fig. 7-13)
+  logs/                        verification.txt, gaps.md
+  MANIFEST.csv                 one row per artifact, with its sources
 notebooks/                     exploratory, read-only scratch analyses
 
 All six datasets share this exact structure, and all 30 dataset x family
@@ -179,16 +184,39 @@ cd Results/attack_results && uv run python prepare_mia_data.py
 uv run jupyter nbconvert --to notebook --execute --inplace mia_graph_construction.ipynb
 ```
 
-### Step 4 — Correlation analyses and paper artifacts
+### Step 4 — Paper tables and figures
+
+Everything the manuscript prints is produced here, from the two consolidated
+CSVs of Step 3 plus the per-dataset attack results of Step 2.
 
 ```bash
-cd analysis    && uv run python step0_check.py d14_pair_correlations.py ...
-cd revision/src && uv run python build_tables.py && uv run python verify.py
+cd analysis/src
+
+uv run python input_audit.py                # audit inputs, no writes
+uv run python within_pair_correlations.py   # -> ../stats/
+uv run python correlation_statistics.py
+uv run python rq_figures.py
+
+uv run python build_tables.py               # -> ../tables/{csv,tex}/
+uv run python verify.py                     # gate: non-zero exit on mismatch
+uv run python build_figures.py              # -> ../figures/{pdf,png}/
+uv run python make_roc_grid.py
+uv run python make_manifest.py              # -> ../MANIFEST.csv
 ```
 
-See [analysis/A14_RESULTS.md](analysis/A14_RESULTS.md) and
-[revision/README.md](revision/README.md). `verify.py` is a gate — it re-derives
-every table cell from its primary source and exits non-zero on any mismatch.
+**`verify.py` is a gate** — it re-derives every numeric table cell from its
+primary source and exits non-zero on any mismatch beyond 1e-06. It currently
+reports `checks=1813 failures=186`; all 186 are one known issue with
+author-supplied constants, documented in [analysis/README.md](analysis/README.md).
+No measured quantity disagrees.
+
+[analysis/README.md](analysis/README.md) lists the **preconditions** — which
+upstream files must exist before this stage will produce a complete result, and
+which failures are silent. [analysis/RESULTS.md](analysis/RESULTS.md) is the
+statistical write-up.
+
+Note this stage never opens an exported model, so it runs on a fresh clone as
+soon as the Step 3 CSVs exist — no retraining required.
 
 ---
 
@@ -203,8 +231,9 @@ every table cell from its primary source and exits non-zero on any mismatch.
 | [Results/attack_results/consolidated_mia_data.csv](Results/attack_results/consolidated_mia_data.csv) | **the leakage table** — 900 rows = 3 attacks × 300 |
 | `<DATASET>/<FAMILY>/output/*.csv`, `*.json` | raw per-model metrics, the input to the two tables above |
 | `Attack/<ATTACK>/results/*_comparison.csv` | 300 rows = 6 datasets × 50 target configs |
-| [revision/tables/csv/](revision/tables/csv/) | the nine paper tables, re-derived and verified |
-| [revision/MANIFEST.csv](revision/MANIFEST.csv) | every revision artifact and its provenance |
+| [analysis/tables/csv/](analysis/tables/csv/) | the nine paper tables, re-derived and verified |
+| [analysis/figures/png/](analysis/figures/png/) | the paper figures (Fig. 7–13) |
+| [analysis/MANIFEST.csv](analysis/MANIFEST.csv) | every generated artifact and its provenance |
 
 Filter `consolidated_data.csv` on `variant` (`dp` / `standard`) — baselines are
 rows in the same file, not a separate block.
