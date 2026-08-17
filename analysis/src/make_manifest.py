@@ -94,8 +94,8 @@ FIGURES = [
      "Regenerated from the RQ figure input; recorded correlation asserted."),
     ("l4_avg_vs_worst_case", "[72][73][75]", "Section 4.3 (Attack agreement)",
      "analysis/figures/figure_input.csv; analysis/figures/correlations.csv",
-     "Average-case (Yeom advantage) vs worst-case (LiRA AUC) on the non-private "
-     "targets. Recorded correlation asserted."),
+     "Agreement between the two average-case attack summaries, Yeom advantage "
+     "and LiRA AUC, on the non-private targets. Recorded correlation asserted."),
     ("l6_baseline_leakage_vs_N", "[72][73][75]", "Section 4.3 (Dataset size)",
      "analysis/figures/figure_input.csv; analysis/figures/correlations.csv",
      "Non-private RF leakage against N. Six points. Recorded correlation asserted."),

@@ -322,14 +322,18 @@ def build_rq_figures() -> None:
         res = spearmanr(x, y)
         return float(res.statistic), len(x), float(res.pvalue)
 
-    # ---- L4: average-case vs worst-case agreement (baselines) -------------
+    # ---- L4: agreement between the two average-case attacks (baselines) ----
+    # Both axes are average-case summaries: Yeom advantage is TPR-FPR at a single
+    # loss threshold, and AUC aggregates over all thresholds. LiRA's worst-case
+    # metric is TPR at a low fixed FPR, which is plotted in residual_floor_ci and
+    # l6_baseline_leakage_vs_N -- not here. Do not label this axis "worst-case".
     rho, n, p = stats("l4_avg_vs_worst_case", d["yeom_adv_base"], d["lira_auc_base"])
     fig, ax = plt.subplots(figsize=(5.6, 4.2))
     scatter_by_family(ax, d, "yeom_adv_base", "lira_auc_base")
     ax.axhline(0.5, color="#666666", linestyle=":", linewidth=1.1, zorder=10,
                label="chance AUC (0.5)")
     ax.set_xlabel("Yeom advantage (average-case)")
-    ax.set_ylabel("LiRA AUC (worst-case)")
+    ax.set_ylabel("LiRA AUC (average-case)")
     ax.grid(True, alpha=0.25, color="#cccccc")
     ax.margins(x=0.12)
     leg = ax.legend(fontsize=7, loc="upper left")

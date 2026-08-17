@@ -121,7 +121,7 @@ def main():
 
     stats = []
 
-    # ---- L4: average-case vs worst-case agreement (baselines) --------------
+    # ---- L4: agreement between the two average-case attacks (baselines) ----
     r = spearman_with_ci(d["yeom_adv_base"], d["lira_auc_base"])
     stats.append(("L4  yeom_adv_base vs lira_auc_base", r))
     fig, ax = plt.subplots(figsize=(5.2, 4.0))
@@ -130,8 +130,8 @@ def main():
                zorder=10, label="random (0.5)")
     _annotate(ax, d.nlargest(4, "lira_auc_base"), "yeom_adv_base", "lira_auc_base")
     ax.set_xlabel("Yeom advantage (average-case)")
-    ax.set_ylabel("LiRA AUC (worst-case)")
-    ax.set_title(f"Average-case vs worst-case attack agreement "
+    ax.set_ylabel("LiRA AUC (average-case)")
+    ax.set_title(f"Yeom vs LiRA agreement, average-case metrics "
                  f"($\\rho$={r['rho']:.2f})", fontsize=9.5)
     ax.grid(True, alpha=0.25, color="#cccccc")
     ax.legend(fontsize=7, loc="upper left")
