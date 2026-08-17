@@ -3,8 +3,8 @@
 Code and results for the **journal extension** of *"An Empirical Study of the
 Privacy-Utility Trade-off in Differentially Private Classifiers"* (CIIT 2026).
 
-The study trains **5 model families** on **6 medical datasets** across **15 privacy
-budgets**, then attacks every resulting model with **3 membership inference attacks**
+The study trains **5 model families** on **6 medical datasets** across a sweep of
+**privacy budgets**, then attacks every resulting model with **3 membership inference attacks**
 to measure whether Differential Privacy actually reduces leakage — rather than
 assuming it does.
 
@@ -12,7 +12,7 @@ assuming it does.
 |---|---|
 | **Datasets** | 6, spanning N = 319 → 70,692 |
 | **Model families** | DP-RF, DP-LR, DP-GNB, DP-SVM, DP-DNN |
-| **Privacy budgets** | ε ∈ {0.1 … 10.0}, 15 values (9 for attacks) |
+| **Privacy budgets** | DP-RF/LR/GNB/SVM: 15 values, ε ∈ {0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 4.0, 6.0, 8.0, 10.0}<br>DP-DNN: the 9-value subset {0.1, 0.2, 0.4, 0.8, 1.0, 2.0, 4.0, 8.0, 10.0}, which is also the attack grid |
 | **Repeats** | 30 runs per (dataset, model, ε), seeds `run × 10 + 42` |
 | **Attacks** | Yeom (2018), Shokri (2017), LiRA (2022) |
 | **Primary utility metric** | ACL (Accuracy Loss) = 1 − Accuracy(M, ε) / Accuracy(M, ε=∞) |
@@ -65,8 +65,11 @@ resolution. Key libraries: `diffprivlib` 0.6.6 (DP-RF/LR/GNB), `torch` 2.11 +
   RandomForest/ LR/ GaussianNB/ SVM/ DNN/
       STD_<FAM>.ipynb          non-private baseline  (the ε=∞ ceiling)
       DP_<FAM>.ipynb           DP sweep over ε
-      output/                  metrics CSV + report JSON  (tracked)
-        model/                 exported target models     (GITIGNORED)
+      output/                  baseline_results.csv     metrics of the STD run
+                               dp_results.csv           metrics per ε
+                               std_<fam>_report.json    STD run detail
+                               dp_<fam>_report.json     DP run detail
+        model/                 exported target models   (GITIGNORED)
 
 Attack/                        membership inference, run against exported models
   MIA_YEOM/  MIA_Shokri/  LiRA/
@@ -76,6 +79,11 @@ Results/                       cross-dataset consolidation + paper figures
 analysis/                      RQ correlation studies pairing utility with leakage
 revision/                      MDPI revision artifacts (tables, figures, provenance)
 notebooks/                     exploratory, read-only scratch analyses
+
+All six datasets share this exact structure, and all 30 dataset x family
+directories contain exactly the two notebooks plus output/. The DNN family is
+the one naming exception: its metrics files are baseline_dnn_results.csv and
+dp_dnn_results.csv.
 
 common_svm.py                  DifferentiallyPrivateSVM, DPSVMOneVsRest
 metrics_utils.py               ExtraMetrics (train acc, balanced acc, AUROC, time)
@@ -116,7 +124,7 @@ For every **dataset × model family**, run both notebooks:
 | Notebook | Purpose | Produces |
 |---|---|---|
 | `STD_<FAM>.ipynb` | non-private **baseline** — how the model performs with no DP; this is the ε=∞ ceiling that ACL is measured against | `baseline_results.csv`, `std_<fam>_report.json`, `output/model/std_<fam>_model.pkl` |
-| `DP_<FAM>.ipynb` | **DP sweep** — the same model across all 15 ε values, 30 runs each | `dp_results.csv`, `dp_<fam>_report.json`, `output/model/dp_<fam>_model_eps_<ε>.pkl` |
+| `DP_<FAM>.ipynb` | **DP sweep** — the same model across its ε grid (15 values; DP-DNN uses the 9-value subset), 30 runs each | `dp_results.csv`, `dp_<fam>_report.json`, `output/model/dp_<fam>_model_eps_<ε>.pkl` |
 
 ```bash
 uv run jupyter nbconvert --to notebook --execute --inplace \
