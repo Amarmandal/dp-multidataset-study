@@ -82,7 +82,7 @@ The dataset contains 38 features covering demographic details, body composition 
 
 ## Workflow
 
-1. **Data Preprocessing**: Run `data_preprocessor.ipynb` first (standardization via StandardScaler, split, and feature bounds computation).
+1. **Data Preprocessing**: Run `data_preprocessor.ipynb` first (scaling via MinMaxScaler to [-1, 1], split, and feature bounds computation).
 2. **Baseline Training**: Train standard (non-private) models (`STD_*.ipynb`) to establish baseline parameters.
 3. **DP Training**: Train differentially private models across epsilon values (`DP_*.ipynb`).
 4. **Evaluation**: Compare metrics (Accuracy, F1, Precision, Recall, ACL).

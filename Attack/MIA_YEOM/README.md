@@ -120,7 +120,7 @@ families genuinely differ are already centralised in `exported_models.py`:
 - **Posterior head** — LR/RF/GNB expose `predict_proba` natively; `_SVMProba`
   softmaxes the DP-SVM's `decision_function`; `_TorchProba` softmaxes DNN logits.
 - **Feature space** — `family_dataview()` reproduces the unit-L2-row clip the LR
-  and SVM notebooks apply; other families use the StandardScaler'd features.
+  and SVM notebooks apply; other families use the MinMax-scaled features.
 - **Unpickling** — the DP-SVM classes come from the repo-root `common_svm`
   module (the same objects the notebooks pickled); the DNN module classes are
   re-registered so `torch.load` resolves them.
@@ -140,10 +140,9 @@ the plumbing is now shared. They were superseded rather than merely duplicated:
 1. **They re-trained their targets in-process**, while `run_mia.py` attacks the
    exported artefacts that LiRA and Shokri also attack. Different targets, so
    old and new numbers are not comparable.
-2. **`GaussiaNB/dp_gnb_mia.py` had drifted on preprocessing**, assuming
-   `MinMaxScaler(feature_range=(-1,1))` with bounds `[-1,1]` while the pipeline
-   moved to `StandardScaler` — so its DP noise was calibrated against a scaler
-   no longer in use.
+2. **`GaussiaNB/dp_gnb_mia.py` had drifted on preprocessing**, drifting from the
+   pipeline's `MinMaxScaler(feature_range=(-1,1))` with bounds `[-1,1]`, so its
+   DP noise was not calibrated against the scaler actually in use.
 3. **They clamped advantage to [0, 1]**, discarding the negative-advantage
    signal that `mia.py` preserves.
 

@@ -64,7 +64,7 @@ The dataset contains 21 health-related features:
 
 ## Workflow
 
-1. **Data Preprocessing**: Load and preprocess data (standardization via StandardScaler)
+1. **Data Preprocessing**: Load and preprocess data (scaling via MinMaxScaler to [-1, 1])
 2. **Baseline Training**: Train standard (non-private) models
 3. **DP Training**: Train differentially private models across epsilon values
 4. **Evaluation**: Compare metrics (Accuracy, F1, Precision, Recall, ACL)
@@ -79,5 +79,5 @@ All results, plots, and comparative analysis will be saved in the `Result/` dire
 - Dataset is significantly larger (70K vs 569 samples for breast cancer)
 - Larger dataset should result in lower per-record sensitivity
 - Expected: Better privacy-utility tradeoff compared to breast cancer dataset
-- All models use StandardScaler preprocessing
+- All models use MinMaxScaler([-1, 1]) preprocessing
 - Each DP model runs 30 times per epsilon value for statistical robustness

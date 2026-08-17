@@ -72,7 +72,7 @@ This directory contains the implementation of differentially private classifiers
 
 1. **Data Preprocessing**: Run `data_preprocessor.ipynb` first
    - Drops identifier columns (`index`, `Patient Id`)
-   - Standardizes features (StandardScaler)
+   - Scales features to [-1, 1] (MinMaxScaler)
    - Saves `data/processed_data.pkl`
 2. **Baseline Training**: Train standard (non-private) models (`STD_*.ipynb`)
 3. **DP Training**: Train differentially private models across epsilon values (`DP_*.ipynb`)

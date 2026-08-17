@@ -24,7 +24,7 @@ Three things make a saved target usable by ``shokri_mia``:
 3. **A matching feature space.** Each family is attacked in the same space it
    was trained in. The LR and SVM notebooks clip every row to unit L2 norm (so
    ``||x|| <= 1``); ``family_dataview`` reproduces that. The other families
-   train directly on the StandardScaler'd features.
+   train directly on the MinMax-scaled features.
 
 The module also exposes ``make_shadow`` factories that build *fresh* estimators
 of the same kind as the target (shadow models are always trained from scratch,
@@ -286,7 +286,7 @@ def family_dataview(family, data, low, high):
     """Return (data, low, high) in the space the family was trained in.
 
     LR and SVM clip every row to unit L2 norm (||x|| <= 1); other families use
-    the StandardScaler'd features as-is. The clip is not a linear map, so the
+    the MinMax-scaled features as-is. The clip is not a linear map, so the
     per-feature box is reported as the conservative [-1, 1] intersection --
     every coordinate of a unit-norm row lies inside it.
     """

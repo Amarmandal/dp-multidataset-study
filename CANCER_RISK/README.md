@@ -52,7 +52,7 @@ The dataset contains 8 features:
 
 ## Workflow
 
-1. **Data Preprocessing**: Run `data_preprocessor.ipynb` first (standardization via StandardScaler)
+1. **Data Preprocessing**: Run `data_preprocessor.ipynb` first (scaling via MinMaxScaler to [-1, 1])
 2. **Baseline Training**: Train standard (non-private) models (`STD_*.ipynb`)
 3. **DP Training**: Train differentially private models across epsilon values (`DP_*.ipynb`)
 4. **Evaluation**: Compare metrics (Accuracy, F1, Precision, Recall, ACL)

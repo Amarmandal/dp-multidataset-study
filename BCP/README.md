@@ -168,7 +168,7 @@ Test_size = 114 (20%)
 Random_seed = 42
 
 # Preprocessing
-Scaler = StandardScaler()  # μ=0, σ=1
+Scaler = MinMaxScaler(feature_range=(-1, 1))
 Features = 30 (FNA-derived)
 
 # DP Evaluation
