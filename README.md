@@ -67,7 +67,6 @@ resolution. Key libraries: `diffprivlib` 0.6.6 (DP-RF/LR/GNB), `torch` 2.11 +
       DP_<FAM>.ipynb           DP sweep over ε
       output/                  metrics CSV + report JSON  (tracked)
         model/                 exported target models     (GITIGNORED)
-  Result/compare_all_models.py per-dataset 5-model aggregation
 
 Attack/                        membership inference, run against exported models
   MIA_YEOM/  MIA_Shokri/  LiRA/
@@ -156,12 +155,13 @@ entire run.
 
 ### Step 3 — Consolidate and plot
 
-Aggregation only; nothing is retrained.
+Aggregation only; nothing is retrained. **All consolidation happens here, at the
+repository root** — there is deliberately no per-dataset aggregation step.
+`prepare_data.py` walks every `<DATASET>/<FAMILY>/output/` directly and emits one
+table covering all six datasets, so `consolidated_data.csv` is the single source
+of truth for utility results.
 
 ```bash
-# per-dataset: 5 model families into one table
-uv run python GALLSTONE/Result/compare_all_models.py
-
 # cross-dataset UTILITY
 cd Results/dataset_results && uv run python prepare_data.py
 uv run jupyter nbconvert --to notebook --execute --inplace graph_construction.ipynb
@@ -191,11 +191,11 @@ every table cell from its primary source and exits non-zero on any mismatch.
 
 | File | Contents |
 |---|---|
-| [Results/dataset_results/consolidated_data.csv](Results/dataset_results/consolidated_data.csv) | **primary cross-dataset table** — 444 rows (414 DP + 30 baselines) × 30 cols |
-| `<DATASET>/Result/output/all_models_comparison.csv` | **primary per-dataset table** |
-| [Results/attack_results/consolidated_mia_data.csv](Results/attack_results/consolidated_mia_data.csv) | consolidated leakage — 900 rows = 3 attacks × 300 |
+| [Results/dataset_results/consolidated_data.csv](Results/dataset_results/consolidated_data.csv) | **the utility table** — 444 rows (414 DP + 30 baselines) × 31 cols, all 6 datasets |
+| [Results/attack_results/consolidated_mia_data.csv](Results/attack_results/consolidated_mia_data.csv) | **the leakage table** — 900 rows = 3 attacks × 300 |
+| `<DATASET>/<FAMILY>/output/*.csv`, `*.json` | raw per-model metrics, the input to the two tables above |
 | `Attack/<ATTACK>/results/*_comparison.csv` | 300 rows = 6 datasets × 50 target configs |
-| `<DATASET>/Result/output/<dataset>_comparison_table.tex` | paper-ready LaTeX tables |
+| [revision/tables/csv/](revision/tables/csv/) | the nine paper tables, re-derived and verified |
 | [revision/MANIFEST.csv](revision/MANIFEST.csv) | every revision artifact and its provenance |
 
 Filter `consolidated_data.csv` on `variant` (`dp` / `standard`) — baselines are

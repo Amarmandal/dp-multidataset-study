@@ -86,11 +86,12 @@ The dataset contains 38 features covering demographic details, body composition 
 2. **Baseline Training**: Train standard (non-private) models (`STD_*.ipynb`) to establish baseline parameters.
 3. **DP Training**: Train differentially private models across epsilon values (`DP_*.ipynb`).
 4. **Evaluation**: Compare metrics (Accuracy, F1, Precision, Recall, ACL).
-5. **Visualization**: Run `Result/compare_all_models.py` for comprehensive comparison across architectures.
+5. **Consolidation**: Aggregate across all datasets with `Results/dataset_results/prepare_data.py`, then plot with `graph_construction.ipynb`
 
 ## Results Location
 
-All results, plots, and comparative analysis are saved in the `Result/output/` directory.
+Per-model metrics are saved in `<FAMILY>/output/`. Cross-dataset consolidated
+results live in `Results/dataset_results/consolidated_data.csv`.
 
 ## Notes
 

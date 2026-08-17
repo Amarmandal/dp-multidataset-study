@@ -72,7 +72,7 @@ The DP models are evaluated across **15 epsilon values** (9 for DNN):
 2. **Baseline Training**: Train standard (non-private) models (`STD_*.ipynb`)
 3. **DP Training**: Train differentially private models across epsilon values (`DP_*.ipynb`)
 4. **Evaluation**: Compare metrics (Accuracy, F1, Precision, Recall, ACL)
-5. **Visualization**: Run `Result/compare_all_models.py` for comprehensive cross-model comparison
+5. **Consolidation**: Aggregate across all datasets with `Results/dataset_results/prepare_data.py`, then plot with `graph_construction.ipynb`
 
 ## Results Location
 

@@ -97,7 +97,6 @@ def main():
     print("-" * 70)
 
     scripts = [
-        "Result/compare_all_models.py",
         "verify_setup.py",
     ]
 
