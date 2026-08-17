@@ -1,0 +1,23 @@
+{
+    "model_type": "Standard Gaussian Naive Bayes",
+    "accuracy": 0.7153264021500817,
+    "confusion_matrix": [
+        [
+            5143,
+            1927
+        ],
+        [
+            2098,
+            4971
+        ]
+    ],
+    "parameters": {
+        "model": "GaussianNB",
+        "priors": "None (learned from data)",
+        "var_smoothing": 1e-09
+    },
+    "train_accuracy": 0.7197142503492302,
+    "balanced_accuracy": 0.715325545346807,
+    "roc_auc": 0.7836917289126001,
+    "train_time": 0.0035674485989147797
+}

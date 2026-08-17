@@ -1,0 +1,14 @@
+{
+    "model": "Standard DNN",
+    "dataset": "Gallstone",
+    "accuracy": 0.7828125,
+    "f1_score": 0.7852451536358084,
+    "precision": 0.7760006013646906,
+    "recall": 0.7958333333333333,
+    "accuracy_std": 0.022588800460626498,
+    "f1_std": 0.024850489107847085,
+    "train_accuracy": 0.878562091503268,
+    "balanced_accuracy": 0.7828125,
+    "roc_auc": 0.8469401041666667,
+    "train_time": 0.14254402503332433
+}

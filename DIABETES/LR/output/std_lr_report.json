@@ -1,0 +1,137 @@
+{
+    "model_type": "Standard Logistic Regression",
+    "dataset": "BRFSS 2015 Diabetes",
+    "parameters": {
+        "max_iter": 1000,
+        "random_state": 42,
+        "solver": "lbfgs"
+    },
+    "metrics": {
+        "accuracy": 0.7455265577480727,
+        "f1_score": 0.7495126705653021,
+        "precision": 0.7379026730637422,
+        "recall": 0.7614938463714811
+    },
+    "confusion_matrix": [
+        [
+            5383,
+            1686
+        ],
+        [
+            1912,
+            5158
+        ]
+    ],
+    "coefficients": [
+        {
+            "feature": "BMI",
+            "coefficient": 11.986739690364583,
+            "abs_coefficient": 11.986739690364583
+        },
+        {
+            "feature": "GenHlth",
+            "coefficient": 5.065649080947716,
+            "abs_coefficient": 5.065649080947716
+        },
+        {
+            "feature": "Age",
+            "coefficient": 3.636909747340646,
+            "abs_coefficient": 3.636909747340646
+        },
+        {
+            "feature": "CholCheck",
+            "coefficient": 2.965422437233958,
+            "abs_coefficient": 2.965422437233958
+        },
+        {
+            "feature": "HvyAlcoholConsump",
+            "coefficient": -1.6602572226305925,
+            "abs_coefficient": 1.6602572226305925
+        },
+        {
+            "feature": "HighBP",
+            "coefficient": 1.569875081726414,
+            "abs_coefficient": 1.569875081726414
+        },
+        {
+            "feature": "HighChol",
+            "coefficient": 1.2452221748076295,
+            "abs_coefficient": 1.2452221748076295
+        },
+        {
+            "feature": "Income",
+            "coefficient": -0.8401609107542065,
+            "abs_coefficient": 0.8401609107542065
+        },
+        {
+            "feature": "Sex",
+            "coefficient": 0.5614806999031056,
+            "abs_coefficient": 0.5614806999031056
+        },
+        {
+            "feature": "PhysHlth",
+            "coefficient": -0.5522942149446209,
+            "abs_coefficient": 0.5522942149446209
+        },
+        {
+            "feature": "HeartDiseaseorAttack",
+            "coefficient": 0.5305127123284347,
+            "abs_coefficient": 0.5305127123284347
+        },
+        {
+            "feature": "Education",
+            "coefficient": -0.39673680693807667,
+            "abs_coefficient": 0.39673680693807667
+        },
+        {
+            "feature": "Stroke",
+            "coefficient": 0.3098144184741615,
+            "abs_coefficient": 0.3098144184741615
+        },
+        {
+            "feature": "DiffWalk",
+            "coefficient": 0.2484346716430011,
+            "abs_coefficient": 0.2484346716430011
+        },
+        {
+            "feature": "MentHlth",
+            "coefficient": -0.2456913857701542,
+            "abs_coefficient": 0.2456913857701542
+        },
+        {
+            "feature": "AnyHealthcare",
+            "coefficient": 0.15035742187935985,
+            "abs_coefficient": 0.15035742187935985
+        },
+        {
+            "feature": "PhysActivity",
+            "coefficient": -0.11447843830337595,
+            "abs_coefficient": 0.11447843830337595
+        },
+        {
+            "feature": "Veggies",
+            "coefficient": -0.0868967996497904,
+            "abs_coefficient": 0.0868967996497904
+        },
+        {
+            "feature": "Fruits",
+            "coefficient": -0.05126757743359512,
+            "abs_coefficient": 0.05126757743359512
+        },
+        {
+            "feature": "NoDocbcCost",
+            "coefficient": 0.030997687834958924,
+            "abs_coefficient": 0.030997687834958924
+        },
+        {
+            "feature": "Smoker",
+            "coefficient": -0.0054497655189242634,
+            "abs_coefficient": 0.0054497655189242634
+        }
+    ],
+    "intercept": 0.6389704221245183,
+    "train_accuracy": 0.747599596838364,
+    "balanced_accuracy": 0.7455276869764054,
+    "roc_auc": 0.8226468816273136,
+    "train_time": 0.032832290991791524
+}

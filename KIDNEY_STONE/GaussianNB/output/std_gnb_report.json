@@ -1,0 +1,14 @@
+{
+    "model_type": "Standard Gaussian Naive Bayes",
+    "dataset": "Kidney Stone Risk Prediction Dataset",
+    "metrics": {
+        "train_accuracy": 0.8996874999999999,
+        "balanced_accuracy": 0.8617079203049252,
+        "roc_auc": 0.9392905642553022,
+        "train_time": 0.00034388620018338165,
+        "accuracy": 0.8900000000000001,
+        "f1_score": 0.838827838827839,
+        "precision": 0.9828326180257508,
+        "recall": 0.7316293929712461
+    }
+}

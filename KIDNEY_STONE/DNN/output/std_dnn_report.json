@@ -1,0 +1,27 @@
+{
+    "model_type": "Standard DNN",
+    "dataset": "Kidney Stone Risk Prediction Dataset",
+    "parameters": {
+        "input_size": 23,
+        "hidden_sizes": [
+            64,
+            32
+        ],
+        "dropout": 0.3,
+        "lr": 0.001,
+        "epochs": 50,
+        "batch_size": 32,
+        "n_runs": 10
+    },
+    "metrics": {
+        "train_accuracy": 0.994,
+        "balanced_accuracy": 0.9729949944565084,
+        "roc_auc": 0.9964705342089207,
+        "train_time": 1.209270712506259,
+        "accuracy": 0.9727500000000001,
+        "f1_score": 0.9654880880116226,
+        "precision": 0.9571491809687857,
+        "recall": 0.9741214057507989,
+        "accuracy_std": 0.003657184709581953
+    }
+}

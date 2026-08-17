@@ -1,0 +1,29 @@
+{
+    "model_type": "Standard DNN",
+    "dataset": "Cancer Risk Prediction",
+    "accuracy": 0.8832222222222222,
+    "accuracy_std": 0.0063527966039656925,
+    "f1_score": 0.8393860871499912,
+    "f1_std": 0.009147258252807522,
+    "precision": 0.8546186176681742,
+    "recall": 0.8249249249249251,
+    "roc_auc": 0.9474617474617476,
+    "parameters": {
+        "architecture": "DNN",
+        "input_size": 8,
+        "hidden_sizes": [
+            64,
+            32
+        ],
+        "num_classes": 2,
+        "dropout": 0.3,
+        "learning_rate": 0.001,
+        "num_epochs": 50,
+        "batch_size": 32,
+        "optimizer": "Adam",
+        "n_runs": 30
+    },
+    "train_accuracy": 0.9047499999999998,
+    "balanced_accuracy": 0.871192621192621,
+    "train_time": 0.5033112514346916
+}

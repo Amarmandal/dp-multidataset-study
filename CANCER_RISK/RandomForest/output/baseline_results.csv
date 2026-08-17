@@ -1,0 +1,2 @@
+model,accuracy,f1_score,precision,recall
+Standard_RF,0.85,0.7593582887700535,0.9342105263157895,0.6396396396396397

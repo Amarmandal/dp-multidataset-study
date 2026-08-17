@@ -1,0 +1,76 @@
+{
+    "model_type": "Standard Logistic Regression",
+    "dataset": "Cancer Risk Prediction",
+    "n_samples": 1500,
+    "n_features": 8,
+    "feature_names": [
+        "Age",
+        "Gender",
+        "BMI",
+        "Smoking",
+        "GeneticRisk",
+        "PhysicalActivity",
+        "AlcoholIntake",
+        "CancerHistory"
+    ],
+    "parameters": {
+        "max_iter": 1000,
+        "random_state": 42,
+        "solver": "lbfgs"
+    },
+    "metrics": {
+        "accuracy": 0.85,
+        "f1_score": 0.7926267281105991,
+        "precision": 0.8113207547169812,
+        "recall": 0.7747747747747747
+    },
+    "confusion_matrix": [
+        [
+            86,
+            25
+        ],
+        [
+            20,
+            169
+        ]
+    ],
+    "coefficients": [
+        {
+            "feature": "CancerHistory",
+            "coefficient": 3.828046475653032
+        },
+        {
+            "feature": "AlcoholIntake",
+            "coefficient": 2.926285866008828
+        },
+        {
+            "feature": "GeneticRisk",
+            "coefficient": 2.8666621787757514
+        },
+        {
+            "feature": "Age",
+            "coefficient": 2.7074690475797794
+        },
+        {
+            "feature": "BMI",
+            "coefficient": 2.504542377455477
+        },
+        {
+            "feature": "PhysicalActivity",
+            "coefficient": -2.102097572034066
+        },
+        {
+            "feature": "Gender",
+            "coefficient": 1.9557598487116745
+        },
+        {
+            "feature": "Smoking",
+            "coefficient": 1.8656775431429846
+        }
+    ],
+    "intercept": 1.3953539437726312,
+    "train_accuracy": 0.8591666666666666,
+    "balanced_accuracy": 0.8344773344773344,
+    "roc_auc": 0.9225892559225893,
+    "train_time": 0.0023244170006364584
+}

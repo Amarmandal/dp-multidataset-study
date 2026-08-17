@@ -1,0 +1,19 @@
+{
+    "model_type": "Standard SVM",
+    "dataset": "Kidney Stone Risk Prediction Dataset",
+    "parameters": {
+        "kernel": "rbf",
+        "C": 1.0,
+        "gamma": "scale"
+    },
+    "metrics": {
+        "train_accuracy": 0.9534375,
+        "balanced_accuracy": 0.9194455196121524,
+        "roc_auc": 0.9888014905104605,
+        "train_time": 0.18698908400256187,
+        "accuracy": 0.9325,
+        "f1_score": 0.9087837837837838,
+        "precision": 0.96415770609319,
+        "recall": 0.8594249201277955
+    }
+}

@@ -1,0 +1,2 @@
+model,dataset,accuracy,f1_score,precision,recall,train_accuracy,balanced_accuracy,roc_auc,train_time
+Standard Gaussian Naive Bayes,Gallstone,0.546875,0.17142857142857143,1.0,0.09375,0.5764705882352941,0.546875,0.751953125,0.0005655830027535558

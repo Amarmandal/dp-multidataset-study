@@ -1,0 +1,32 @@
+{
+    "model_type": "Standard DNN",
+    "accuracy": 0.9733918128654969,
+    "confusion_matrix": [
+        [
+            71,
+            0
+        ],
+        [
+            2,
+            39
+        ]
+    ],
+    "parameters": {
+        "architecture": "DNN",
+        "input_size": 30,
+        "hidden_sizes": [
+            64,
+            32
+        ],
+        "num_classes": 2,
+        "dropout": 0.2,
+        "learning_rate": 0.001,
+        "num_epochs": 50,
+        "batch_size": 32,
+        "optimizer": "Adam"
+    },
+    "train_accuracy": 0.9850549450549451,
+    "balanced_accuracy": 0.9647156084656086,
+    "roc_auc": 0.9960317460317458,
+    "train_time": 0.1897897986336223
+}

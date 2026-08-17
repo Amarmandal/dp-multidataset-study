@@ -1,0 +1,39 @@
+{
+    "model_type": "Standard DNN",
+    "dataset": "BRFSS 2015 Diabetes",
+    "accuracy": 0.7512412476129853,
+    "accuracy_std": 0.0007470257260915671,
+    "f1_score": 0.7649515424824912,
+    "f1_std": 0.0026770728713238845,
+    "precision": 0.725025741099014,
+    "recall": 0.8097750742679304,
+    "roc_auc": 0.8293449025297817,
+    "confusion_matrix": [
+        [
+            4897,
+            2172
+        ],
+        [
+            1344,
+            5724
+        ]
+    ],
+    "parameters": {
+        "architecture": "DNN",
+        "input_size": 21,
+        "hidden_sizes": [
+            64,
+            32
+        ],
+        "num_classes": 2,
+        "dropout": 0.3,
+        "learning_rate": 0.001,
+        "num_epochs": 50,
+        "batch_size": 256,
+        "optimizer": "Adam",
+        "n_runs": 10
+    },
+    "train_accuracy": 0.7591957986313723,
+    "balanced_accuracy": 0.7512453872046866,
+    "train_time": 6.067574387400009
+}

@@ -1,0 +1,67 @@
+{
+  "gaps": [
+    "loglog_roc_GALLSTONE: title crop not attempted / not safe (the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label); the original PNG was copied unchanged and still carries its two-line in-image title. Source: Attack/LiRA/results/GALLSTONE/GALLSTONE_loglog_roc.png",
+    "loglog_roc_BCP: title crop not attempted / not safe (the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label); the original PNG was copied unchanged and still carries its two-line in-image title. Source: Attack/LiRA/results/BCP/BCP_loglog_roc.png",
+    "loglog_roc_CANCER_RISK: title crop not attempted / not safe (the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label); the original PNG was copied unchanged and still carries its two-line in-image title. Source: Attack/LiRA/results/CANCER_RISK/CANCER_RISK_loglog_roc.png",
+    "loglog_roc_KIDNEY_STONE: title crop not attempted / not safe (the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label); the original PNG was copied unchanged and still carries its two-line in-image title. Source: Attack/LiRA/results/KIDNEY_STONE/KIDNEY_STONE_loglog_roc.png",
+    "loglog_roc_LUNG_CANCER: title crop not attempted / not safe (the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label); the original PNG was copied unchanged and still carries its two-line in-image title. Source: Attack/LiRA/results/LUNG_CANCER/LUNG_CANCER_loglog_roc.png",
+    "loglog_roc_DIABETES: title crop not attempted / not safe (the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label); the original PNG was copied unchanged and still carries its two-line in-image title. Source: Attack/LiRA/results/DIABETES/DIABETES_loglog_roc.png",
+    "loglog_roc_<DS> (all six): these show the NON-PRIVATE (standard) targets only. _loglog_roc() in Attack/LiRA/run_lira.py filters to variant == 'standard', and the underlying _roc_fpr / _roc_tpr arrays are stripped before the CSV is written, so DP-variant ROC curves cannot be produced without re-running LiRA."
+  ],
+  "roc": {
+    "loglog_roc_GALLSTONE": {
+      "cropped": false,
+      "reason": "the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label",
+      "size": [
+        900,
+        900
+      ],
+      "source": "Attack/LiRA/results/GALLSTONE/GALLSTONE_loglog_roc.png"
+    },
+    "loglog_roc_BCP": {
+      "cropped": false,
+      "reason": "the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label",
+      "size": [
+        900,
+        900
+      ],
+      "source": "Attack/LiRA/results/BCP/BCP_loglog_roc.png"
+    },
+    "loglog_roc_CANCER_RISK": {
+      "cropped": false,
+      "reason": "the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label",
+      "size": [
+        900,
+        900
+      ],
+      "source": "Attack/LiRA/results/CANCER_RISK/CANCER_RISK_loglog_roc.png"
+    },
+    "loglog_roc_KIDNEY_STONE": {
+      "cropped": false,
+      "reason": "the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label",
+      "size": [
+        900,
+        900
+      ],
+      "source": "Attack/LiRA/results/KIDNEY_STONE/KIDNEY_STONE_loglog_roc.png"
+    },
+    "loglog_roc_LUNG_CANCER": {
+      "cropped": false,
+      "reason": "the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label",
+      "size": [
+        900,
+        900
+      ],
+      "source": "Attack/LiRA/results/LUNG_CANCER/LUNG_CANCER_loglog_roc.png"
+    },
+    "loglog_roc_DIABETES": {
+      "cropped": false,
+      "reason": "the title's lower line occupies rows 56-79, which are the same rows as the topmost y-axis tick label (contiguous ink from y=56 down to the top spine at y=87). There is no blank row between them, so no horizontal crop removes the whole title without clipping the tick label",
+      "size": [
+        900,
+        900
+      ],
+      "source": "Attack/LiRA/results/DIABETES/DIABETES_loglog_roc.png"
+    }
+  }
+}

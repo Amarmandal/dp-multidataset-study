@@ -1,0 +1,2 @@
+model,dataset,accuracy,f1_score,precision,recall,train_accuracy,balanced_accuracy,roc_auc,train_time
+Standard Random Forest,Lung Cancer,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.09543600000324659

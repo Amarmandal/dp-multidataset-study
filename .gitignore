@@ -1,0 +1,65 @@
+# ---------------------------------------------------------------------------
+# Exported model artifacts -- NOT tracked.
+#
+# Every DP/STD notebook writes its target model to <DATASET>/<FAM>/output/model/
+# via model_exporter.export_model(). That is ~210 MB across 444 files, and the
+# artifacts are reproducible from the notebooks (the export is always the run-0,
+# seed-42 draw). They are regenerated, not authored, so they stay out of git.
+#
+# Consequence to be aware of: the membership inference attacks in Attack/ read
+# these files. A fresh clone must re-run the DP/STD notebooks for a dataset
+# before its attacks can be run. The attack *results* (CSV/JSON) are tracked, so
+# the published numbers remain inspectable without them.
+# ---------------------------------------------------------------------------
+output/model/
+
+# Belt and braces: no model weights anywhere in the tree, whatever the path.
+# The six <DATASET>/data/processed_data.pkl files are data, not models, and are
+# re-included below.
+*.pt
+*.pth
+*.pkl
+*.joblib
+*.h5
+*.onnx
+!*/data/processed_data.pkl
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# ---------------------------------------------------------------------------
+# Jupyter
+# ---------------------------------------------------------------------------
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# ---------------------------------------------------------------------------
+# Run logs and scratch
+# ---------------------------------------------------------------------------
+# Long training/attack runs are launched with `python -u ... > *.log`; the logs
+# are machine- and run-specific.
+*.log
+*.bak
+*.tmp
+*.diabetes_only
+
+# ---------------------------------------------------------------------------
+# OS / editor
+# ---------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+.vscode/
+.idea/
+*.swp

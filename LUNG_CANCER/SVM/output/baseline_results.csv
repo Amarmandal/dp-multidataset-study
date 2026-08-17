@@ -1,0 +1,2 @@
+model,dataset,accuracy,f1_score,precision,recall,train_accuracy,balanced_accuracy,roc_auc,train_time
+Standard SVM (RBF),Lung Cancer,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.43380116601474583

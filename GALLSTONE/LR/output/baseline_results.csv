@@ -1,0 +1,2 @@
+model,dataset,accuracy,f1_score,precision,recall,train_accuracy,balanced_accuracy,roc_auc,train_time
+Standard Logistic Regression,Gallstone,0.765625,0.7619047619047619,0.7741935483870968,0.75,0.7411764705882353,0.765625,0.8359375,0.0023879999935161322

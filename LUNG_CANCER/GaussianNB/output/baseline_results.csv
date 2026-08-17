@@ -1,0 +1,2 @@
+model,dataset,accuracy,f1_score,precision,recall,train_accuracy,balanced_accuracy,roc_auc,train_time
+Standard Gaussian Naive Bayes,Lung Cancer,0.8931,0.8935214458429916,0.8988190566780894,0.8931,0.890625,0.8912403843359878,0.9840823145835941,0.004322791006416082

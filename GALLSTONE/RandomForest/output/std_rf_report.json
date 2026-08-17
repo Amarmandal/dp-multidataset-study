@@ -1,0 +1,12 @@
+{
+    "model": "Standard Random Forest",
+    "dataset": "Gallstone",
+    "accuracy": 0.828125,
+    "f1_score": 0.819672131147541,
+    "precision": 0.8620689655172413,
+    "recall": 0.78125,
+    "train_accuracy": 0.9137254901960784,
+    "balanced_accuracy": 0.828125,
+    "roc_auc": 0.8837890625,
+    "train_time": 0.034310624992940575
+}

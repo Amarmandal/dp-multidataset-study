@@ -1,0 +1,12 @@
+{
+    "model": "Standard SVM (RBF)",
+    "dataset": "Gallstone",
+    "accuracy": 0.78125,
+    "f1_score": 0.78125,
+    "precision": 0.78125,
+    "recall": 0.78125,
+    "train_accuracy": 0.8313725490196079,
+    "balanced_accuracy": 0.78125,
+    "roc_auc": 0.841796875,
+    "train_time": 0.0052176669996697456
+}

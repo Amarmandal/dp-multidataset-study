@@ -1,0 +1,28 @@
+{
+    "model_type": "Standard Random Forest",
+    "dataset": "Kidney Stone Risk Prediction Dataset",
+    "parameters": {
+        "n_estimators": 20,
+        "max_depth": 4
+    },
+    "metrics": {
+        "train_accuracy": 0.9503125,
+        "balanced_accuracy": 0.9303980161515701,
+        "roc_auc": 0.9977563618948901,
+        "train_time": 0.060365584009559825,
+        "accuracy": 0.94375,
+        "f1_score": 0.9235993208828522,
+        "precision": 0.9855072463768116,
+        "recall": 0.8690095846645367
+    },
+    "confusion_matrix": [
+        [
+            272,
+            41
+        ],
+        [
+            4,
+            483
+        ]
+    ]
+}

@@ -1,0 +1,115 @@
+{
+    "model_type": "Standard Random Forest",
+    "dataset": "BRFSS 2015 Diabetes",
+    "parameters": {
+        "n_estimators": 20,
+        "max_depth": 4,
+        "random_state": 42
+    },
+    "metrics": {
+        "accuracy": 0.7373223000212179,
+        "f1_score": 0.7471060874302057,
+        "precision": 0.7202310620979389,
+        "recall": 0.7760645070024048
+    },
+    "confusion_matrix": [
+        [
+            5486,
+            1583
+        ],
+        [
+            2131,
+            4939
+        ]
+    ],
+    "feature_importance": [
+        {
+            "feature": "HighBP",
+            "importance": 0.2832296984813241
+        },
+        {
+            "feature": "GenHlth",
+            "importance": 0.2210203905435916
+        },
+        {
+            "feature": "BMI",
+            "importance": 0.1546605928686015
+        },
+        {
+            "feature": "HighChol",
+            "importance": 0.13810138866116708
+        },
+        {
+            "feature": "DiffWalk",
+            "importance": 0.06481361242207363
+        },
+        {
+            "feature": "Age",
+            "importance": 0.04609282794449501
+        },
+        {
+            "feature": "PhysHlth",
+            "importance": 0.04182396150851624
+        },
+        {
+            "feature": "HeartDiseaseorAttack",
+            "importance": 0.018665886280831965
+        },
+        {
+            "feature": "Income",
+            "importance": 0.015137792191990265
+        },
+        {
+            "feature": "HvyAlcoholConsump",
+            "importance": 0.004823358073622936
+        },
+        {
+            "feature": "CholCheck",
+            "importance": 0.004009916017093083
+        },
+        {
+            "feature": "Stroke",
+            "importance": 0.0022351374362792565
+        },
+        {
+            "feature": "PhysActivity",
+            "importance": 0.0018366100594672467
+        },
+        {
+            "feature": "Veggies",
+            "importance": 0.001372402259118278
+        },
+        {
+            "feature": "Smoker",
+            "importance": 0.001270631026700883
+        },
+        {
+            "feature": "Education",
+            "importance": 0.0005619346725609385
+        },
+        {
+            "feature": "MentHlth",
+            "importance": 0.0001742227495656836
+        },
+        {
+            "feature": "Sex",
+            "importance": 0.00011566214651561203
+        },
+        {
+            "feature": "AnyHealthcare",
+            "importance": 4.211110985640069e-05
+        },
+        {
+            "feature": "Fruits",
+            "importance": 1.18635466283646e-05
+        },
+        {
+            "feature": "NoDocbcCost",
+            "importance": 0.0
+        }
+    ],
+    "train_accuracy": 0.7410216964617262,
+    "balanced_accuracy": 0.7373250399227017,
+    "roc_auc": 0.8128717973549472,
+    "train_time": 0.10911891599243972
+}

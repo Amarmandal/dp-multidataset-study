@@ -1,0 +1,12 @@
+{
+    "model": "Standard Gaussian Naive Bayes",
+    "dataset": "Lung Cancer",
+    "accuracy": 0.8931,
+    "f1_score": 0.8935214458429916,
+    "precision": 0.8988190566780894,
+    "recall": 0.8931,
+    "train_accuracy": 0.890625,
+    "balanced_accuracy": 0.8912403843359878,
+    "roc_auc": 0.9840823145835941,
+    "train_time": 0.004322791006416082
+}

@@ -1,0 +1,2 @@
+model,dataset,architecture,input_features,accuracy,f1_score,precision,recall,accuracy_std,f1_std,train_accuracy,balanced_accuracy,roc_auc,train_time
+Standard DNN,Lung Cancer,"[128, 64]",23,1.0,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,5.657083658402553

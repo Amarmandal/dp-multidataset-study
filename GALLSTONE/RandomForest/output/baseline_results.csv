@@ -1,0 +1,2 @@
+model,dataset,accuracy,f1_score,precision,recall,train_accuracy,balanced_accuracy,roc_auc,train_time
+Standard Random Forest,Gallstone,0.828125,0.819672131147541,0.8620689655172413,0.78125,0.9137254901960784,0.828125,0.8837890625,0.034310624992940575

@@ -1,0 +1,25 @@
+{
+    "model_type": "Standard SVM",
+    "accuracy": 0.9473684210526313,
+    "confusion_matrix": [
+        [
+            72,
+            0
+        ],
+        [
+            6,
+            36
+        ]
+    ],
+    "parameters": {
+        "kernel": "rbf",
+        "C": 1.0,
+        "gamma": "scale",
+        "random_state": "run_idx * 10 + 3",
+        "probability": true
+    },
+    "train_accuracy": 0.9802197802197802,
+    "balanced_accuracy": 0.9285714285714283,
+    "roc_auc": 0.9973544973544972,
+    "train_time": 0.0035201805988132645
+}

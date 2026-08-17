@@ -1,0 +1,12 @@
+{
+    "model": "Standard Gaussian Naive Bayes",
+    "dataset": "Gallstone",
+    "accuracy": 0.546875,
+    "f1_score": 0.17142857142857143,
+    "precision": 1.0,
+    "recall": 0.09375,
+    "train_accuracy": 0.5764705882352941,
+    "balanced_accuracy": 0.546875,
+    "roc_auc": 0.751953125,
+    "train_time": 0.0005655830027535558
+}
