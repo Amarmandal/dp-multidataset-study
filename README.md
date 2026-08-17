@@ -1,27 +1,26 @@
 # The Privacy–Utility Trade-off in Differentially Private Classifiers
 
-Code and results for the **journal extension** of *"An Empirical Study of the
-Privacy-Utility Trade-off in Differentially Private Classifiers"* (CIIT 2026).
+Code and results for the **journal extension** of _"An Empirical Study of the
+Privacy-Utility Trade-off in Differentially Private Classifiers"_ (CIIT 2026).
 
 The study trains **5 model families** on **6 medical datasets** across a sweep of
 **privacy budgets**, then attacks every resulting model with **3 membership inference attacks**
 to measure whether Differential Privacy actually reduces leakage — rather than
 assuming it does.
 
-| | |
-|---|---|
-| **Datasets** | 6, spanning N = 319 → 70,692 |
-| **Model families** | DP-RF, DP-LR, DP-GNB, DP-SVM, DP-DNN |
-| **Privacy budgets** | DP-RF/LR/GNB/SVM: 15 values, ε ∈ {0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 4.0, 6.0, 8.0, 10.0}<br>DP-DNN: the 9-value subset {0.1, 0.2, 0.4, 0.8, 1.0, 2.0, 4.0, 8.0, 10.0}, which is also the attack grid |
-| **Repeats** | 30 runs per (dataset, model, ε), seeds `run × 10 + 42` |
-| **Attacks** | Yeom (2018), Shokri (2017), LiRA (2022) |
-| **Primary utility metric** | ACL (Accuracy Loss) = 1 − Accuracy(M, ε) / Accuracy(M, ε=∞) |
+|                            |                                                                                                                                                                                                                           |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Datasets**               | 6, spanning N = 319 → 70,692                                                                                                                                                                                              |
+| **Model families**         | DP-RF, DP-LR, DP-GNB, DP-SVM, DP-DNN                                                                                                                                                                                      |
+| **Privacy budgets**        | DP-RF/LR/GNB/SVM: 15 values, ε ∈ {0.1, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 4.0, 6.0, 8.0, 10.0}<br>DP-DNN: the 9-value subset {0.1, 0.2, 0.4, 0.8, 1.0, 2.0, 4.0, 8.0, 10.0}, which is also the attack grid |
+| **Repeats**                | 30 runs per (dataset, model, ε), seeds `run × 10 + 42`                                                                                                                                                                    |
+| **Attacks**                | Yeom (2018), Shokri (2017), LiRA (2022)                                                                                                                                                                                   |
+| **Primary utility metric** | ACL (Accuracy Loss) = 1 − Accuracy(M, ε) / Accuracy(M, ε=∞)                                                                                                                                                               |
 
 **Research questions**
 
-1. How does DP affect the diagnostic utility of ML classifiers on sensitive medical data?
-2. How does the trade-off vary with **model architecture** and **dataset size**?
-3. Does DP measurably reduce **membership inference leakage**?
+1. What is the relationship between accuracy loss and privacy leakage under different differential privacy budgets?
+2. Does the privacy leakage of the non-private model predict or relate to the reduction in privacy leakage achieved by applying DP?
 
 ---
 
@@ -49,7 +48,7 @@ resolution. Key libraries: `diffprivlib` 0.6.6 (DP-RF/LR/GNB), `torch` 2.11 +
 > **Trained models are not in this repository.** Every artifact under
 > `<DATASET>/<FAMILY>/output/model/` is gitignored — 210 MB of `.pkl`/`.pt` that
 > is reproducible from the notebooks. The **results** those models produced (CSV,
-> JSON, figures) *are* tracked, so all published numbers are inspectable without
+> JSON, figures) _are_ tracked, so all published numbers are inspectable without
 > them. But the attacks in [Attack/](Attack/) load those model files, so a fresh
 > clone must complete Step 1 for a dataset before Step 2 can run on it.
 
@@ -117,7 +116,7 @@ DP bounds (`lower = −1 × d`, `upper = +1 × d`) → pickle to
 `<DATASET>/data/processed_data.pkl`.
 
 > **Why MinMax and not StandardScaler** — this is a methodological point, not a
-> preference. MinMax bounds every feature to [−1, 1] *by construction*, so the
+> preference. MinMax bounds every feature to [−1, 1] _by construction_, so the
 > feature bounds that `diffprivlib` requires cost no privacy budget (under
 > StandardScaler they are data-dependent statistics, i.e. an unaccounted leak),
 > and `max ‖x‖₂ = √d` is known exactly, making sensitivity calibration exact.
@@ -126,10 +125,10 @@ DP bounds (`lower = −1 × d`, `upper = +1 × d`) → pickle to
 
 For every **dataset × model family**, run both notebooks:
 
-| Notebook | Purpose | Produces |
-|---|---|---|
+| Notebook          | Purpose                                                                                                            | Produces                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
 | `STD_<FAM>.ipynb` | non-private **baseline** — how the model performs with no DP; this is the ε=∞ ceiling that ACL is measured against | `baseline_results.csv`, `std_<fam>_report.json`, `output/model/std_<fam>_model.pkl` |
-| `DP_<FAM>.ipynb` | **DP sweep** — the same model across its ε grid (15 values; DP-DNN uses the 9-value subset), 30 runs each | `dp_results.csv`, `dp_<fam>_report.json`, `output/model/dp_<fam>_model_eps_<ε>.pkl` |
+| `DP_<FAM>.ipynb`  | **DP sweep** — the same model across its ε grid (15 values; DP-DNN uses the 9-value subset), 30 runs each          | `dp_results.csv`, `dp_<fam>_report.json`, `output/model/dp_<fam>_model_eps_<ε>.pkl` |
 
 ```bash
 uv run jupyter nbconvert --to notebook --execute --inplace \
@@ -157,7 +156,7 @@ uv run python -u Attack/MIA_Shokri/run_mia.py --datasets GALLSTONE   # ~3 min
 uv run python -u Attack/LiRA/run_lira.py      --datasets GALLSTONE   # ~50 min
 ```
 
-> ⚠️ **Two clobbering hazards.** Each runner rebuilds its output CSVs from *only*
+> ⚠️ **Two clobbering hazards.** Each runner rebuilds its output CSVs from _only_
 > the scope of that invocation. `--models DNN` **deletes** the other four families'
 > rows, and a single-dataset run truncates the cross-dataset
 > `*_comparison.csv` from 300 rows to 50. Run all five families per dataset, and
@@ -225,25 +224,25 @@ soon as the Step 3 CSVs exist — no retraining required.
 **Read these files. Do not quote remembered numbers, and prefer CSV over the
 `.json` siblings, which have been observed lagging.**
 
-| File | Contents |
-|---|---|
-| [Results/dataset_results/consolidated_data.csv](Results/dataset_results/consolidated_data.csv) | **the utility table** — 444 rows (414 DP + 30 baselines) × 31 cols, all 6 datasets |
-| [Results/attack_results/consolidated_mia_data.csv](Results/attack_results/consolidated_mia_data.csv) | **the leakage table** — 900 rows = 3 attacks × 300 |
-| `<DATASET>/<FAMILY>/output/*.csv`, `*.json` | raw per-model metrics, the input to the two tables above |
-| `Attack/<ATTACK>/results/*_comparison.csv` | 300 rows = 6 datasets × 50 target configs |
-| [analysis/tables/csv/](analysis/tables/csv/) | the nine paper tables, re-derived and verified |
-| [analysis/figures/png/](analysis/figures/png/) | the paper figures (Fig. 7–13) |
-| [analysis/MANIFEST.csv](analysis/MANIFEST.csv) | every generated artifact and its provenance |
+| File                                                                                                 | Contents                                                                           |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [Results/dataset_results/consolidated_data.csv](Results/dataset_results/consolidated_data.csv)       | **the utility table** — 444 rows (414 DP + 30 baselines) × 31 cols, all 6 datasets |
+| [Results/attack_results/consolidated_mia_data.csv](Results/attack_results/consolidated_mia_data.csv) | **the leakage table** — 900 rows = 3 attacks × 300                                 |
+| `<DATASET>/<FAMILY>/output/*.csv`, `*.json`                                                          | raw per-model metrics, the input to the two tables above                           |
+| `Attack/<ATTACK>/results/*_comparison.csv`                                                           | 300 rows = 6 datasets × 50 target configs                                          |
+| [analysis/tables/csv/](analysis/tables/csv/)                                                         | the nine paper tables, re-derived and verified                                     |
+| [analysis/figures/png/](analysis/figures/png/)                                                       | the paper figures (Fig. 7–13)                                                      |
+| [analysis/MANIFEST.csv](analysis/MANIFEST.csv)                                                       | every generated artifact and its provenance                                        |
 
 Filter `consolidated_data.csv` on `variant` (`dp` / `standard`) — baselines are
 rows in the same file, not a separate block.
 
 ### `ACL` vs `ACL_exported` — pick the one that matches the question
 
-| Column | Numerator | Use for |
-|---|---|---|
-| `ACL` | `accuracy_mean`, the 30-run mean | utility-sweep claims — DP's average accuracy cost |
-| `ACL_exported` | `exported_model_accuracy`, the run-0 artifact | **any figure pairing utility with leakage** |
+| Column         | Numerator                                     | Use for                                           |
+| -------------- | --------------------------------------------- | ------------------------------------------------- |
+| `ACL`          | `accuracy_mean`, the 30-run mean              | utility-sweep claims — DP's average accuracy cost |
+| `ACL_exported` | `exported_model_accuracy`, the run-0 artifact | **any figure pairing utility with leakage**       |
 
 They are not interchangeable. 14% of DP rows differ by >0.05, 5% by >0.10, and
 **28 rows disagree on the sign of ACL**. Quoting `ACL` next to an attack number
@@ -263,9 +262,6 @@ describes two different models.
 - **LUNG_CANCER is the only multi-class dataset** (3 classes). It changes code
   paths: DP-SVM uses One-vs-Rest and splits ε across classes, and attacks pass
   `n_classes=3`. Check it before assuming binary.
-
-Agent-facing context, including known staleness and open issues, is in
-[CLAUDE.md](CLAUDE.md).
 
 ---
 
