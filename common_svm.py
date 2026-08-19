@@ -65,10 +65,9 @@ class DifferentiallyPrivateSVM:
     -----------------
     The guarantee assumes ||x_i||_2 <= 1 for every record.  Per-coordinate
     scaling to [-1, 1] gives only ||x||_2 <= sqrt(d), so pass
-    ``normalize=True`` to divide every row by the largest training-row norm
-    before fitting.  The scale is folded back into ``w`` afterwards, so
-    ``decision_function`` / ``predict`` still take unscaled features and
-    pickled models remain usable against the raw processed data.
+    ``normalize=True`` to project each record independently onto the unit L2
+    ball: x -> x / max(1, ||x||_2).  The same deterministic projection is
+    applied by ``decision_function`` / ``predict`` at inference time.
 
     Labels for the binary problem must be {-1, +1}.
     """
@@ -78,7 +77,7 @@ class DifferentiallyPrivateSVM:
         epsilon=1.0,
         Lambda=0.01,
         h=0.5,
-        fit_intercept=True,
+        fit_intercept=False,
         normalize=False,
         random_state=None,
     ):
@@ -93,6 +92,8 @@ class DifferentiallyPrivateSVM:
         # Learned parameters.
         self.w = None
         self.b = 0.0
+        # Retained for compatibility with existing reports and pickled models.
+        # Row-wise projection has no single global scale factor.
         self.scale_ = 1.0
 
         # Diagnostics (Chaudhuri Algorithm 2 bookkeeping).
@@ -170,6 +171,12 @@ class DifferentiallyPrivateSVM:
         return radius * (direction / nrm)
 
     # ------------------------------------------------------------------ #
+    @staticmethod
+    def _project_unit_ball(X):
+        """Project each row independently onto the closed unit L2 ball."""
+        row_norms = np.linalg.norm(X, axis=1, keepdims=True)
+        return X / np.maximum(row_norms, 1.0)
+
     def fit(self, X, y):
         X = np.asarray(X, dtype=float)
         y = np.asarray(y, dtype=float)
@@ -178,10 +185,8 @@ class DifferentiallyPrivateSVM:
         self.max_row_norm_ = float(np.max(row_norms)) if len(row_norms) else 0.0
 
         if self.normalize:
-            self.scale_ = self.max_row_norm_ if self.max_row_norm_ > 0 else 1.0
-            X = X / self.scale_
-        else:
-            self.scale_ = 1.0
+            X = self._project_unit_ball(X)
+        self.scale_ = 1.0
 
         assert np.all(np.linalg.norm(X, axis=1) <= 1 + 1e-9), (
             "||x||_2 <= 1 is required for the Chaudhuri Algorithm 2 guarantee; "
@@ -225,14 +230,16 @@ class DifferentiallyPrivateSVM:
             print(f"Optimization warning: {result.message}")
 
         w_hat, b_hat = self._split(result.x)
-        # Undo the row normalization: (X/s) @ w + b == X @ (w/s) + b.
-        self.w = w_hat / self.scale_
+        self.w = w_hat
         self.b = float(b_hat)
         return self
 
     # ------------------------------------------------------------------ #
     def decision_function(self, X):
-        return np.asarray(X, dtype=float) @ self.w + self.b
+        X = np.asarray(X, dtype=float)
+        if self.normalize:
+            X = self._project_unit_ball(X)
+        return X @ self.w + self.b
 
     def predict(self, X):
         return np.where(self.decision_function(X) >= 0, 1, -1)
@@ -247,6 +254,8 @@ class DifferentiallyPrivateSVM:
             "eps_prime": self.eps_prime_,
             "Delta": self.Delta_,
             "fallback_triggered": self.fallback_triggered_,
+            "max_row_norm_before_projection": self.max_row_norm_,
+            # Backward-compatible alias for existing report consumers.
             "max_row_norm_before_scaling": self.max_row_norm_,
             "normalize": self.normalize,
             "scale_": self.scale_,
@@ -268,7 +277,7 @@ class DPSVMOneVsRest:
         epsilon=1.0,
         Lambda=0.01,
         h=0.5,
-        fit_intercept=True,
+        fit_intercept=False,
         normalize=False,
         random_state=None,
     ):

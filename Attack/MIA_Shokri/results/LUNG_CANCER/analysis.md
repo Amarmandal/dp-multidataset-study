@@ -18,9 +18,9 @@ differently to members vs non-members. Gap ≈ 0 ⇒ nothing to leak.
 | Samples | N = 50,000 (40,000 train / 10,000 test) |
 | Classes | 3 |
 | Features | 23 |
-| Model families | LR, RF, GNB, SVM, DNN |
+| Model families | SVM |
 | DP budgets ε | 0.1, 0.2, 0.4, 0.8, 1, 2, 4, 8, 10 |
-| Targets attacked | 50 |
+| Targets attacked | 10 |
 | Target source | exported `output/model/` (loaded, not re-trained) |
 
 The **target** is your saved model; **shadow** models are trained fresh (inherent
@@ -38,56 +38,16 @@ opacus `GradSampleModule` with a softmax head over its logits.
 ## 4. Results
 | Model | Variant | ε | Advantage | Attack AUC | Train acc | Test acc | Gen. gap |
 |-------|---------|---|-----------|-----------|-----------|----------|----------|
-| LR | DP | 0.1 | 0.000 | 0.500 | 0.829 | 0.834 | -0.005 |
-| LR | DP | 0.2 | 0.001 | 0.501 | 0.874 | 0.878 | -0.004 |
-| LR | DP | 0.4 | 0.000 | 0.500 | 0.943 | 0.944 | -0.001 |
-| LR | DP | 0.8 | 0.002 | 0.501 | 0.981 | 0.979 | +0.003 |
-| LR | DP | 1 | 0.001 | 0.500 | 0.982 | 0.979 | +0.003 |
-| LR | DP | 2 | 0.000 | 0.500 | 0.927 | 0.927 | -0.000 |
-| LR | DP | 4 | -0.000 | 0.500 | 1.000 | 1.000 | +0.000 |
-| LR | DP | 8 | 0.001 | 0.500 | 1.000 | 1.000 | +0.000 |
-| LR | DP | 10 | -0.001 | 0.500 | 1.000 | 1.000 | +0.000 |
-| LR | Standard | ∞ | -0.001 | 0.500 | 1.000 | 1.000 | +0.000 |
-| RF | DP | 0.1 | 0.000 | 0.500 | 0.872 | 0.870 | +0.002 |
-| RF | DP | 0.2 | 0.000 | 0.500 | 0.901 | 0.899 | +0.002 |
-| RF | DP | 0.4 | 0.001 | 0.500 | 0.882 | 0.880 | +0.002 |
-| RF | DP | 0.8 | 0.000 | 0.500 | 0.882 | 0.880 | +0.002 |
-| RF | DP | 1 | -0.001 | 0.500 | 0.882 | 0.880 | +0.002 |
-| RF | DP | 2 | 0.001 | 0.500 | 0.882 | 0.880 | +0.002 |
-| RF | DP | 4 | 0.001 | 0.499 | 0.882 | 0.880 | +0.002 |
-| RF | DP | 8 | -0.000 | 0.499 | 0.882 | 0.880 | +0.002 |
-| RF | DP | 10 | -0.000 | 0.499 | 0.882 | 0.880 | +0.002 |
-| RF | Standard | ∞ | 0.000 | 0.499 | 1.000 | 1.000 | +0.000 |
-| GNB | DP | 0.1 | -0.001 | 0.500 | 0.618 | 0.615 | +0.003 |
-| GNB | DP | 0.2 | 0.001 | 0.500 | 0.872 | 0.872 | -0.000 |
-| GNB | DP | 0.4 | -0.001 | 0.499 | 0.678 | 0.678 | -0.000 |
-| GNB | DP | 0.8 | -0.000 | 0.500 | 0.851 | 0.853 | -0.002 |
-| GNB | DP | 1 | -0.000 | 0.500 | 0.910 | 0.915 | -0.005 |
-| GNB | DP | 2 | 0.000 | 0.500 | 0.891 | 0.893 | -0.002 |
-| GNB | DP | 4 | 0.001 | 0.500 | 0.891 | 0.893 | -0.002 |
-| GNB | DP | 8 | -0.000 | 0.501 | 0.891 | 0.893 | -0.002 |
-| GNB | DP | 10 | 0.001 | 0.500 | 0.891 | 0.893 | -0.002 |
-| GNB | Standard | ∞ | -0.001 | 0.499 | 0.891 | 0.893 | -0.002 |
-| SVM | DP | 0.1 | 0.000 | 0.500 | 0.932 | 0.933 | -0.000 |
-| SVM | DP | 0.2 | -0.001 | 0.500 | 0.933 | 0.934 | -0.000 |
-| SVM | DP | 0.4 | 0.001 | 0.501 | 0.943 | 0.942 | +0.000 |
-| SVM | DP | 0.8 | -0.001 | 0.500 | 0.951 | 0.951 | +0.000 |
-| SVM | DP | 1 | 0.001 | 0.500 | 0.951 | 0.951 | +0.000 |
-| SVM | DP | 2 | -0.000 | 0.500 | 0.951 | 0.951 | +0.000 |
-| SVM | DP | 4 | -0.000 | 0.500 | 0.951 | 0.951 | +0.000 |
-| SVM | DP | 8 | 0.001 | 0.501 | 0.951 | 0.951 | +0.000 |
-| SVM | DP | 10 | 0.000 | 0.500 | 0.951 | 0.951 | +0.000 |
+| SVM | DP | 0.1 | 0.000 | 0.500 | 0.922 | 0.923 | -0.001 |
+| SVM | DP | 0.2 | -0.002 | 0.499 | 0.932 | 0.933 | -0.000 |
+| SVM | DP | 0.4 | -0.000 | 0.500 | 0.941 | 0.939 | +0.002 |
+| SVM | DP | 0.8 | 0.002 | 0.501 | 0.941 | 0.939 | +0.002 |
+| SVM | DP | 1 | -0.000 | 0.500 | 0.941 | 0.939 | +0.002 |
+| SVM | DP | 2 | -0.000 | 0.500 | 0.941 | 0.939 | +0.002 |
+| SVM | DP | 4 | -0.001 | 0.500 | 0.941 | 0.939 | +0.002 |
+| SVM | DP | 8 | -0.001 | 0.500 | 0.941 | 0.939 | +0.002 |
+| SVM | DP | 10 | -0.001 | 0.500 | 0.942 | 0.940 | +0.002 |
 | SVM | Standard | ∞ | -0.001 | 0.499 | 1.000 | 1.000 | +0.000 |
-| DNN | DP | 0.1 | 0.002 | 0.501 | 0.971 | 0.968 | +0.003 |
-| DNN | DP | 0.2 | 0.002 | 0.500 | 0.991 | 0.989 | +0.002 |
-| DNN | DP | 0.4 | -0.002 | 0.498 | 1.000 | 1.000 | +0.000 |
-| DNN | DP | 0.8 | -0.003 | 0.498 | 1.000 | 1.000 | +0.000 |
-| DNN | DP | 1 | -0.002 | 0.499 | 1.000 | 1.000 | +0.000 |
-| DNN | DP | 2 | 0.001 | 0.500 | 1.000 | 1.000 | +0.000 |
-| DNN | DP | 4 | 0.002 | 0.502 | 1.000 | 1.000 | +0.000 |
-| DNN | DP | 8 | -0.000 | 0.500 | 1.000 | 1.000 | +0.000 |
-| DNN | DP | 10 | 0.001 | 0.500 | 1.000 | 1.000 | +0.000 |
-| DNN | Standard | ∞ | -0.000 | 0.500 | 1.000 | 1.000 | +0.000 |
 
 ## 5. Figures
 ### Membership advantage vs ε
@@ -142,9 +102,9 @@ Watch the y-axis scale on the ε-curves: when every point hugs advantage 0 / AUC
 0.5 with error bars that cross those lines, the "wiggle" is noise, not signal.
 
 ## 6. Interpretation
-**No measurable membership leakage on LUNG_CANCER — for any model, at any ε, including the non-private Standard models.** The strongest result anywhere is advantage **0.002** (DNN DP ε=0.2) and attack AUC **0.502** — both statistically indistinguishable from random guessing (advantage 0 / AUC 0.5).
+**No measurable membership leakage on LUNG_CANCER — for any model, at any ε, including the non-private Standard models.** The strongest result anywhere is advantage **0.002** (SVM DP ε=0.8) and attack AUC **0.501** — both statistically indistinguishable from random guessing (advantage 0 / AUC 0.5).
 
-**Important caveat:** the Standard models show an almost-zero generalisation gap (max |train − test| = 0.002). The dataset is large/separable enough that members and non-members behave identically, so there is little to no membership signal *at the source*. Read a clean result here as **"there was nothing to steal"**, not "DP defeated a strong attack."
+**Important caveat:** the Standard models show an almost-zero generalisation gap (max |train − test| = 0.000). The dataset is large/separable enough that members and non-members behave identically, so there is little to no membership signal *at the source*. Read a clean result here as **"there was nothing to steal"**, not "DP defeated a strong attack."
 
 ## 7. Reproduce
 ```bash

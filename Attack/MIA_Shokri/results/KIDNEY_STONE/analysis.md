@@ -18,9 +18,9 @@ differently to members vs non-members. Gap ≈ 0 ⇒ nothing to leak.
 | Samples | N = 4,000 (3,200 train / 800 test) |
 | Classes | 2 |
 | Features | 23 |
-| Model families | LR, RF, GNB, SVM, DNN |
+| Model families | SVM |
 | DP budgets ε | 0.1, 0.2, 0.4, 0.8, 1, 2, 4, 8, 10 |
-| Targets attacked | 50 |
+| Targets attacked | 10 |
 | Target source | exported `output/model/` (loaded, not re-trained) |
 
 The **target** is your saved model; **shadow** models are trained fresh (inherent
@@ -38,56 +38,16 @@ opacus `GradSampleModule` with a softmax head over its logits.
 ## 4. Results
 | Model | Variant | ε | Advantage | Attack AUC | Train acc | Test acc | Gen. gap |
 |-------|---------|---|-----------|-----------|-----------|----------|----------|
-| LR | DP | 0.1 | -0.003 | 0.498 | 0.746 | 0.760 | -0.014 |
-| LR | DP | 0.2 | -0.005 | 0.498 | 0.789 | 0.797 | -0.008 |
-| LR | DP | 0.4 | -0.004 | 0.500 | 0.824 | 0.829 | -0.005 |
-| LR | DP | 0.8 | -0.006 | 0.497 | 0.813 | 0.817 | -0.005 |
-| LR | DP | 1 | -0.001 | 0.501 | 0.849 | 0.846 | +0.003 |
-| LR | DP | 2 | 0.004 | 0.502 | 0.916 | 0.920 | -0.004 |
-| LR | DP | 4 | -0.007 | 0.496 | 0.922 | 0.925 | -0.003 |
-| LR | DP | 8 | 0.005 | 0.501 | 0.926 | 0.925 | +0.001 |
-| LR | DP | 10 | 0.005 | 0.502 | 0.926 | 0.925 | +0.001 |
-| LR | Standard | ∞ | -0.003 | 0.500 | 0.926 | 0.922 | +0.003 |
-| RF | DP | 0.1 | 0.005 | 0.502 | 0.839 | 0.830 | +0.009 |
-| RF | DP | 0.2 | 0.000 | 0.499 | 0.878 | 0.861 | +0.017 |
-| RF | DP | 0.4 | -0.000 | 0.499 | 0.897 | 0.889 | +0.008 |
-| RF | DP | 0.8 | 0.008 | 0.502 | 0.899 | 0.889 | +0.010 |
-| RF | DP | 1 | 0.001 | 0.501 | 0.900 | 0.889 | +0.011 |
-| RF | DP | 2 | 0.001 | 0.503 | 0.900 | 0.890 | +0.010 |
-| RF | DP | 4 | -0.002 | 0.502 | 0.900 | 0.891 | +0.009 |
-| RF | DP | 8 | 0.001 | 0.501 | 0.900 | 0.891 | +0.009 |
-| RF | DP | 10 | 0.001 | 0.501 | 0.900 | 0.891 | +0.009 |
-| RF | Standard | ∞ | 0.016 | 0.513 | 0.950 | 0.944 | +0.007 |
-| GNB | DP | 0.1 | -0.002 | 0.499 | 0.786 | 0.785 | +0.001 |
-| GNB | DP | 0.2 | 0.003 | 0.500 | 0.761 | 0.766 | -0.006 |
-| GNB | DP | 0.4 | 0.003 | 0.501 | 0.900 | 0.889 | +0.011 |
-| GNB | DP | 0.8 | -0.002 | 0.500 | 0.893 | 0.885 | +0.008 |
-| GNB | DP | 1 | -0.001 | 0.500 | 0.818 | 0.812 | +0.005 |
-| GNB | DP | 2 | 0.003 | 0.500 | 0.900 | 0.890 | +0.010 |
-| GNB | DP | 4 | 0.002 | 0.502 | 0.900 | 0.890 | +0.010 |
-| GNB | DP | 8 | 0.005 | 0.503 | 0.900 | 0.890 | +0.010 |
-| GNB | DP | 10 | 0.004 | 0.502 | 0.900 | 0.890 | +0.010 |
-| GNB | Standard | ∞ | 0.001 | 0.502 | 0.900 | 0.890 | +0.010 |
-| SVM | DP | 0.1 | -0.000 | 0.499 | 0.792 | 0.805 | -0.013 |
-| SVM | DP | 0.2 | -0.008 | 0.496 | 0.889 | 0.883 | +0.007 |
-| SVM | DP | 0.4 | 0.003 | 0.499 | 0.900 | 0.890 | +0.010 |
+| SVM | DP | 0.1 | -0.004 | 0.499 | 0.786 | 0.790 | -0.004 |
+| SVM | DP | 0.2 | -0.001 | 0.502 | 0.890 | 0.886 | +0.003 |
+| SVM | DP | 0.4 | -0.003 | 0.498 | 0.900 | 0.890 | +0.010 |
 | SVM | DP | 0.8 | -0.002 | 0.500 | 0.900 | 0.890 | +0.010 |
-| SVM | DP | 1 | -0.004 | 0.500 | 0.900 | 0.890 | +0.010 |
-| SVM | DP | 2 | -0.002 | 0.499 | 0.900 | 0.890 | +0.010 |
+| SVM | DP | 1 | 0.008 | 0.503 | 0.900 | 0.890 | +0.010 |
+| SVM | DP | 2 | 0.001 | 0.500 | 0.900 | 0.890 | +0.010 |
 | SVM | DP | 4 | -0.001 | 0.500 | 0.900 | 0.890 | +0.010 |
-| SVM | DP | 8 | 0.005 | 0.502 | 0.900 | 0.890 | +0.010 |
-| SVM | DP | 10 | 0.001 | 0.502 | 0.900 | 0.890 | +0.010 |
+| SVM | DP | 8 | -0.002 | 0.499 | 0.900 | 0.890 | +0.010 |
+| SVM | DP | 10 | 0.004 | 0.504 | 0.900 | 0.890 | +0.010 |
 | SVM | Standard | ∞ | 0.051 | 0.545 | 0.953 | 0.933 | +0.021 |
-| DNN | DP | 0.1 | 0.000 | 0.500 | 0.608 | 0.609 | -0.001 |
-| DNN | DP | 0.2 | 0.000 | 0.498 | 0.645 | 0.645 | +0.000 |
-| DNN | DP | 0.4 | 0.001 | 0.501 | 0.900 | 0.890 | +0.010 |
-| DNN | DP | 0.8 | 0.002 | 0.503 | 0.900 | 0.890 | +0.010 |
-| DNN | DP | 1 | 0.000 | 0.500 | 0.900 | 0.890 | +0.010 |
-| DNN | DP | 2 | 0.022 | 0.516 | 0.900 | 0.890 | +0.010 |
-| DNN | DP | 4 | 0.000 | 0.501 | 0.900 | 0.890 | +0.010 |
-| DNN | DP | 8 | 0.018 | 0.518 | 0.900 | 0.890 | +0.010 |
-| DNN | DP | 10 | 0.006 | 0.503 | 0.900 | 0.890 | +0.010 |
-| DNN | Standard | ∞ | 0.023 | 0.517 | 0.996 | 0.974 | +0.022 |
 
 ## 5. Figures
 ### Membership advantage vs ε
@@ -144,7 +104,7 @@ Watch the y-axis scale on the ε-curves: when every point hugs advantage 0 / AUC
 ## 6. Interpretation
 **No measurable membership leakage on KIDNEY_STONE — for any model, at any ε, including the non-private Standard models.** The strongest result anywhere is advantage **0.051** (SVM Standard) and attack AUC **0.545** — both statistically indistinguishable from random guessing (advantage 0 / AUC 0.5).
 
-The Standard models overfit (max |train − test| gap = 0.022), which is the condition under which MIA can succeed — compare the Standard vs DP bars.
+The Standard models overfit (max |train − test| gap = 0.021), which is the condition under which MIA can succeed — compare the Standard vs DP bars.
 
 ## 7. Reproduce
 ```bash

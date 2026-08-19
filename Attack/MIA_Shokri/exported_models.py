@@ -479,6 +479,7 @@ def make_shadow_factory(
                     epsilon=epsilon,
                     Lambda=0.01,
                     h=0.5,
+                    fit_intercept=False,
                     normalize=True,
                     random_state=seed,
                 )
@@ -487,6 +488,7 @@ def make_shadow_factory(
                     epsilon=epsilon,
                     Lambda=0.01,
                     h=0.5,
+                    fit_intercept=False,
                     normalize=True,
                     random_state=seed,
                 )

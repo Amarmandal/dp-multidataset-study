@@ -26,11 +26,13 @@ Usage:
     python run_lira.py --datasets KIDNEY_STONE --n-shadow 64
     python run_lira.py --datasets KIDNEY_STONE --balance   # 1:1 members:non-members
     python run_lira.py --runs 30 --dnn-runs 5         # per-family run counts
-    python run_lira.py --runs 30 --svm-runs 5 --skip-dnn   # cheap families full, SVM capped
+    python run_lira.py --runs 30 --skip-dnn            # SVM stays capped at its default 5 runs
+    python run_lira.py --datasets DIABETES --models SVM --workers 3
     python run_lira.py --quick                       # fast smoke test
 """
 
 import argparse
+from concurrent.futures import ProcessPoolExecutor, as_completed
 import os
 import pickle
 import sys
@@ -108,11 +110,11 @@ def target_test_acc(target, view):
 # Attack one exported target
 # --------------------------------------------------------------------------- #
 def family_runs(fam, args):
-    """Run count for a family: classical families and the DNN differ by cost.
+    """Return the configured run count for one model family.
 
     A LiRA run trains ``--n-shadow`` (32) shadows, so the DNN is orders of
-    magnitude more expensive than LR/RF/GNB/SVM. Both counts are CLI flags, so
-    classical and DNN launches need no source edit between them.
+    magnitude more expensive than LR/RF/GNB. SVM is also capped separately
+    because RBF scoring is costly on non-separable data.
     """
     if fam == "DNN":
         return args.dnn_runs
@@ -208,49 +210,155 @@ def attack_target(
     return row
 
 
+def _attack_target_worker(ds, fam, variant, epsilon, args, seeds):
+    """Run one independent target configuration in a child process."""
+    label = "standard" if variant == "standard" else f"epsilon={epsilon}"
+    print(f"  [{fam}] worker started {label}", flush=True)
+    data, n_classes, low, high = load_dataset(ds)
+    return attack_target(
+        fam,
+        variant,
+        data,
+        n_classes,
+        low,
+        high,
+        args,
+        ds,
+        epsilon=epsilon,
+        seeds=seeds,
+    )
+
+
+def _parallel_targets(ds, fam, args, seeds):
+    """Evaluate DP targets and individual standard seeds concurrently."""
+    dp_epsilons = [
+        eps
+        for eps in args.epsilons
+        if em.model_exists(REPO, ds, fam, "dp", eps)
+    ]
+    dp_results = {}
+    standard_runs = {}
+    with ProcessPoolExecutor(max_workers=args.workers) as pool:
+        pending = {}
+
+        # Submit the cheap DP targets first so their progress is visible while
+        # the much slower standard RBF-SVM seeds occupy the pool afterward.
+        for epsilon in dp_epsilons:
+            future = pool.submit(
+                _attack_target_worker,
+                ds,
+                fam,
+                "dp",
+                epsilon,
+                args,
+                seeds,
+            )
+            pending[future] = ("dp", epsilon)
+
+        # Each standard LiRA seed is independent. Splitting them here preserves
+        # the exact seed-level metrics and aggregates them in seed order below.
+        for seed in seeds:
+            future = pool.submit(
+                _attack_target_worker,
+                ds,
+                fam,
+                "standard",
+                None,
+                args,
+                (seed,),
+            )
+            pending[future] = ("standard_seed", seed)
+
+        for future in as_completed(pending):
+            kind, value = pending[future]
+            result = future.result()
+            if kind == "dp":
+                epsilon = value
+                dp_results[epsilon] = result
+                _print_row(fam, f"eps={epsilon:<4}", result)
+                print(f"  [{fam}] completed epsilon={epsilon}", flush=True)
+            else:
+                seed = value
+                standard_runs[seed] = result
+                print(
+                    f"  [{fam}] completed standard seed={seed} "
+                    f"({len(standard_runs)}/{len(seeds)})",
+                    flush=True,
+                )
+
+    standard = aggregate(
+        [standard_runs[seed] for seed in seeds], fam, "standard", None
+    )
+    standard["dataset"] = ds
+    _print_row(fam, "STD  ", standard)
+    print(f"  [{fam}] completed standard aggregate", flush=True)
+    return [standard] + [dp_results[epsilon] for epsilon in dp_epsilons]
+
+
 def run_dataset(ds, args, rows):
     data, n_classes, low, high = load_dataset(ds)
     print(
         f"\n{'=' * 72}\n{ds}  (classes={n_classes}, n_train={len(data['y_train'])}, "
         f"n_features={data['X_train'].shape[1]})  [LiRA, {args.n_shadow} shadows]\n{'=' * 72}"
-    )
+    , flush=True)
     results = []
 
     for fam in args.models:
         if fam not in em.MODEL_FAMILIES or not em.model_exists(
             REPO, ds, fam, "standard"
         ):
-            print(f"  [{fam}] skipped (no exported model)")
+            print(f"  [{fam}] skipped (no exported model)", flush=True)
             continue
 
         t0 = time.time()
         # Shadow seeds: 0..n-1, distinct per run and per family run count.
         seeds = tuple(range(family_runs(fam, args)))
-        print(f"  [{fam}] {len(seeds)} run(s), shadow seeds {seeds[0]}..{seeds[-1]}")
-        m = attack_target(
-            fam, "standard", data, n_classes, low, high, args, ds, seeds=seeds
+        print(
+            f"  [{fam}] {len(seeds)} run(s), shadow seeds {seeds[0]}..{seeds[-1]}",
+            flush=True,
         )
-        results.append(m)
-        _print_row(fam, "STD  ", m)
-
-        for eps in args.epsilons:
-            if not em.model_exists(REPO, ds, fam, "dp", eps):
-                continue
+        if ds == "DIABETES" and fam == "SVM" and args.workers > 1:
+            print(
+                f"  [{fam}] processing standard + {len(args.epsilons)} epsilon "
+                f"targets with {args.workers} workers",
+                flush=True,
+            )
+            results.extend(_parallel_targets(ds, fam, args, seeds))
+        else:
+            print(f"  [{fam}] processing standard", flush=True)
             m = attack_target(
                 fam,
-                "dp",
+                "standard",
                 data,
                 n_classes,
                 low,
                 high,
                 args,
                 ds,
-                epsilon=eps,
                 seeds=seeds,
             )
             results.append(m)
-            _print_row(fam, f"eps={eps:<4}", m)
-        print(f"  [{fam}] done in {time.time() - t0:.1f}s")
+            _print_row(fam, "STD  ", m)
+
+            for eps in args.epsilons:
+                if not em.model_exists(REPO, ds, fam, "dp", eps):
+                    continue
+                print(f"  [{fam}] processing epsilon={eps}", flush=True)
+                m = attack_target(
+                    fam,
+                    "dp",
+                    data,
+                    n_classes,
+                    low,
+                    high,
+                    args,
+                    ds,
+                    epsilon=eps,
+                    seeds=seeds,
+                )
+                results.append(m)
+                _print_row(fam, f"eps={eps:<4}", m)
+        print(f"  [{fam}] done in {time.time() - t0:.1f}s", flush=True)
 
     df = pd.DataFrame(
         [{k: v for k, v in r.items() if not k.startswith("_roc")} for r in results]
@@ -261,12 +369,13 @@ def run_dataset(ds, args, rows):
 
 def _print_row(fam, tag, m):
     if "error" in m:
-        print(f"  [{fam}] {tag} ERROR: {m['error']}")
+        print(f"  [{fam}] {tag} ERROR: {m['error']}", flush=True)
     else:
         print(
             f"  [{fam}] {tag} AUC={m['attack_auc']:.3f}  "
             f"TPR@1%={m['tpr_at_1pct']:.3f}  TPR@.1%={m['tpr_at_0p1pct']:.3f}  "
-            f"adv={m['advantage']:.3f}"
+            f"adv={m['advantage']:.3f}",
+            flush=True,
         )
 
 
@@ -583,8 +692,14 @@ def main():
     ap.add_argument(
         "--svm-runs",
         type=int,
-        default=None,
-        help="shadow-model reseeds per SVM target, overrides --runs (RBF scoring is costly on non-separable data)",
+        default=5,
+        help="shadow-model reseeds per SVM target (default: 5; overrides --runs)",
+    )
+    ap.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help="parallel target configurations for DIABETES SVM only (default: 1)",
     )
     ap.add_argument(
         "--skip-dnn",
@@ -594,6 +709,9 @@ def main():
     ap.add_argument("--quick", action="store_true", help="tiny config for smoke test")
     args = ap.parse_args()
 
+    if args.workers < 1:
+        ap.error("--workers must be at least 1")
+
     if args.skip_dnn:
         args.models = [m for m in args.models if m != "DNN"]
 
@@ -602,6 +720,7 @@ def main():
         args.n_shadow = 8
         args.runs = min(args.runs, 3)
         args.dnn_runs = min(args.dnn_runs, 2)
+        args.svm_runs = min(args.svm_runs, 3)
 
     os.makedirs(OUT_DIR, exist_ok=True)
     rows = []
@@ -609,7 +728,10 @@ def main():
         run_dataset(ds, args, rows)
 
     pd.DataFrame(rows).to_csv(os.path.join(OUT_DIR, "lira_comparison.csv"), index=False)
-    print(f"\nSaved comparison table -> {os.path.join(OUT_DIR, 'lira_comparison.csv')}")
+    print(
+        f"\nSaved comparison table -> {os.path.join(OUT_DIR, 'lira_comparison.csv')}",
+        flush=True,
+    )
 
 
 if __name__ == "__main__":

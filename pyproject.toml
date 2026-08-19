@@ -1,5 +1,5 @@
 [project]
-name = "securing-ml-model"
+name = "multidataset-study"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -14,9 +14,14 @@ dependencies = [
     "torch==2.11.0",
     "opacus==1.6.0",
     "seaborn==0.13.2",
+    "pytest>=9.1.1",
 ]
 [dependency-groups]
 dev = [
     "ipykernel",
     "jupyter",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
