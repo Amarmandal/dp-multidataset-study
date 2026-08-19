@@ -771,10 +771,10 @@ residual_leakage_eps1 | Gallstone/GNB | lira_tpr_at_1pct_ci_low | 0.002432767563
 residual_leakage_eps1 | Gallstone/GNB | lira_tpr_at_1pct_ci_high | 0.0339945759514 | derived | binomtest(3,255).proportion_ci(method='exact')
 residual_leakage_eps1 | Gallstone/GNB | ci_excludes_random | no | derived | ci_low > RANDOM_FPR=0.01
 residual_leakage_eps1 | Gallstone/GNB | epsilon | 1 | analysis/src/config.py | EPS_TARGET
-residual_leakage_eps1 | Gallstone/SVM | yeom_advantage | 0.11574754902 | Attack/MIA_YEOM/results/GALLSTONE/GALLSTONE_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Gallstone/SVM | yeom_advantage | 0.0885416666667 | Attack/MIA_YEOM/results/GALLSTONE/GALLSTONE_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Gallstone/SVM | yeom_advantage_std | 0 | Attack/MIA_YEOM/results/GALLSTONE/GALLSTONE_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Gallstone/SVM | shokri_auc | 0.509057393791 | Attack/MIA_Shokri/results/GALLSTONE/GALLSTONE_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Gallstone/SVM | shokri_auc_std | 0.0280284453673 | Attack/MIA_Shokri/results/GALLSTONE/GALLSTONE_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Gallstone/SVM | shokri_auc | 0.49894505719 | Attack/MIA_Shokri/results/GALLSTONE/GALLSTONE_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Gallstone/SVM | shokri_auc_std | 0.0375676943597 | Attack/MIA_Shokri/results/GALLSTONE/GALLSTONE_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Gallstone/SVM | lira_auc | 0.484673202614 | Attack/LiRA/results/GALLSTONE/GALLSTONE_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Gallstone/SVM | lira_auc_std | 0.0411027954295 | Attack/LiRA/results/GALLSTONE/GALLSTONE_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Gallstone/SVM | lira_tpr_at_1pct | 0.0124183006536 | Attack/LiRA/results/GALLSTONE/GALLSTONE_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
@@ -841,10 +841,10 @@ residual_leakage_eps1 | Breast Cancer/GNB | lira_tpr_at_1pct_ci_low | 0.01058844
 residual_leakage_eps1 | Breast Cancer/GNB | lira_tpr_at_1pct_ci_high | 0.0400460972479 | derived | binomtest(10,455).proportion_ci(method='exact')
 residual_leakage_eps1 | Breast Cancer/GNB | ci_excludes_random | yes | derived | ci_low > RANDOM_FPR=0.01
 residual_leakage_eps1 | Breast Cancer/GNB | epsilon | 1 | analysis/src/config.py | EPS_TARGET
-residual_leakage_eps1 | Breast Cancer/SVM | yeom_advantage | -0.000424137266242 | Attack/MIA_YEOM/results/BCP/BCP_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Breast Cancer/SVM | yeom_advantage | -0.0179679969154 | Attack/MIA_YEOM/results/BCP/BCP_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Breast Cancer/SVM | yeom_advantage_std | 0 | Attack/MIA_YEOM/results/BCP/BCP_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Breast Cancer/SVM | shokri_auc | 0.505767624189 | Attack/MIA_Shokri/results/BCP/BCP_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Breast Cancer/SVM | shokri_auc_std | 0.0245835248036 | Attack/MIA_Shokri/results/BCP/BCP_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Breast Cancer/SVM | shokri_auc | 0.502785810681 | Attack/MIA_Shokri/results/BCP/BCP_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Breast Cancer/SVM | shokri_auc_std | 0.0253641899893 | Attack/MIA_Shokri/results/BCP/BCP_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Breast Cancer/SVM | lira_auc | 0.501918899814 | Attack/LiRA/results/BCP/BCP_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Breast Cancer/SVM | lira_auc_std | 0.0351477003788 | Attack/LiRA/results/BCP/BCP_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Breast Cancer/SVM | lira_tpr_at_1pct | 0.0154578754579 | Attack/LiRA/results/BCP/BCP_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
@@ -911,10 +911,10 @@ residual_leakage_eps1 | Cancer Risk/GNB | lira_tpr_at_1pct_ci_low | 0.0063925477
 residual_leakage_eps1 | Cancer Risk/GNB | lira_tpr_at_1pct_ci_high | 0.019497279364 | derived | binomtest(14,1200).proportion_ci(method='exact')
 residual_leakage_eps1 | Cancer Risk/GNB | ci_excludes_random | no | derived | ci_low > RANDOM_FPR=0.01
 residual_leakage_eps1 | Cancer Risk/GNB | epsilon | 1 | analysis/src/config.py | EPS_TARGET
-residual_leakage_eps1 | Cancer Risk/SVM | yeom_advantage | 0.015 | Attack/MIA_YEOM/results/CANCER_RISK/CANCER_RISK_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Cancer Risk/SVM | yeom_advantage | 0.00416666666667 | Attack/MIA_YEOM/results/CANCER_RISK/CANCER_RISK_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Cancer Risk/SVM | yeom_advantage_std | 0 | Attack/MIA_YEOM/results/CANCER_RISK/CANCER_RISK_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Cancer Risk/SVM | shokri_auc | 0.507113935185 | Attack/MIA_Shokri/results/CANCER_RISK/CANCER_RISK_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Cancer Risk/SVM | shokri_auc_std | 0.0175045028212 | Attack/MIA_Shokri/results/CANCER_RISK/CANCER_RISK_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Cancer Risk/SVM | shokri_auc | 0.498023611111 | Attack/MIA_Shokri/results/CANCER_RISK/CANCER_RISK_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Cancer Risk/SVM | shokri_auc_std | 0.0186928422247 | Attack/MIA_Shokri/results/CANCER_RISK/CANCER_RISK_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Cancer Risk/SVM | lira_auc | 0.503461018519 | Attack/LiRA/results/CANCER_RISK/CANCER_RISK_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Cancer Risk/SVM | lira_auc_std | 0.0226061188237 | Attack/LiRA/results/CANCER_RISK/CANCER_RISK_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Cancer Risk/SVM | lira_tpr_at_1pct | 0.0119444444444 | Attack/LiRA/results/CANCER_RISK/CANCER_RISK_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
@@ -983,8 +983,8 @@ residual_leakage_eps1 | Kidney Stone/GNB | ci_excludes_random | no | derived | c
 residual_leakage_eps1 | Kidney Stone/GNB | epsilon | 1 | analysis/src/config.py | EPS_TARGET
 residual_leakage_eps1 | Kidney Stone/SVM | yeom_advantage | 0.0096875 | Attack/MIA_YEOM/results/KIDNEY_STONE/KIDNEY_STONE_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Kidney Stone/SVM | yeom_advantage_std | 0 | Attack/MIA_YEOM/results/KIDNEY_STONE/KIDNEY_STONE_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Kidney Stone/SVM | shokri_auc | 0.499958802083 | Attack/MIA_Shokri/results/KIDNEY_STONE/KIDNEY_STONE_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Kidney Stone/SVM | shokri_auc_std | 0.00667653749605 | Attack/MIA_Shokri/results/KIDNEY_STONE/KIDNEY_STONE_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Kidney Stone/SVM | shokri_auc | 0.50304780599 | Attack/MIA_Shokri/results/KIDNEY_STONE/KIDNEY_STONE_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Kidney Stone/SVM | shokri_auc_std | 0.00938891531209 | Attack/MIA_Shokri/results/KIDNEY_STONE/KIDNEY_STONE_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Kidney Stone/SVM | lira_auc | 0.505358567708 | Attack/LiRA/results/KIDNEY_STONE/KIDNEY_STONE_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Kidney Stone/SVM | lira_auc_std | 0.0103662152254 | Attack/LiRA/results/KIDNEY_STONE/KIDNEY_STONE_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Kidney Stone/SVM | lira_tpr_at_1pct | 0.0115416666667 | Attack/LiRA/results/KIDNEY_STONE/KIDNEY_STONE_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
@@ -1051,10 +1051,10 @@ residual_leakage_eps1 | Lung Cancer/GNB | lira_tpr_at_1pct_ci_low | 0.0092623151
 residual_leakage_eps1 | Lung Cancer/GNB | lira_tpr_at_1pct_ci_high | 0.0112597442216 | derived | binomtest(409,40000).proportion_ci(method='exact')
 residual_leakage_eps1 | Lung Cancer/GNB | ci_excludes_random | no | derived | ci_low > RANDOM_FPR=0.01
 residual_leakage_eps1 | Lung Cancer/GNB | epsilon | 1 | analysis/src/config.py | EPS_TARGET
-residual_leakage_eps1 | Lung Cancer/SVM | yeom_advantage | -0.000325 | Attack/MIA_YEOM/results/LUNG_CANCER/LUNG_CANCER_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Lung Cancer/SVM | yeom_advantage | 0.0015 | Attack/MIA_YEOM/results/LUNG_CANCER/LUNG_CANCER_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Lung Cancer/SVM | yeom_advantage_std | 0 | Attack/MIA_YEOM/results/LUNG_CANCER/LUNG_CANCER_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Lung Cancer/SVM | shokri_auc | 0.500252744667 | Attack/MIA_Shokri/results/LUNG_CANCER/LUNG_CANCER_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Lung Cancer/SVM | shokri_auc_std | 0.00267431149041 | Attack/MIA_Shokri/results/LUNG_CANCER/LUNG_CANCER_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Lung Cancer/SVM | shokri_auc | 0.499714681708 | Attack/MIA_Shokri/results/LUNG_CANCER/LUNG_CANCER_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Lung Cancer/SVM | shokri_auc_std | 0.00254931387843 | Attack/MIA_Shokri/results/LUNG_CANCER/LUNG_CANCER_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Lung Cancer/SVM | lira_auc | 0.499489398167 | Attack/LiRA/results/LUNG_CANCER/LUNG_CANCER_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Lung Cancer/SVM | lira_auc_std | 0.00327049555214 | Attack/LiRA/results/LUNG_CANCER/LUNG_CANCER_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Lung Cancer/SVM | lira_tpr_at_1pct | 0.00970416666667 | Attack/LiRA/results/LUNG_CANCER/LUNG_CANCER_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
@@ -1121,18 +1121,18 @@ residual_leakage_eps1 | Diabetes/GNB | lira_tpr_at_1pct_ci_low | 0.0089838318696
 residual_leakage_eps1 | Diabetes/GNB | lira_tpr_at_1pct_ci_high | 0.0106239419472 | derived | binomtest(553,56553).proportion_ci(method='exact')
 residual_leakage_eps1 | Diabetes/GNB | ci_excludes_random | no | derived | ci_low > RANDOM_FPR=0.01
 residual_leakage_eps1 | Diabetes/GNB | epsilon | 1 | analysis/src/config.py | EPS_TARGET
-residual_leakage_eps1 | Diabetes/SVM | yeom_advantage | 0.000106868051037 | Attack/MIA_YEOM/results/DIABETES/DIABETES_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Diabetes/SVM | yeom_advantage | -0.000989478693302 | Attack/MIA_YEOM/results/DIABETES/DIABETES_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
 residual_leakage_eps1 | Diabetes/SVM | yeom_advantage_std | 0 | Attack/MIA_YEOM/results/DIABETES/DIABETES_mia_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Diabetes/SVM | shokri_auc | 0.500362262041 | Attack/MIA_Shokri/results/DIABETES/DIABETES_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Diabetes/SVM | shokri_auc_std | 0.00276416196745 | Attack/MIA_Shokri/results/DIABETES/DIABETES_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Diabetes/SVM | lira_auc | 0.502864901058 | Attack/LiRA/results/DIABETES/DIABETES_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Diabetes/SVM | lira_auc_std | 0.00118106917713 | Attack/LiRA/results/DIABETES/DIABETES_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Diabetes/SVM | lira_tpr_at_1pct | 0.00971831733065 | Attack/LiRA/results/DIABETES/DIABETES_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Diabetes/SVM | lira_tpr_at_1pct_std | 0.000309439185956 | Attack/LiRA/results/DIABETES/DIABETES_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
-residual_leakage_eps1 | Diabetes/SVM | cp_k | 550 | derived | round(TPR * n_members)
+residual_leakage_eps1 | Diabetes/SVM | shokri_auc | 0.500400014449 | Attack/MIA_Shokri/results/DIABETES/DIABETES_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Diabetes/SVM | shokri_auc_std | 0.00200283578882 | Attack/MIA_Shokri/results/DIABETES/DIABETES_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Diabetes/SVM | lira_auc | 0.503171881699 | Attack/LiRA/results/DIABETES/DIABETES_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Diabetes/SVM | lira_auc_std | 0.00170653985616 | Attack/LiRA/results/DIABETES/DIABETES_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Diabetes/SVM | lira_tpr_at_1pct | 0.00970063480275 | Attack/LiRA/results/DIABETES/DIABETES_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Diabetes/SVM | lira_tpr_at_1pct_std | 0.000377363539946 | Attack/LiRA/results/DIABETES/DIABETES_lira_results.csv | model=SVM, variant=dp, epsilon=1.0
+residual_leakage_eps1 | Diabetes/SVM | cp_k | 549 | derived | round(TPR * n_members)
 residual_leakage_eps1 | Diabetes/SVM | cp_n_members | 56553 | Attack/LiRA/results/DIABETES/DIABETES_lira_results.csv | model=SVM, variant=dp, epsilon=1.0 -> n_members
-residual_leakage_eps1 | Diabetes/SVM | lira_tpr_at_1pct_ci_low | 0.00893296843563 | derived | binomtest(550,56553).proportion_ci(method='exact')
-residual_leakage_eps1 | Diabetes/SVM | lira_tpr_at_1pct_ci_high | 0.0105687176546 | derived | binomtest(550,56553).proportion_ci(method='exact')
+residual_leakage_eps1 | Diabetes/SVM | lira_tpr_at_1pct_ci_low | 0.00891601531905 | derived | binomtest(549,56553).proportion_ci(method='exact')
+residual_leakage_eps1 | Diabetes/SVM | lira_tpr_at_1pct_ci_high | 0.0105503081993 | derived | binomtest(549,56553).proportion_ci(method='exact')
 residual_leakage_eps1 | Diabetes/SVM | ci_excludes_random | no | derived | ci_low > RANDOM_FPR=0.01
 residual_leakage_eps1 | Diabetes/SVM | epsilon | 1 | analysis/src/config.py | EPS_TARGET
 residual_leakage_eps1 | Diabetes/DNN | yeom_advantage | 0.0021087418137 | Attack/MIA_YEOM/results/DIABETES/DIABETES_mia_results.csv | model=DNN, variant=dp, epsilon=1.0
@@ -1149,373 +1149,373 @@ residual_leakage_eps1 | Diabetes/DNN | lira_tpr_at_1pct_ci_low | 0.0091873460017
 residual_leakage_eps1 | Diabetes/DNN | lira_tpr_at_1pct_ci_high | 0.0108447788801 | derived | binomtest(565,56553).proportion_ci(method='exact')
 residual_leakage_eps1 | Diabetes/DNN | ci_excludes_random | no | derived | ci_low > RANDOM_FPR=0.01
 residual_leakage_eps1 | Diabetes/DNN | epsilon | 1 | analysis/src/config.py | EPS_TARGET
-rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_0.1 | 0.0598442714127 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.1
-rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_0.1 | 0.753419020854 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.1
+rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_0.1 | 0.0838709677419 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.1
+rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_0.1 | 0.659474920105 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.1
 rho_by_epsilon | all_pairs/AL/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.1
-rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_0.2 | 0.0607341490545 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.2
-rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_0.2 | 0.749867507556 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.2
+rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_0.2 | -0.0536151279199 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.2
+rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_0.2 | 0.778414109066 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.2
 rho_by_epsilon | all_pairs/AL/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.2
-rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_0.4 | 0.0473859844271 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.4
-rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_0.4 | 0.803627801138 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.4
+rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_0.4 | -0.161290322581 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.4
+rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_0.4 | 0.394502407073 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.4
 rho_by_epsilon | all_pairs/AL/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.4
-rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_0.8 | 0.0316012034965 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.8
-rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_0.8 | 0.868335344392 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.8
+rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_0.8 | 0.00333778379425 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.8
+rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_0.8 | 0.986033759813 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.8
 rho_by_epsilon | all_pairs/AL/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=0.8
-rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_1.0 | -0.294170011733 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=1.0
-rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_1.0 | 0.114585327879 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=1.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_1.0 | -0.252781492685 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=1.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_1.0 | 0.177749127179 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=1.0
 rho_by_epsilon | all_pairs/AL/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=1.0
-rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_2.0 | 0.107500567072 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=2.0
-rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_2.0 | 0.571782439712 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=2.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_2.0 | 0.110616525537 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=2.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_2.0 | 0.560622086203 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=2.0
 rho_by_epsilon | all_pairs/AL/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=2.0
-rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_4.0 | -0.159581587143 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=4.0
-rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_4.0 | 0.39959679114 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=4.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_4.0 | -0.135544193264 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=4.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_4.0 | 0.475124302573 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=4.0
 rho_by_epsilon | all_pairs/AL/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=4.0
-rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_8.0 | -0.056309820847 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=8.0
-rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_8.0 | 0.767573161863 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=8.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_8.0 | -0.01446695002 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=8.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_8.0 | 0.939518090587 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=8.0
 rho_by_epsilon | all_pairs/AL/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=8.0
-rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_10.0 | -0.0549744100759 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=10.0
-rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_10.0 | 0.772940383299 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=10.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | rho_eps_10.0 | -0.00689962231722 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=10.0
+rho_by_epsilon | all_pairs/AL/yeom_advantage | p_eps_10.0 | 0.971134571703 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=10.0
 rho_by_epsilon | all_pairs/AL/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=yeom_advantage, epsilon=10.0
-rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_0.1 | -0.155061179088 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.1
-rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_0.1 | 0.413252788444 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.1
+rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_0.1 | -0.153281423804 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.1
+rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_0.1 | 0.418700158369 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.1
 rho_by_epsilon | all_pairs/AL/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.1
-rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_0.2 | -0.0918798665184 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.2
-rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_0.2 | 0.629176251039 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.2
+rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_0.2 | -0.107007786429 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.2
+rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_0.2 | 0.573556518206 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.2
 rho_by_epsilon | all_pairs/AL/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.2
-rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_0.4 | 0.188876529477 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.4
-rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_0.4 | 0.317506320665 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.4
+rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_0.4 | 0.211123470523 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.4
+rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_0.4 | 0.262749460229 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.4
 rho_by_epsilon | all_pairs/AL/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.4
-rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_0.8 | 0.504783092325 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.8
-rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_0.8 | 0.00444371322619 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.8
+rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_0.8 | 0.515016685206 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.8
+rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_0.8 | 0.0035882655811 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.8
 rho_by_epsilon | all_pairs/AL/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=0.8
-rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_1.0 | 0.296551724138 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=1.0
-rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_1.0 | 0.111543159291 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=1.0
+rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_1.0 | 0.318798665184 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=1.0
+rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_1.0 | 0.0859674604283 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=1.0
 rho_by_epsilon | all_pairs/AL/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=1.0
-rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_2.0 | 0.397552836485 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=2.0
-rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_2.0 | 0.0295907972289 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=2.0
+rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_2.0 | 0.442046718576 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=2.0
+rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_2.0 | 0.0144533331416 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=2.0
 rho_by_epsilon | all_pairs/AL/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=2.0
-rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_4.0 | 0.257397107898 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=4.0
-rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_4.0 | 0.169695269167 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=4.0
+rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_4.0 | 0.287208008899 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=4.0
+rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_4.0 | 0.123831556844 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=4.0
 rho_by_epsilon | all_pairs/AL/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=4.0
-rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_8.0 | 0.220022246941 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=8.0
-rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_8.0 | 0.242690146168 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=8.0
+rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_8.0 | 0.251167964405 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=8.0
+rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_8.0 | 0.180627012619 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=8.0
 rho_by_epsilon | all_pairs/AL/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=8.0
-rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_10.0 | 0.259621802002 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=10.0
-rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_10.0 | 0.165907167104 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=10.0
+rho_by_epsilon | all_pairs/AL/lira_auc | rho_eps_10.0 | 0.301001112347 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=10.0
+rho_by_epsilon | all_pairs/AL/lira_auc | p_eps_10.0 | 0.10602189932 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=10.0
 rho_by_epsilon | all_pairs/AL/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_auc, epsilon=10.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_0.1 | -0.23748054879 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.1
-rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_0.1 | 0.206361198004 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.1
+rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_0.1 | -0.205362110515 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.1
+rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_0.1 | 0.276297292997 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.1
 rho_by_epsilon | all_pairs/AL/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.1
-rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_0.2 | -0.023361886895 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.2
-rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_0.2 | 0.902473223739 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.2
+rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_0.2 | -0.00378240073539 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.2
+rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_0.2 | 0.984173572717 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.2
 rho_by_epsilon | all_pairs/AL/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.2
-rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_0.4 | 0.134831461508 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.4
-rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_0.4 | 0.47747086438 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.4
+rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_0.4 | 0.126599177555 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.4
+rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_0.4 | 0.505003173547 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.4
 rho_by_epsilon | all_pairs/AL/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.4
-rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_0.8 | 0.158620689655 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.8
-rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_0.8 | 0.402477938165 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.8
+rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_0.8 | 0.110567296997 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.8
+rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_0.8 | 0.560797628503 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.8
 rho_by_epsilon | all_pairs/AL/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=0.8
-rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_1.0 | 0.0665183537264 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=1.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_1.0 | 0.726907646013 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=1.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_1.0 | -0.0927697441602 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=1.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_1.0 | 0.625844736692 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=1.0
 rho_by_epsilon | all_pairs/AL/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=1.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_2.0 | 0.0389321468298 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=2.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_2.0 | 0.838153118148 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=2.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_2.0 | 0.0723025583982 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=2.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_2.0 | 0.704177319571 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=2.0
 rho_by_epsilon | all_pairs/AL/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=2.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_4.0 | 0.17063403782 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=4.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_4.0 | 0.367309161668 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=4.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_4.0 | 0.106562847608 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=4.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_4.0 | 0.575160474964 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=4.0
 rho_by_epsilon | all_pairs/AL/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=4.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_8.0 | 0.0571746384872 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=8.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_8.0 | 0.764102922795 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=8.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_8.0 | 0.042936596218 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=8.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_8.0 | 0.821758186363 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=8.0
 rho_by_epsilon | all_pairs/AL/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=8.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_10.0 | 0.150611790879 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=10.0
-rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_10.0 | 0.426945609697 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=10.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | rho_eps_10.0 | 0.0135706340378 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=10.0
+rho_by_epsilon | all_pairs/AL/shokri_auc | p_eps_10.0 | 0.943259139366 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=10.0
 rho_by_epsilon | all_pairs/AL/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=shokri_auc, epsilon=10.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_0.1 | 0.587096774194 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_0.1 | 0.000648330987242 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_0.1 | 0.579532814238 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_0.1 | 0.000790477131959 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
 rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_0.2 | 0.618242491657 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_0.2 | 0.000271619512355 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_0.2 | 0.610678531702 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_0.2 | 0.000338335412431 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
 rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_0.4 | 0.374235178642 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_0.4 | 0.0416118064348 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_0.4 | 0.374680166964 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_0.4 | 0.0413505685673 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
 rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_0.8 | 0.543492769744 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_0.8 | 0.00190954714354 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_0.8 | 0.573748609566 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_0.8 | 0.000916918156302 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
 rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_1.0 | 0.557285873192 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_1.0 | 0.00137851628966 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_1.0 | 0.537263626251 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_1.0 | 0.00220240967253 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
 rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_2.0 | 0.391323692992 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_2.0 | 0.0324841067297 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_2.0 | 0.375305895439 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_2.0 | 0.0409854461856 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
 rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_4.0 | 0.355283648498 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_4.0 | 0.0540207681205 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_4.0 | 0.361957730812 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_4.0 | 0.0493556120744 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
 rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_8.0 | 0.228476084538 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_8.0 | 0.22460164252 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_8.0 | 0.277419354839 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_8.0 | 0.1377469131 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
 rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_10.0 | 0.206919569642 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
-rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_10.0 | 0.272591353811 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | rho_eps_10.0 | 0.230281456537 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
+rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | p_eps_10.0 | 0.220860051373 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
 rho_by_epsilon | all_pairs/AL/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_0.1 | 0.112315270936 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.1
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_0.1 | 0.561866360614 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.1
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_0.1 | 0.126600985222 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.1
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_0.1 | 0.512841718103 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.1
 rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.1
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_0.2 | 0.0709359605911 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.2
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_0.2 | 0.714618950324 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.2
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_0.2 | -0.0433497536946 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.2
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_0.2 | 0.82331631219 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.2
 rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.2
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_0.4 | 0.0532019704433 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.4
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_0.4 | 0.784013167588 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.4
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_0.4 | -0.15763546798 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.4
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_0.4 | 0.414112983649 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.4
 rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.4
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_0.8 | 0.0441049679009 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.8
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_0.8 | 0.82028743615 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.8
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_0.8 | 0.0273466379327 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.8
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_0.8 | 0.888016591856 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.8
 rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=0.8
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_1.0 | -0.311899492097 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=1.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_1.0 | 0.099531036293 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=1.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_1.0 | -0.262626270596 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=1.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_1.0 | 0.168705082674 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=1.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=1.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_2.0 | 0.0847708333612 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=2.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_2.0 | 0.661956906392 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=2.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_2.0 | 0.0896993701845 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=2.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_2.0 | 0.643555947861 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=2.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=2.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_4.0 | -0.19862003398 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=4.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_4.0 | 0.301655821479 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=4.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_4.0 | -0.171513081452 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=4.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_4.0 | 0.373671959232 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=4.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=4.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_8.0 | -0.0487925145509 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=8.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_8.0 | 0.801545571425 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=8.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_8.0 | -0.00197141472933 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=8.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_8.0 | 0.99190209681 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=8.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=8.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_10.0 | -0.0478068071862 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=10.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_10.0 | 0.805478083527 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=10.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | rho_eps_10.0 | 0.00640709787032 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=10.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | p_eps_10.0 | 0.973685889486 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=10.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/yeom_advantage | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=yeom_advantage, epsilon=10.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_0.1 | -0.175862068966 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.1
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_0.1 | 0.361490560942 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.1
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_0.1 | -0.176354679803 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.1
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_0.1 | 0.36012574705 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.1
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.1
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_0.2 | -0.102955665025 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.2
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_0.2 | 0.595099343557 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.2
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_0.2 | -0.120197044335 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.2
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_0.2 | 0.534555561679 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.2
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.2
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_0.4 | 0.210837438424 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.4
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_0.4 | 0.272269989338 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.4
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_0.4 | 0.235467980296 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.4
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_0.4 | 0.218833370258 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.4
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.4
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_0.8 | 0.509359605911 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.8
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_0.8 | 0.00476993598594 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.8
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_0.8 | 0.514778325123 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.8
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_0.8 | 0.00427248197403 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.8
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=0.8
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_1.0 | 0.309359605911 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=1.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_1.0 | 0.102465834976 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=1.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_1.0 | 0.326108374384 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=1.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_1.0 | 0.084265628457 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=1.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=1.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_2.0 | 0.431034482759 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=2.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_2.0 | 0.0195741571247 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=2.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_2.0 | 0.469458128079 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=2.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_2.0 | 0.0101906469297 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=2.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=2.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_4.0 | 0.252216748768 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=4.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_4.0 | 0.186854229428 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=4.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_4.0 | 0.283251231527 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=4.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_4.0 | 0.136501593736 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=4.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=4.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_8.0 | 0.209359605911 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=8.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_8.0 | 0.27572260001 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=8.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_8.0 | 0.241871921182 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=8.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_8.0 | 0.20619579492 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=8.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=8.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_10.0 | 0.269458128079 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=10.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_10.0 | 0.157493978138 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=10.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | rho_eps_10.0 | 0.306896551724 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=10.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | p_eps_10.0 | 0.105373400663 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=10.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_auc, epsilon=10.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_0.1 | -0.198127180298 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.1
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_0.1 | 0.302881488933 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.1
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_0.1 | -0.163074271467 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.1
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_0.1 | 0.397981209975 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.1
 rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.1
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_0.2 | -0.00443404363506 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.2
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_0.2 | 0.981787649386 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.2
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_0.2 | 0.0172435030252 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.2
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_0.2 | 0.929256053977 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.2
 rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.2
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_0.4 | 0.124399557539 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.4
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_0.4 | 0.520256880564 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.4
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_0.4 | 0.119719178147 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.4
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_0.4 | 0.536193214729 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.4
 rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.4
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_0.8 | 0.165024630542 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.8
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_0.8 | 0.392284609406 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.8
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_0.8 | 0.115270935961 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.8
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_0.8 | 0.551550637986 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.8
 rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=0.8
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_1.0 | 0.0591133004926 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=1.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_1.0 | 0.760671883505 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=1.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_1.0 | -0.0975369458128 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=1.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_1.0 | 0.614717466298 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=1.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=1.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_2.0 | 0.0142857142857 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=2.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_2.0 | 0.941368044217 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=2.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_2.0 | 0.051724137931 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=2.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_2.0 | 0.789878107335 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=2.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=2.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_4.0 | 0.163054187192 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=4.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_4.0 | 0.398040115448 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=4.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_4.0 | 0.0935960591133 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=4.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_4.0 | 0.629151319273 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=4.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=4.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_8.0 | 0.0448275862069 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=8.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_8.0 | 0.817391654142 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=8.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_8.0 | 0.0285714285714 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=8.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_8.0 | 0.883034433731 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=8.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=8.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_10.0 | 0.156157635468 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=10.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_10.0 | 0.418558465178 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=10.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | rho_eps_10.0 | 0.0182266009852 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=10.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | p_eps_10.0 | 0.925233608056 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=10.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/shokri_auc | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=shokri_auc, epsilon=10.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_0.1 | 0.616256157635 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_0.1 | 0.00037158642459 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_0.1 | 0.614285714286 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_0.1 | 0.000392755750374 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.1
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_0.2 | 0.638916256158 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_0.2 | 0.000191157822735 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_0.2 | 0.630541871921 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_0.2 | 0.0002458703343 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.2
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_0.4 | 0.368271957468 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_0.4 | 0.0493359686034 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_0.4 | 0.367286614438 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_0.4 | 0.0499940046368 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.4
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_0.8 | 0.550246305419 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_0.8 | 0.00198419261773 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_0.8 | 0.585714285714 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_0.8 | 0.000843188143967 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=0.8
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_1.0 | 0.555172413793 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_1.0 | 0.0017717461899 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_1.0 | 0.537931034483 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_1.0 | 0.00261413070827 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=1.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_2.0 | 0.379802955665 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_2.0 | 0.0421332467409 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_2.0 | 0.366009852217 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_2.0 | 0.0508569542997 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=2.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_4.0 | 0.387684729064 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_4.0 | 0.0377120926547 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_4.0 | 0.395073891626 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_4.0 | 0.0339128925486 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=4.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_8.0 | 0.254187192118 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_8.0 | 0.18331857708 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_8.0 | 0.306403940887 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_8.0 | 0.105962247369 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=8.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_10.0 | 0.208646386605 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
-rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_10.0 | 0.277398902591 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | rho_eps_10.0 | 0.232540955083 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
+rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | p_eps_10.0 | 0.224780625129 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
 rho_by_epsilon | robustness_excluded_near_majority/AL/lira_tpr_at_1pct | n | 29 | analysis/correlation_stats/rho_by_epsilon.csv | subset=robustness_excluded_near_majority, al_definition=AL, metric=lira_tpr_at_1pct, epsilon=10.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_0.1 | 0.0291434927697 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.1
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_0.1 | 0.878496888105 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.1
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_0.1 | 0.0215795328142 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.1
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_0.1 | 0.909882628066 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.1
 rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.1
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_0.2 | -0.0349276974416 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.2
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_0.2 | 0.854614740288 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.2
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_0.2 | -0.126585094549 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.2
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_0.2 | 0.505050940462 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.2
 rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.2
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_0.4 | 0.0171301446051 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.4
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_0.4 | 0.928410176528 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.4
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_0.4 | -0.186651835373 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.4
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_0.4 | 0.323344440158 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.4
 rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.4
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_0.8 | 0.00289306792574 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.8
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_0.8 | 0.987894432601 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.8
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_0.8 | -0.0195816649263 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.8
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_0.8 | 0.918196729491 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.8
 rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=0.8
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_1.0 | -0.239875395347 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=1.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_1.0 | 0.201686325373 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=1.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_1.0 | -0.179350249211 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=1.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_1.0 | 0.342966351138 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=1.0
 rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=1.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_2.0 | 0.153794807135 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=2.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_2.0 | 0.417124741067 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=2.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_2.0 | 0.141776110196 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=2.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_2.0 | 0.454863965473 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=2.0
 rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=2.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_4.0 | -0.137769877883 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=4.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_4.0 | 0.4678352516 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=4.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_4.0 | -0.109281114766 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=4.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_4.0 | 0.565392869492 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=4.0
 rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=4.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_8.0 | 0.00957044385937 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=8.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_8.0 | 0.959968487427 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=8.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_8.0 | 0.0518584516101 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=8.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_8.0 | 0.785503497607 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=8.0
 rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=8.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_10.0 | -0.0122412654015 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=10.0
-rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_10.0 | 0.948809822085 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=10.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | rho_eps_10.0 | 0.0385043438993 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=10.0
+rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | p_eps_10.0 | 0.839908679119 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=10.0
 rho_by_epsilon | all_pairs/AL_balanced/yeom_advantage | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=yeom_advantage, epsilon=10.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_0.1 | -0.100333704116 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.1
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_0.1 | 0.59782320577 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.1
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_0.1 | -0.101223581758 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.1
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_0.1 | 0.594562300471 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.1
 rho_by_epsilon | all_pairs/AL_balanced/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.1
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_0.2 | -0.0843159065628 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.2
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_0.2 | 0.657777165122 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.2
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_0.2 | -0.0825361512792 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.2
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_0.2 | 0.664578114151 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.2
 rho_by_epsilon | all_pairs/AL_balanced/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.2
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_0.4 | 0.192880978865 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.4
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_0.4 | 0.307163491878 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.4
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_0.4 | 0.242714126808 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.4
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_0.4 | 0.196240137749 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.4
 rho_by_epsilon | all_pairs/AL_balanced/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.4
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_0.8 | 0.561290322581 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.8
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_0.8 | 0.00125076982474 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.8
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_0.8 | 0.584427141268 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.8
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_0.8 | 0.000695700224024 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.8
 rho_by_epsilon | all_pairs/AL_balanced/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=0.8
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_1.0 | 0.406896551724 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=1.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_1.0 | 0.0256465659515 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=1.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_1.0 | 0.451390433815 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=1.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_1.0 | 0.0122870788856 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=1.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=1.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_2.0 | 0.419799777531 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=2.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_2.0 | 0.0209161662575 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=2.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_2.0 | 0.464738598443 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=2.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_2.0 | 0.0096685961001 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=2.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=2.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_4.0 | 0.212013348165 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=4.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_4.0 | 0.26069627529 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=4.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_4.0 | 0.245383759733 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=4.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_4.0 | 0.191212076476 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=4.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=4.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_8.0 | 0.193325917686 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=8.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_8.0 | 0.306027461227 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=8.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_8.0 | 0.244493882091 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=8.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_8.0 | 0.192878037162 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=8.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=8.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_10.0 | 0.260956618465 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=10.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_10.0 | 0.163663374426 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=10.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | rho_eps_10.0 | 0.321023359288 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=10.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_auc | p_eps_10.0 | 0.0836800072526 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=10.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_auc, epsilon=10.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_0.1 | -0.146672616356 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.1
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_0.1 | 0.439273921282 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.1
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_0.1 | -0.0618533767316 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.1
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_0.1 | 0.745407770286 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.1
 rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.1
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_0.2 | -0.00222494160905 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.2
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_0.2 | 0.990689959449 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.2
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_0.2 | 0.0088997664362 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.2
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_0.2 | 0.962771817329 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.2
 rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.2
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_0.4 | 0.105907220591 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.4
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_0.4 | 0.577527585421 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.4
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_0.4 | 0.103904773143 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.4
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_0.4 | 0.584784027228 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.4
 rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.4
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_0.8 | 0.188431590656 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.8
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_0.8 | 0.318668685999 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.8
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_0.8 | 0.0669632925473 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.8
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_0.8 | 0.725150783056 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.8
 rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=0.8
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_1.0 | 0.07319243604 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=1.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_1.0 | 0.70070184549 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=1.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_1.0 | -0.0549499443826 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=1.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_1.0 | 0.773038811339 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=1.0
 rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=1.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_2.0 | 0.0411568409344 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=2.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_2.0 | 0.829036166888 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=2.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_2.0 | 0.0771968854283 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=2.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_2.0 | 0.685136273456 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=2.0
 rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=2.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_4.0 | 0.219132369299 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=4.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_4.0 | 0.244648912179 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=4.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_4.0 | 0.168409343715 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=4.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_4.0 | 0.373681331649 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=4.0
 rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=4.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_8.0 | 0.073637374861 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=8.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_8.0 | 0.698966321602 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=8.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_8.0 | 0.0927697441602 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=8.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_8.0 | 0.625844736692 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=8.0
 rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=8.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_10.0 | 0.193325917686 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=10.0
-rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_10.0 | 0.306027461227 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=10.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | rho_eps_10.0 | 0.0611790878754 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=10.0
+rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | p_eps_10.0 | 0.748093623798 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=10.0
 rho_by_epsilon | all_pairs/AL_balanced/shokri_auc | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=shokri_auc, epsilon=10.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_0.1 | 0.666295884316 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.1
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_0.1 | 5.83140826011e-05 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.1
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_0.1 | 0.650278086763 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.1
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_0.1 | 0.000100300275949 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.1
 rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.1
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_0.2 | 0.66852057842 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.2
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_0.2 | 5.39450628955e-05 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.2
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_0.2 | 0.6680756396 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.2
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_0.2 | 5.47946864154e-05 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.2
 rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.2
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_0.4 | 0.391367229032 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.4
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_0.4 | 0.0324631189197 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.4
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_0.4 | 0.41294916264 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.4
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_0.4 | 0.023329072102 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.4
 rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.4
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_0.8 | 0.602224694105 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.8
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_0.8 | 0.00042967106606 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.8
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_0.8 | 0.641379310345 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.8
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_0.8 | 0.000133779808015 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.8
 rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=0.8
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_1.0 | 0.579977753059 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=1.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_1.0 | 0.000781416861655 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=1.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_1.0 | 0.563070077864 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=1.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_1.0 | 0.00119739095188 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=1.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=1.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_2.0 | 0.422914349277 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=2.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_2.0 | 0.0198892291751 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=2.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_2.0 | 0.418464961068 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=2.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_2.0 | 0.0213694488837 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=2.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=2.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_4.0 | 0.374416017798 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=4.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_4.0 | 0.0415054829778 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=4.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_4.0 | 0.396218020022 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=4.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_4.0 | 0.0301924628622 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=4.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=4.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_8.0 | 0.257842046719 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=8.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_8.0 | 0.168932789897 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=8.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_8.0 | 0.312569521691 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=8.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_8.0 | 0.0926264994616 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=8.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=8.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_10.0 | 0.255868285041 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=10.0
-rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_10.0 | 0.172333749064 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=10.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | rho_eps_10.0 | 0.294359774877 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=10.0
+rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | p_eps_10.0 | 0.114340704606 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=10.0
 rho_by_epsilon | all_pairs/AL_balanced/lira_tpr_at_1pct | n | 30 | analysis/correlation_stats/rho_by_epsilon.csv | subset=all_pairs, al_definition=AL_balanced, metric=lira_tpr_at_1pct, epsilon=10.0
 within_pair_correlations | yeom_advantage | n_pairs_total | 30 | analysis/within_pair/summary.csv | metric=yeom_advantage
 within_pair_correlations | yeom_advantage | n_computable | 30 | analysis/within_pair/summary.csv | metric=yeom_advantage
 within_pair_correlations | yeom_advantage | n_undefined | 0 | analysis/within_pair/summary.csv | metric=yeom_advantage
-within_pair_correlations | yeom_advantage | median_rho | 0.133937711426 | analysis/within_pair/summary.csv | metric=yeom_advantage
-within_pair_correlations | yeom_advantage | iqr_q1 | -0.60997754219 | analysis/within_pair/summary.csv | metric=yeom_advantage
-within_pair_correlations | yeom_advantage | iqr_q3 | 0.475 | analysis/within_pair/summary.csv | metric=yeom_advantage
+within_pair_correlations | yeom_advantage | median_rho | 0.0920510149631 | analysis/within_pair/summary.csv | metric=yeom_advantage
+within_pair_correlations | yeom_advantage | iqr_q1 | -0.54695304096 | analysis/within_pair/summary.csv | metric=yeom_advantage
+within_pair_correlations | yeom_advantage | iqr_q3 | 0.541666666667 | analysis/within_pair/summary.csv | metric=yeom_advantage
 within_pair_correlations | yeom_advantage | min_rho | -1 | analysis/within_pair/summary.csv | metric=yeom_advantage
-within_pair_correlations | yeom_advantage | max_rho | 0.90520381097 | analysis/within_pair/summary.csv | metric=yeom_advantage
-within_pair_correlations | yeom_advantage | n_significant_p05 | 10 | analysis/within_pair/summary.csv | metric=yeom_advantage
+within_pair_correlations | yeom_advantage | max_rho | 0.933333333333 | analysis/within_pair/summary.csv | metric=yeom_advantage
+within_pair_correlations | yeom_advantage | n_significant_p05 | 12 | analysis/within_pair/summary.csv | metric=yeom_advantage
 within_pair_correlations | yeom_advantage | n_significant_negative | 7 | analysis/within_pair/summary.csv | metric=yeom_advantage
-within_pair_correlations | yeom_advantage | n_significant_positive | 3 | analysis/within_pair/summary.csv | metric=yeom_advantage
+within_pair_correlations | yeom_advantage | n_significant_positive | 5 | analysis/within_pair/summary.csv | metric=yeom_advantage
 within_pair_correlations | lira_auc | n_pairs_total | 30 | analysis/within_pair/summary.csv | metric=lira_auc
 within_pair_correlations | lira_auc | n_computable | 30 | analysis/within_pair/summary.csv | metric=lira_auc
 within_pair_correlations | lira_auc | n_undefined | 0 | analysis/within_pair/summary.csv | metric=lira_auc
-within_pair_correlations | lira_auc | median_rho | -0.216666666667 | analysis/within_pair/summary.csv | metric=lira_auc
-within_pair_correlations | lira_auc | iqr_q1 | -0.7 | analysis/within_pair/summary.csv | metric=lira_auc
-within_pair_correlations | lira_auc | iqr_q3 | 0.135512753741 | analysis/within_pair/summary.csv | metric=lira_auc
+within_pair_correlations | lira_auc | median_rho | -0.208333333333 | analysis/within_pair/summary.csv | metric=lira_auc
+within_pair_correlations | lira_auc | iqr_q1 | -0.822885725314 | analysis/within_pair/summary.csv | metric=lira_auc
+within_pair_correlations | lira_auc | iqr_q3 | 0.1625 | analysis/within_pair/summary.csv | metric=lira_auc
 within_pair_correlations | lira_auc | min_rho | -1 | analysis/within_pair/summary.csv | metric=lira_auc
 within_pair_correlations | lira_auc | max_rho | 0.916666666667 | analysis/within_pair/summary.csv | metric=lira_auc
-within_pair_correlations | lira_auc | n_significant_p05 | 10 | analysis/within_pair/summary.csv | metric=lira_auc
-within_pair_correlations | lira_auc | n_significant_negative | 8 | analysis/within_pair/summary.csv | metric=lira_auc
+within_pair_correlations | lira_auc | n_significant_p05 | 13 | analysis/within_pair/summary.csv | metric=lira_auc
+within_pair_correlations | lira_auc | n_significant_negative | 11 | analysis/within_pair/summary.csv | metric=lira_auc
 within_pair_correlations | lira_auc | n_significant_positive | 2 | analysis/within_pair/summary.csv | metric=lira_auc
 within_pair_correlations | shokri_auc | n_pairs_total | 30 | analysis/within_pair/summary.csv | metric=shokri_auc
 within_pair_correlations | shokri_auc | n_computable | 29 | analysis/within_pair/summary.csv | metric=shokri_auc
 within_pair_correlations | shokri_auc | n_undefined | 1 | analysis/within_pair/summary.csv | metric=shokri_auc
-within_pair_correlations | shokri_auc | median_rho | -0.0508547627716 | analysis/within_pair/summary.csv | metric=shokri_auc
+within_pair_correlations | shokri_auc | median_rho | 0.0666666666667 | analysis/within_pair/summary.csv | metric=shokri_auc
 within_pair_correlations | shokri_auc | iqr_q1 | -0.433333333333 | analysis/within_pair/summary.csv | metric=shokri_auc
 within_pair_correlations | shokri_auc | iqr_q3 | 0.288176989039 | analysis/within_pair/summary.csv | metric=shokri_auc
 within_pair_correlations | shokri_auc | min_rho | -0.949288905069 | analysis/within_pair/summary.csv | metric=shokri_auc
 within_pair_correlations | shokri_auc | max_rho | 0.678063503621 | analysis/within_pair/summary.csv | metric=shokri_auc
-within_pair_correlations | shokri_auc | n_significant_p05 | 4 | analysis/within_pair/summary.csv | metric=shokri_auc
-within_pair_correlations | shokri_auc | n_significant_negative | 3 | analysis/within_pair/summary.csv | metric=shokri_auc
+within_pair_correlations | shokri_auc | n_significant_p05 | 3 | analysis/within_pair/summary.csv | metric=shokri_auc
+within_pair_correlations | shokri_auc | n_significant_negative | 2 | analysis/within_pair/summary.csv | metric=shokri_auc
 within_pair_correlations | shokri_auc | n_significant_positive | 1 | analysis/within_pair/summary.csv | metric=shokri_auc
 within_pair_correlations | lira_tpr_at_1pct | n_pairs_total | 30 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
 within_pair_correlations | lira_tpr_at_1pct | n_computable | 30 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
 within_pair_correlations | lira_tpr_at_1pct | n_undefined | 0 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
 within_pair_correlations | lira_tpr_at_1pct | median_rho | 0.00406162464986 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
-within_pair_correlations | lira_tpr_at_1pct | iqr_q1 | -0.34337395173 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
+within_pair_correlations | lira_tpr_at_1pct | iqr_q1 | -0.376053901032 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
 within_pair_correlations | lira_tpr_at_1pct | iqr_q3 | 0.491076269705 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
-within_pair_correlations | lira_tpr_at_1pct | min_rho | -0.903696114115 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
+within_pair_correlations | lira_tpr_at_1pct | min_rho | -0.928878423719 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
 within_pair_correlations | lira_tpr_at_1pct | max_rho | 0.95 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
-within_pair_correlations | lira_tpr_at_1pct | n_significant_p05 | 7 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
-within_pair_correlations | lira_tpr_at_1pct | n_significant_negative | 3 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
+within_pair_correlations | lira_tpr_at_1pct | n_significant_p05 | 9 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
+within_pair_correlations | lira_tpr_at_1pct | n_significant_negative | 5 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
 within_pair_correlations | lira_tpr_at_1pct | n_significant_positive | 4 | analysis/within_pair/summary.csv | metric=lira_tpr_at_1pct
 within_pair_correlations | all | n_epsilons_per_pair | 9 | analysis/within_pair/pair_correlations.csv | column 'n'
 bound_violations | all | row set | 41 of 270 DP configs | Attack/LiRA/results/*/*_lira_results.csv | variant=dp and tpr_at_1pct > exp(eps)*0.01
@@ -1865,8 +1865,8 @@ config_inventory | Gallstone/GNB | train_time_std | 0.00019665402112 | Results/d
 config_inventory | Gallstone/SVM | source_std_report | GALLSTONE/SVM/output/std_svm_report.json | filesystem glob | GALLSTONE/SVM/**/std_*_report.json
 config_inventory | Gallstone/SVM | source_dp_report | GALLSTONE/SVM/output/dp_svm_report.json | filesystem glob | GALLSTONE/SVM/**/dp_*_report.json
 config_inventory | Gallstone/SVM | std_train_time_s | 0.00521766699967 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Gallstone, model=DP-SVM
-config_inventory | Gallstone/SVM | train_time_mean | 0.000589941767005 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
-config_inventory | Gallstone/SVM | train_time_std | 6.96785110889e-05 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Gallstone/SVM | train_time_mean | 0.000610049899979 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Gallstone/SVM | train_time_std | 0.000294615758372 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Gallstone/DNN | source_std_report | GALLSTONE/DNN/output/std_dnn_report.json | filesystem glob | GALLSTONE/DNN/**/std_*_report.json
 config_inventory | Gallstone/DNN | source_dp_report | GALLSTONE/DNN/output/dp_dnn_report.json | filesystem glob | GALLSTONE/DNN/**/dp_*_report.json
 config_inventory | Gallstone/DNN | std_train_time_s | 0.142544025033 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Gallstone, model=DP-DNN
@@ -1890,8 +1890,8 @@ config_inventory | Breast Cancer/GNB | train_time_std | 0.000124683720251 | Resu
 config_inventory | Breast Cancer/SVM | source_std_report | BCP/SVM/output/std_svm_report.json | filesystem glob | BCP/SVM/**/std_*_report.json
 config_inventory | Breast Cancer/SVM | source_dp_report | BCP/SVM/output/dp_svm_report.json | filesystem glob | BCP/SVM/**/dp_*_report.json
 config_inventory | Breast Cancer/SVM | std_train_time_s | 0.00352018059881 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Breast Cancer, model=DP-SVM
-config_inventory | Breast Cancer/SVM | train_time_mean | 0.000911019433503 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
-config_inventory | Breast Cancer/SVM | train_time_std | 0.000117234165426 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Breast Cancer/SVM | train_time_mean | 0.00087775839999 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Breast Cancer/SVM | train_time_std | 0.000521181157208 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Breast Cancer/DNN | source_std_report | BCP/DNN/output/std_dnn_report.json | filesystem glob | BCP/DNN/**/std_*_report.json
 config_inventory | Breast Cancer/DNN | source_dp_report | BCP/DNN/output/dp_dnn_report.json | filesystem glob | BCP/DNN/**/dp_*_report.json
 config_inventory | Breast Cancer/DNN | std_train_time_s | 0.189789798634 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Breast Cancer, model=DP-DNN
@@ -1915,8 +1915,8 @@ config_inventory | Cancer Risk/GNB | train_time_std | 4.04204328752e-05 | Result
 config_inventory | Cancer Risk/SVM | source_std_report | CANCER_RISK/SVM/output/std_svm_report.json | filesystem glob | CANCER_RISK/SVM/**/std_*_report.json
 config_inventory | Cancer Risk/SVM | source_dp_report | CANCER_RISK/SVM/output/dp_svm_report.json | filesystem glob | CANCER_RISK/SVM/**/dp_*_report.json
 config_inventory | Cancer Risk/SVM | std_train_time_s | 0.0357240839949 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Cancer Risk, model=DP-SVM
-config_inventory | Cancer Risk/SVM | train_time_mean | 0.000765338933464 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
-config_inventory | Cancer Risk/SVM | train_time_std | 8.85832200809e-05 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Cancer Risk/SVM | train_time_mean | 0.000816473666646 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Cancer Risk/SVM | train_time_std | 0.000305822625614 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Cancer Risk/DNN | source_std_report | CANCER_RISK/DNN/output/std_dnn_report.json | filesystem glob | CANCER_RISK/DNN/**/std_*_report.json
 config_inventory | Cancer Risk/DNN | source_dp_report | CANCER_RISK/DNN/output/dp_dnn_report.json | filesystem glob | CANCER_RISK/DNN/**/dp_*_report.json
 config_inventory | Cancer Risk/DNN | std_train_time_s | 0.503311251435 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Cancer Risk, model=DP-DNN
@@ -1940,8 +1940,8 @@ config_inventory | Kidney Stone/GNB | train_time_std | 8.0859763613e-05 | Result
 config_inventory | Kidney Stone/SVM | source_std_report | KIDNEY_STONE/SVM/output/std_svm_report.json | filesystem glob | KIDNEY_STONE/SVM/**/std_*_report.json
 config_inventory | Kidney Stone/SVM | source_dp_report | KIDNEY_STONE/SVM/output/dp_svm_report.json | filesystem glob | KIDNEY_STONE/SVM/**/dp_*_report.json
 config_inventory | Kidney Stone/SVM | std_train_time_s | 0.186989084003 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Kidney Stone, model=DP-SVM
-config_inventory | Kidney Stone/SVM | train_time_mean | 0.00210084299906 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
-config_inventory | Kidney Stone/SVM | train_time_std | 0.000228883550885 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Kidney Stone/SVM | train_time_mean | 0.00182093333334 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Kidney Stone/SVM | train_time_std | 0.000614664272054 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Kidney Stone/DNN | source_std_report | KIDNEY_STONE/DNN/output/std_dnn_report.json | filesystem glob | KIDNEY_STONE/DNN/**/std_*_report.json
 config_inventory | Kidney Stone/DNN | source_dp_report | KIDNEY_STONE/DNN/output/dp_dnn_report.json | filesystem glob | KIDNEY_STONE/DNN/**/dp_*_report.json
 config_inventory | Kidney Stone/DNN | std_train_time_s | 1.20927071251 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Kidney Stone, model=DP-DNN
@@ -1965,8 +1965,8 @@ config_inventory | Lung Cancer/GNB | train_time_std | 0.000502831434217 | Result
 config_inventory | Lung Cancer/SVM | source_std_report | LUNG_CANCER/SVM/output/std_svm_report.json | filesystem glob | LUNG_CANCER/SVM/**/std_*_report.json
 config_inventory | Lung Cancer/SVM | source_dp_report | LUNG_CANCER/SVM/output/dp_svm_report.json | filesystem glob | LUNG_CANCER/SVM/**/dp_*_report.json
 config_inventory | Lung Cancer/SVM | std_train_time_s | 0.433801166015 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Lung Cancer, model=DP-SVM
-config_inventory | Lung Cancer/SVM | train_time_mean | 0.0582275152337 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
-config_inventory | Lung Cancer/SVM | train_time_std | 0.0014939198431 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Lung Cancer/SVM | train_time_mean | 0.0548833861666 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Lung Cancer/SVM | train_time_std | 0.0017975661191 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Lung Cancer/DNN | source_std_report | LUNG_CANCER/DNN/output/std_dnn_report.json | filesystem glob | LUNG_CANCER/DNN/**/std_*_report.json
 config_inventory | Lung Cancer/DNN | source_dp_report | LUNG_CANCER/DNN/output/dp_dnn_report.json | filesystem glob | LUNG_CANCER/DNN/**/dp_*_report.json
 config_inventory | Lung Cancer/DNN | std_train_time_s | 5.6570836584 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Lung Cancer, model=DP-DNN
@@ -1990,8 +1990,8 @@ config_inventory | Diabetes/GNB | train_time_std | 0.000104876164305 | Results/d
 config_inventory | Diabetes/SVM | source_std_report | DIABETES/SVM/output/std_svm_report.json | filesystem glob | DIABETES/SVM/**/std_*_report.json
 config_inventory | Diabetes/SVM | source_dp_report | DIABETES/SVM/output/dp_svm_report.json | filesystem glob | DIABETES/SVM/**/dp_*_report.json
 config_inventory | Diabetes/SVM | std_train_time_s | 140.315896125 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Diabetes, model=DP-SVM
-config_inventory | Diabetes/SVM | train_time_mean | 0.0227495360358 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
-config_inventory | Diabetes/SVM | train_time_std | 0.000407366611682 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Diabetes/SVM | train_time_mean | 0.0237101972667 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Diabetes/SVM | train_time_std | 0.00106420904466 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Diabetes/DNN | source_std_report | DIABETES/DNN/output/std_dnn_report.json | filesystem glob | DIABETES/DNN/**/std_*_report.json
 config_inventory | Diabetes/DNN | source_dp_report | DIABETES/DNN/output/dp_dnn_report.json | filesystem glob | DIABETES/DNN/**/dp_*_report.json
 config_inventory | Diabetes/DNN | std_train_time_s | 6.0675743874 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Diabetes, model=DP-DNN
@@ -2002,17 +2002,17 @@ global | DP utility rows without n_runs | count | 36 | Results/dataset_results/c
 d16_correlations | L4  yeom_adv_base vs lira_auc_base | rho | 0.601779755284 | analysis/figures/figure_input.csv | spearmanr(yeom_adv_base, lira_auc_base), n=30
 d16_correlations | L4  yeom_adv_base vs lira_auc_base | p | 0.000435029196584 | analysis/figures/figure_input.csv | spearmanr(yeom_adv_base, lira_auc_base)
 d16_correlations | L4  yeom_adv_base vs lira_auc_base | n | 30 | analysis/figures/figure_input.csv | len of non-null yeom_adv_base/lira_auc_base
-d16_correlations | RQ1c ACL vs tpr1_dp | rho | 0.557285873192 | analysis/figures/figure_input.csv | spearmanr(ACL, tpr1_dp), n=30
-d16_correlations | RQ1c ACL vs tpr1_dp | p | 0.00137851628966 | analysis/figures/figure_input.csv | spearmanr(ACL, tpr1_dp)
+d16_correlations | RQ1c ACL vs tpr1_dp | rho | 0.537263626251 | analysis/figures/figure_input.csv | spearmanr(ACL, tpr1_dp), n=30
+d16_correlations | RQ1c ACL vs tpr1_dp | p | 0.00220240967253 | analysis/figures/figure_input.csv | spearmanr(ACL, tpr1_dp)
 d16_correlations | RQ1c ACL vs tpr1_dp | n | 30 | analysis/figures/figure_input.csv | len of non-null ACL/tpr1_dp
-d16_correlations | RQ1c ACL_exported vs tpr1_dp | rho | 0.469632925473 | analysis/figures/figure_input.csv | spearmanr(ACL_exported, tpr1_dp), n=30
-d16_correlations | RQ1c ACL_exported vs tpr1_dp | p | 0.00883451271952 | analysis/figures/figure_input.csv | spearmanr(ACL_exported, tpr1_dp)
+d16_correlations | RQ1c ACL_exported vs tpr1_dp | rho | 0.448275862069 | analysis/figures/figure_input.csv | spearmanr(ACL_exported, tpr1_dp), n=30
+d16_correlations | RQ1c ACL_exported vs tpr1_dp | p | 0.0129767332864 | analysis/figures/figure_input.csv | spearmanr(ACL_exported, tpr1_dp)
 d16_correlations | RQ1c ACL_exported vs tpr1_dp | n | 30 | analysis/figures/figure_input.csv | len of non-null ACL_exported/tpr1_dp
 d16_correlations | RQ2a tpr1_base vs reduction | rho | 0.907897664071 | analysis/figures/figure_input.csv | spearmanr(tpr1_base, reduction), n=30
 d16_correlations | RQ2a tpr1_base vs reduction | p | 4.37492419595e-12 | analysis/figures/figure_input.csv | spearmanr(tpr1_base, reduction)
 d16_correlations | RQ2a tpr1_base vs reduction | n | 30 | analysis/figures/figure_input.csv | len of non-null tpr1_base/reduction
-d16_correlations | RQ2b tpr1_base vs tpr1_dp | rho | 0.493214682981 | analysis/figures/figure_input.csv | spearmanr(tpr1_base, tpr1_dp), n=30
-d16_correlations | RQ2b tpr1_base vs tpr1_dp | p | 0.00561541983779 | analysis/figures/figure_input.csv | spearmanr(tpr1_base, tpr1_dp)
+d16_correlations | RQ2b tpr1_base vs tpr1_dp | rho | 0.486985539488 | analysis/figures/figure_input.csv | spearmanr(tpr1_base, tpr1_dp), n=30
+d16_correlations | RQ2b tpr1_base vs tpr1_dp | p | 0.00634880747941 | analysis/figures/figure_input.csv | spearmanr(tpr1_base, tpr1_dp)
 d16_correlations | RQ2b tpr1_base vs tpr1_dp | n | 30 | analysis/figures/figure_input.csv | len of non-null tpr1_base/tpr1_dp
 d16_correlations | L6  n_samples vs std-RF tpr1_base | rho | -0.885714285714 | analysis/figures/figure_input.csv | spearmanr(n_samples, tpr1_base), n=6
 d16_correlations | L6  n_samples vs std-RF tpr1_base | p | 0.0188454810496 | analysis/figures/figure_input.csv | spearmanr(n_samples, tpr1_base)

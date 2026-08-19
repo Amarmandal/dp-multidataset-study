@@ -13,32 +13,32 @@ Dataset & Model & DP mechanism & Batch size & Non-private time (s) & DP time (s)
 Gallstone & DP-RF & Exponential mechanism (split selection), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0343 & 0.0202 & 0.0055 \\
 Gallstone & DP-LR & Objective perturbation (diffprivlib), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0024 & 0.0006 & 0.0001 \\
 Gallstone & DP-GNB & Laplace perturbation of sufficient statistics, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0006 & 0.0088 & 0.0002 \\
-Gallstone & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0052 & 0.0006 & 0.0001 \\
+Gallstone & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0052 & 0.0006 & 0.0003 \\
 Gallstone & DP-DNN & DP-SGD (Opacus), Gaussian mechanism, ($\varepsilon$, $\delta$)-DP [report: DP-SGD (Opacus)] & STD=32; DP=31 & 0.1425 & 0.2986 & 0.0010 \\
 Breast Cancer & DP-RF & Exponential mechanism (split selection), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0183 & 0.0193 & 0.0042 \\
 Breast Cancer & DP-LR & Objective perturbation (diffprivlib), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0020 & 0.0009 & 0.0002 \\
 Breast Cancer & DP-GNB & Laplace perturbation of sufficient statistics, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0002 & 0.0063 & 0.0001 \\
-Breast Cancer & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0035 & 0.0009 & 0.0001 \\
+Breast Cancer & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0035 & 0.0009 & 0.0005 \\
 Breast Cancer & DP-DNN & DP-SGD (Opacus), Gaussian mechanism, ($\varepsilon$, $\delta$)-DP [report: DP-SGD (Opacus)] & STD=32; DP=56 & 0.1898 & 3.4751 & 0.1890 \\
 Cancer Risk & DP-RF & Exponential mechanism (split selection), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0848 & 0.0220 & 0.0013 \\
 Cancer Risk & DP-LR & Objective perturbation (diffprivlib), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0023 & 0.0008 & 0.0001 \\
 Cancer Risk & DP-GNB & Laplace perturbation of sufficient statistics, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0002 & 0.0017 & 0.0000 \\
-Cancer Risk & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0357 & 0.0008 & 0.0001 \\
+Cancer Risk & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0357 & 0.0008 & 0.0003 \\
 Cancer Risk & DP-DNN & DP-SGD (Opacus), Gaussian mechanism, ($\varepsilon$, $\delta$)-DP [report: DP-SGD (Opacus)] & STD=32; DP=150 & 0.5033 & 1.0705 & 0.0134 \\
 Kidney Stone & DP-RF & Exponential mechanism (split selection), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0604 & 0.0233 & 0.0012 \\
 Kidney Stone & DP-LR & Objective perturbation (diffprivlib), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0034 & 0.0019 & 0.0002 \\
 Kidney Stone & DP-GNB & Laplace perturbation of sufficient statistics, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0003 & 0.0046 & 0.0001 \\
-Kidney Stone & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.1870 & 0.0021 & 0.0002 \\
+Kidney Stone & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.1870 & 0.0018 & 0.0006 \\
 Kidney Stone & DP-DNN & DP-SGD (Opacus), Gaussian mechanism, ($\varepsilon$, $\delta$)-DP [report: DP-SGD] & STD=32; DP=256 & 1.2093 & 1.9892 & 0.2242 \\
 Lung Cancer & DP-RF & Exponential mechanism (split selection), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0954 & 0.0462 & 0.0012 \\
 Lung Cancer & DP-LR & Objective perturbation (diffprivlib), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0643 & 0.0577 & 0.0043 \\
 Lung Cancer & DP-GNB & Laplace perturbation of sufficient statistics, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0043 & 0.0100 & 0.0005 \\
-Lung Cancer & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.4338 & 0.0582 & 0.0015 \\
+Lung Cancer & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.4338 & 0.0549 & 0.0018 \\
 Lung Cancer & DP-DNN & DP-SGD (Opacus), Gaussian mechanism, ($\varepsilon$, $\delta$)-DP & STD=256; DP=256 & 5.6571 & 12.8729 & 0.4721 \\
 Diabetes & DP-RF & Exponential mechanism (split selection), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.1091 & 0.0507 & 0.0018 \\
 Diabetes & DP-LR & Objective perturbation (diffprivlib), pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0328 & 0.0301 & 0.0032 \\
 Diabetes & DP-GNB & Laplace perturbation of sufficient statistics, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 0.0036 & 0.0076 & 0.0001 \\
-Diabetes & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 140.3159 & 0.0227 & 0.0004 \\
+Diabetes & DP-SVM & Objective perturbation, Chaudhuri et al. Alg. 2, pure $\varepsilon$-DP & n/a (not a minibatch learner) & 140.3159 & 0.0237 & 0.0011 \\
 Diabetes & DP-DNN & DP-SGD (Opacus), Gaussian mechanism, ($\varepsilon$, $\delta$)-DP [report: DP-SGD (Opacus)] & STD=256; DP=256 & 6.0676 & 20.6899 & 1.1010 \\
 \bottomrule
 \end{tabular}
