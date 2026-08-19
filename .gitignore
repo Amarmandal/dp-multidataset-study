@@ -65,6 +65,4 @@ Thumbs.db
 *.swp
 
 logs/
-!logs/
-logs/*
-!logs/tracker.md
+
