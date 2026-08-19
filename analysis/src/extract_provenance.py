@@ -114,7 +114,7 @@ NOTEBOOK_PARAMS: dict[tuple[str, str, str], tuple[str, str]] = {
         "random_state not set (diffprivlib default); n_runs=30",
         "GALLSTONE/GaussianNB/DP_GNB.ipynb"),
     ("GALLSTONE", "SVM", "dp"): (
-        "Lambda=0.01; h=0.5; normalize=True; fit_intercept=True (default); "
+        "Lambda=0.01; h=0.5; normalize=True; fit_intercept=False; "
         "random_state=run*10+42; method=Objective Perturbation (Chaudhuri et al. "
         "2011, Algorithm 2); model=DP-SVM with Huber Loss; n_runs=30",
         "GALLSTONE/SVM/DP_SVM.ipynb"),

@@ -4,6 +4,12 @@ import pytest
 from common_svm import DifferentiallyPrivateSVM
 
 
+def test_theorem_backed_default_disables_intercept():
+    svm = DifferentiallyPrivateSVM()
+
+    assert svm.fit_intercept is False
+
+
 def test_rejects_data_outside_unit_ball_without_normalization():
     X = np.array([[3.0, 4.0], [0.1, 0.2]])
     y = np.array([1, -1])

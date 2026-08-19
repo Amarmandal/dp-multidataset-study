@@ -77,7 +77,7 @@ class DifferentiallyPrivateSVM:
         epsilon=1.0,
         Lambda=0.01,
         h=0.5,
-        fit_intercept=True,
+        fit_intercept=False,
         normalize=False,
         random_state=None,
     ):
@@ -277,7 +277,7 @@ class DPSVMOneVsRest:
         epsilon=1.0,
         Lambda=0.01,
         h=0.5,
-        fit_intercept=True,
+        fit_intercept=False,
         normalize=False,
         random_state=None,
     ):
