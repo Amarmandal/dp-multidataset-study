@@ -63,3 +63,8 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+logs/
+!logs/
+logs/*
+!logs/tracker.md
