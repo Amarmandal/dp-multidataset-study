@@ -22,6 +22,8 @@
 
 # LiRA
 
+Note: DIABETES SVM used 3 workers, parallelizing DP targets by epsilon and the standard target by seed.
+
 | Dataset | Seconds |
 |---|---:|
 | GALLSTONE | Not rerun |
