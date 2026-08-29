@@ -23,6 +23,9 @@
 # LiRA
 
 Note: DIABETES SVM used 3 workers, parallelizing DP targets by epsilon and the standard target by seed.
+New reruns save every model family's wall time in
+`Attack/LiRA/results/<DATASET>/<DATASET>_lira_runtimes.csv`; update this log from
+those files after the batch completes.
 
 | Dataset | Seconds |
 |---|---:|

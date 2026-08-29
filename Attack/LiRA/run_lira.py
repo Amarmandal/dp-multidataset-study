@@ -19,6 +19,7 @@ Outputs (under Attack/LiRA/results/):
   * results/<dataset>/<dataset>_lira_results.csv   configuration summaries
   * results/<dataset>/<dataset>_lira_runs.csv      one row per attack run
   * results/<dataset>/<dataset>_lira_roc.csv.gz    reconstructible ROC curves
+  * results/<dataset>/<dataset>_lira_runtimes.csv  wall time per model family
   No JSON is written.
 
 Usage:
@@ -340,6 +341,7 @@ def run_dataset(ds, args):
     , flush=True)
     results = []
     run_records = []
+    runtime_records = []
 
     for fam in args.models:
         if fam not in em.MODEL_FAMILIES or not em.model_exists(
@@ -404,9 +406,18 @@ def run_dataset(ds, args):
                 results.append(m)
                 run_records.extend(raw_runs)
                 _print_row(fam, f"eps={eps:<4}", m)
-        print(f"  [{fam}] done in {time.time() - t0:.1f}s", flush=True)
+        elapsed = time.time() - t0
+        runtime_records.append({
+            "dataset": ds,
+            "model": fam,
+            "n_runs": len(seeds),
+            "n_shadow": args.n_shadow,
+            "workers": args.workers if ds == "DIABETES" and fam == "SVM" else 1,
+            "seconds": round(elapsed, 3),
+        })
+        print(f"  [{fam}] done in {elapsed:.1f}s", flush=True)
 
-    write_results(ds, results, run_records)
+    write_results(ds, results, run_records, runtime_records)
 
 
 def _print_row(fam, tag, m):
@@ -474,7 +485,7 @@ def _representative_roc_rows(run_records):
     return rows
 
 
-def write_results(ds, summaries, run_records):
+def write_results(ds, summaries, run_records, runtime_records):
     out = os.path.join(OUT_DIR, ds)
     os.makedirs(out, exist_ok=True)
     pd.DataFrame([_without_roc_arrays(row) for row in summaries]).to_csv(
@@ -488,7 +499,13 @@ def write_results(ds, summaries, run_records):
         index=False,
         compression="gzip",
     )
-    print(f"  -> summary, per-run, and ROC CSVs written to {out}/", flush=True)
+    pd.DataFrame(runtime_records).to_csv(
+        os.path.join(out, f"{ds}_lira_runtimes.csv"), index=False
+    )
+    print(
+        f"  -> summary, per-run, ROC, and runtime CSVs written to {out}/",
+        flush=True,
+    )
 
 # --------------------------------------------------------------------------- #
 def main():

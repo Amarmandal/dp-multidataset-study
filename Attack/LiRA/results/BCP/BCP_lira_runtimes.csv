@@ -1,0 +1,6 @@
+dataset,model,n_runs,n_shadow,workers,seconds
+BCP,LR,30,32,1,8.697
+BCP,RF,30,32,1,1487.516
+BCP,GNB,30,32,1,68.941
+BCP,SVM,30,32,1,8.746
+BCP,DNN,5,32,1,205.225

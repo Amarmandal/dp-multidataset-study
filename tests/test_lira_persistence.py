@@ -74,18 +74,28 @@ def test_write_results_separates_summary_runs_and_roc(tmp_path, monkeypatch):
         "_roc_threshold": run["_roc_threshold"],
     }
 
-    driver.write_results("TEST", [summary], [run])
+    runtimes = [{
+        "dataset": "TEST",
+        "model": "LR",
+        "n_runs": 1,
+        "n_shadow": 32,
+        "workers": 1,
+        "seconds": 1.25,
+    }]
+    driver.write_results("TEST", [summary], [run], runtimes)
 
     out = tmp_path / "TEST"
     summary_df = pd.read_csv(out / "TEST_lira_results.csv")
     runs_df = pd.read_csv(out / "TEST_lira_runs.csv")
     roc_df = pd.read_csv(out / "TEST_lira_roc.csv.gz")
+    runtime_df = pd.read_csv(out / "TEST_lira_runtimes.csv")
     assert not any(column.startswith("_roc") for column in summary_df.columns)
     assert not any(column.startswith("_roc") for column in runs_df.columns)
     assert runs_df.loc[0, "op_1pct_tp"] == 2
     assert list(roc_df["point_index"]) == [0, 1, 2]
     assert list(roc_df["fpr"]) == [0.0, 0.0, 1.0]
     assert np.isinf(roc_df.loc[0, "threshold"])
+    assert runtime_df.loc[0, "seconds"] == 1.25
 
 
 def test_attack_runners_do_not_generate_reports_or_figures():
