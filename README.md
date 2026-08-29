@@ -19,7 +19,7 @@ assuming it does.
 
 **Research questions**
 
-1. What is the relationship between accuracy loss and privacy leakage under different differential privacy budgets?
+1. What is the relationship between accuracy loss and privacy leakage under different privacy budgets?
 2. Does the privacy leakage of the non-private model predict or relate to the reduction in privacy leakage achieved by applying DP?
 
 ---
