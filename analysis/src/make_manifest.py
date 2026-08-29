@@ -104,16 +104,12 @@ FIGURES = [
 def rows() -> list[dict]:
     out = []
     for stem, items, loc, src, note in TABLES:
-        for ext, kind in (("csv", "table (CSV)"), ("tex", "table (LaTeX fragment)")):
-            extra = ("" if ext == "csv" else
-                     " MDPI booktabs fragment: \\input-able, carries "
-                     "\\label{tab:%s}, no document preamble." % stem)
-            out.append({
-                "artifact_path": f"analysis/tables/{ext}/{stem}.{ext}",
-                "type": kind, "referee_items": items,
-                "manuscript_location": loc, "source_files": src,
-                "generated_by": "analysis/src/build_tables.py",
-                "notes": note + extra})
+        out.append({
+            "artifact_path": f"analysis/tables/csv/{stem}.csv",
+            "type": "table (CSV)", "referee_items": items,
+            "manuscript_location": loc, "source_files": src,
+            "generated_by": "analysis/src/build_tables.py",
+            "notes": note})
 
     for stem, items, loc, src, note in FIGURES:
         for ext, kind in (("pdf", "figure (PDF, vector)"), ("png", "figure (PNG, 300 dpi)")):
@@ -148,7 +144,7 @@ def rows() -> list[dict]:
                        "processed_data.pkl through a restricted unpickler that "
                        "stubs every non-numpy class, so no estimator is ever "
                        "constructed. Run directly for a coverage report."),
-        "build_tables.py": "Builds all nine tables as CSV + LaTeX.",
+        "build_tables.py": "Builds all nine tables as CSV files.",
         "build_figures.py": "Builds the eight generated analysis figures.",
         "extract_provenance.py": ("Parses the report JSONs (globbed -- they sit at "
                                   "inconsistent depths) into config_inventory."),
@@ -198,7 +194,7 @@ def main() -> int:
                and r["artifact_path"] != "analysis/MANIFEST.csv"
                and r["artifact_path"] != "analysis/README.md"]
     with open(C.ANALYSIS / "MANIFEST.csv", "w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=COLUMNS)
+        w = csv.DictWriter(fh, fieldnames=COLUMNS, lineterminator="\n")
         w.writeheader()
         w.writerows(data)
     print(f"wrote MANIFEST.csv with {len(data)} rows")

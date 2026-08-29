@@ -15,7 +15,6 @@ analysis/
     correlation_stats/    full correlation tables, rho-vs-epsilon, robustness
     rq/                   RQ figure input + recorded correlations
   tables/csv/     the nine tables, as data
-  tables/tex/     the same nine, as \input-able booktabs fragments
   figures/pdf/    paper figures, vector
   figures/png/    paper figures, 300 dpi raster
   logs/           verification.txt, gaps.md
@@ -46,9 +45,10 @@ shape, not freshness. Re-run the two `prepare_*.py` scripts whenever any
 | Required | Produced by |
 |---|---|
 | `Attack/LiRA/results/<DS>/<DS>_lira_results.csv` | `Attack/LiRA/run_lira.py` |
+| `Attack/LiRA/results/<DS>/<DS>_lira_runs.csv` | `Attack/LiRA/run_lira.py` |
+| `Attack/LiRA/results/<DS>/<DS>_lira_roc.csv.gz` | `Attack/LiRA/run_lira.py` |
 | `Attack/MIA_Shokri/results/<DS>/<DS>_results.csv` | `Attack/MIA_Shokri/run_mia.py` |
 | `Attack/MIA_YEOM/results/<DS>/<DS>_mia_results.csv` | `Attack/MIA_YEOM/run_mia.py` |
-| `Attack/LiRA/results/<DS>/<DS>_loglog_roc.png` | `Attack/LiRA/run_lira.py` |
 
 `<DS>` ∈ {BCP, CANCER_RISK, DIABETES, GALLSTONE, KIDNEY_STONE, LUNG_CANCER} —
 **all six**. A partial attack run truncates these and the tables shrink silently.
@@ -72,8 +72,9 @@ imported. Only `y_train`, `y_test` and the `X` shapes are touched.
 ### 4. Ordering within this stage
 
 `build_figures.py` and `build_tables.py` consume `stats/`, so the three
-statistics scripts must run **first**. `make_roc_grid.py` needs the six
-`loglog_roc_<DS>.png` already copied into `figures/png/` by `build_figures.py`.
+statistics scripts must run **first**. `make_roc_grid.py` reads the six
+compressed LiRA ROC-coordinate CSVs directly and can run after LiRA has been
+rerun for all datasets.
 
 ---
 
@@ -91,7 +92,7 @@ uv run python correlation_statistics.py     # -> ../stats/correlation_stats/
 uv run python rq_figures.py                 # -> ../stats/rq/
 
 # --- 2. artifacts -> tables/, figures/ ---
-uv run python build_tables.py               # -> ../tables/csv/*.csv, ../tables/tex/*.tex
+uv run python build_tables.py               # -> ../tables/csv/*.csv
 uv run python verify.py                     # -> ../logs/verification.txt   (non-zero exit on failure)
 uv run python build_figures.py              # -> ../figures/pdf/*.pdf, ../figures/png/*.png
 uv run python make_roc_grid.py              # -> ../figures/{pdf,png}/loglog_roc_grid.*
@@ -137,28 +138,21 @@ supplied" (the pattern `source_url` already uses) or reverting the injection.
 | `l6_baseline_leakage_vs_N` | **Figure 13** |
 | `gap_vs_leakage` | supporting, not in the manuscript |
 | `rq1c_utility_vs_protection` | supporting — the `ACL` (30-run mean) variant of Figure 9 |
-| `loglog_roc_<DS>` ×6 | PNG only; per-dataset panels of Figure 8 |
 
 Figure 9 uses **`ACL_exported`**, not `ACL`. The attacks target the exported
 run-0 artifact, so pairing leakage against the 30-run mean would describe two
 different models. Both variants are emitted so the difference is inspectable.
 
-No in-image titles — the manuscript captions carry them. The six
-`loglog_roc_<DS>` PNGs are the only artifacts not drawn by this pipeline: they
-are unmodified copies of the LiRA figures, and they cover **non-private targets
-only**. Both facts are recorded in `logs/gaps.md`.
+No in-image titles — the manuscript captions carry them. `loglog_roc_grid` is
+drawn by this pipeline from the persisted LiRA FPR/TPR coordinates and covers
+the representative standard-target curves.
 
-### Tables — `tables/csv/<name>.csv`, `tables/tex/<name>.tex`
+### Tables — `tables/csv/<name>.csv`
 
 `dataset_characteristics` · `baseline_accuracy_matrix` ·
 `baseline_leakage_all_pairs` · `evaluation_set_sizes` · `residual_leakage_eps1` ·
 `rho_by_epsilon` · `within_pair_correlations` · `bound_violations` ·
 `config_inventory`
-
-The `.tex` files are fragments (`\begin{table}[H]` … `\end{table}`) requiring
-`booktabs` and `url`; no preamble. Where LaTeX rendering differs from the CSV
-(URL macros, significance stars), the CSV holds the plain value and the `.tex`
-the marked-up one — no value appears in one and not the other.
 
 ---
 
@@ -179,7 +173,7 @@ the marked-up one — no value appears in one and not the other.
 
 | Switch | Default | Effect |
 |---|---|---|
-| `INCLUDE_LUNG_CANCER` | `True` | When `False`, Lung Cancer drops from every table and figure and each `.tex` gains a footnote saying why. The 30-pair tables become 25-pair, and the assertion against `correlations.csv` (computed over all 30 pairs) no longer holds, so the RQ figures annotate **recomputed** statistics and say so in `gaps.md`. |
+| `INCLUDE_LUNG_CANCER` | `True` | When `False`, Lung Cancer drops from every table and figure. The 30-pair tables become 25-pair, and the assertion against `correlations.csv` (computed over all 30 pairs) no longer holds, so the RQ figures annotate **recomputed** statistics and say so in `gaps.md`. |
 | `UTILITY_LABEL` | `"ACL"` | Display label on utility axes only. Does **not** rename the `ACL` column in any CSV. |
 | `RANDOM_FPR` | `0.01` | Reference FPR for TPR@1%. Drives the chance lines, the `ci_excludes_random` flag and the `e^ε · FPR` bound in `bound_violations`. |
 

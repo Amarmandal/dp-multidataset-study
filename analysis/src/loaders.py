@@ -88,7 +88,6 @@ SHORT_TO_DIR = {"RF": "RandomForest", "LR": "LR", "GNB": "GaussianNB",
 SHORT_TO_STEM = {"RF": "rf", "LR": "lr", "GNB": "gnb", "SVM": "svm", "DNN": "dnn"}
 
 # DP mechanism per family (CLAUDE.md S4; corroborated by the report JSONs).
-# Plain text (Greek letters, no LaTeX): build_tables.py renders ε/δ as math.
 DP_MECHANISM = {
     "RF": "Exponential mechanism (split selection), pure ε-DP",
     "LR": "Objective perturbation (diffprivlib), pure ε-DP",

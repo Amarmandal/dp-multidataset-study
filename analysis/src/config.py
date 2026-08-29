@@ -16,14 +16,6 @@ INCLUDE_LUNG_CANCER = True   # flip to False to drop it from leakage tables/figu
 UTILITY_LABEL = "ACL"        # display label; do NOT rename the CSV column
 RANDOM_FPR = 0.01            # reference FPR for TPR@1%
 
-# Reason surfaced in .tex footnotes when INCLUDE_LUNG_CANCER is False.
-LUNG_CANCER_EXCLUSION_REASON = (
-    "Lung Cancer is excluded from this table: it is the only three-class dataset "
-    "in the study and its non-private targets reach 100\\% test accuracy for four "
-    "of five model families, so its leakage numbers are not comparable with the "
-    "five binary datasets."
-)
-
 # --------------------------------------------------------------------------
 # Paths
 # --------------------------------------------------------------------------
@@ -32,7 +24,6 @@ REPO = Path(__file__).resolve().parents[2]
 ANALYSIS = REPO / "analysis"
 
 TABLES_CSV = ANALYSIS / "tables" / "csv"
-TABLES_TEX = ANALYSIS / "tables" / "tex"
 FIGURES_PDF = ANALYSIS / "figures" / "pdf"
 FIGURES_PNG = ANALYSIS / "figures" / "png"
 LOGS = ANALYSIS / "logs"

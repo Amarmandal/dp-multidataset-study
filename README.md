@@ -78,7 +78,7 @@ Results/                       cross-dataset consolidation + paper figures
 analysis/                      the paper's tables and figures, + the statistics behind them
   src/                         all 13 scripts
   stats/                       intermediate correlation statistics
-  tables/csv/ tables/tex/      the nine paper tables
+  tables/csv/                 the nine paper tables
   figures/pdf/ figures/png/    the paper figures (Fig. 7-13)
   logs/                        verification.txt, gaps.md
   MANIFEST.csv                 one row per artifact, with its sources
@@ -156,11 +156,9 @@ uv run python -u Attack/MIA_Shokri/run_mia.py --datasets GALLSTONE   # ~3 min
 uv run python -u Attack/LiRA/run_lira.py      --datasets GALLSTONE   # ~50 min
 ```
 
-> ⚠️ **Two clobbering hazards.** Each runner rebuilds its output CSVs from _only_
-> the scope of that invocation. `--models DNN` **deletes** the other four families'
-> rows, and a single-dataset run truncates the cross-dataset
-> `*_comparison.csv` from 300 rows to 50. Run all five families per dataset, and
-> back up the three aggregate CSVs before a partial run.
+> ⚠️ **Scoped-output warning.** Each runner rebuilds the selected dataset's
+> authoritative result CSV from only the models in that invocation. A partial
+> `--models DNN` run therefore replaces that dataset CSV with DNN rows only.
 
 Use `python -u` — stdout is block-buffered otherwise, hiding progress for the
 entire run.
@@ -229,7 +227,7 @@ soon as the Step 3 CSVs exist — no retraining required.
 | [Results/dataset_results/consolidated_data.csv](Results/dataset_results/consolidated_data.csv)       | **the utility table** — 444 rows (414 DP + 30 baselines) × 31 cols, all 6 datasets |
 | [Results/attack_results/consolidated_mia_data.csv](Results/attack_results/consolidated_mia_data.csv) | **the leakage table** — 900 rows = 3 attacks × 300                                 |
 | `<DATASET>/<FAMILY>/output/*.csv`, `*.json`                                                          | raw per-model metrics, the input to the two tables above                           |
-| `Attack/<ATTACK>/results/*_comparison.csv`                                                           | 300 rows = 6 datasets × 50 target configs                                          |
+| `Attack/<ATTACK>/results/<DATASET>/*.csv`                                                            | authoritative per-dataset attack results; LiRA also stores run and ROC coordinates |
 | [analysis/tables/csv/](analysis/tables/csv/)                                                         | the nine paper tables, re-derived and verified                                     |
 | [analysis/figures/png/](analysis/figures/png/)                                                       | the paper figures (Fig. 7–13)                                                      |
 | [analysis/MANIFEST.csv](analysis/MANIFEST.csv)                                                       | every generated artifact and its provenance                                        |
