@@ -48,10 +48,8 @@ targets.
 ```
 MIA_YEOM/
 ├── mia.py                      # the attack itself (target-agnostic, ~90 lines)
-├── run_mia.py                  # driver: all families × all datasets + reports
-├── make_comparison_figures.py  # cross-dataset comparison figures
-├── results/                    # per-dataset JSON, CSV, figures, analysis.md
-└── comparison/                 # cross-dataset figures (created on first run)
+├── run_mia.py                  # driver: all families × all datasets
+└── results/                    # authoritative per-dataset CSV files
 ```
 
 There are **no per-family subdirectories, and none are needed.** One driver
@@ -68,8 +66,6 @@ python3 run_mia.py                          # all datasets, all families
 python3 run_mia.py --datasets KIDNEY_STONE  # one dataset
 python3 run_mia.py --models GNB RF          # subset of families
 python3 run_mia.py --quick                  # smoke test (ε ∈ {0.1, 1.0})
-
-python3 make_comparison_figures.py          # after run_mia.py, cross-dataset plots
 ```
 
 Defaults: datasets `GALLSTONE, KIDNEY_STONE, LUNG_CANCER, BCP, CANCER_RISK,
@@ -80,15 +76,10 @@ DIABETES`; families `LR, RF, GNB, SVM, DNN`; budgets ε ∈ {0.1, 0.4, 0.8, 1.0,
 
 | Path | Contents |
 |------|----------|
-| `results/<dataset>_mia.json` | full per-target metrics |
 | `results/<dataset>/<dataset>_mia_results.csv` | tidy per-target table |
-| `results/<dataset>/analysis.md` | auto-generated write-up |
-| `results/<dataset>/*.png` | advantage / AUC / bars / loss-gap figures |
-| `results/mia_comparison.csv` | tidy table across all datasets |
-| `comparison/*.png` | cross-dataset comparison figures |
 
 A single failed target is caught and recorded as an `error` row rather than
-sinking the whole run, so a partial export still produces a usable report.
+sinking the whole run, so a partial export still produces a usable CSV.
 
 ---
 

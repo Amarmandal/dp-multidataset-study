@@ -23,11 +23,9 @@ from scipy.stats import spearmanr
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt          # noqa: E402
-from PIL import Image                    # noqa: E402
 
 import config as C                       # noqa: E402
 import loaders as L                      # noqa: E402
-from build_tables import clopper_pearson  # noqa: E402
 
 # Same house style as analysis/figures_rq_figures.py, minus the titles.
 plt.rcParams.update({
@@ -265,8 +263,8 @@ def fig_residual_floor_ci() -> None:
         ax,
         "Floor estimator: median of the 30 DP residual rates\n"
         f"= {floor:.4f}, IQR [{q1:.4f}, {q3:.4f}].\n"
-        "Error bars: Clopper-Pearson exact 95% CI,\n"
-        "$n = n_{\\mathrm{members}}$, $k = \\mathrm{round}(\\mathrm{TPR}\\cdot n)$.")
+        "Error bars: 95% run-level bootstrap CI\n"
+        "from saved integer outcomes at observed ROC thresholds.")
     fig.tight_layout()
     save(fig, "residual_floor_ci")
 
@@ -414,127 +412,6 @@ def build_rq_figures() -> None:
 
 
 # ==========================================================================
-# 4. loglog_roc_<DS> -- relocate the six existing LiRA ROC PNGs         [62][78]
-# ==========================================================================
-
-def _ink_rows(im: Image.Image, threshold: int = 245) -> np.ndarray:
-    """Boolean per-row mask: True where the row contains non-background pixels."""
-    rgb = Image.new("RGB", im.size, "white")
-    rgb.paste(im, mask=im.split()[-1] if im.mode == "RGBA" else None)
-    arr = np.asarray(rgb.convert("L"))
-    return (arr < threshold).any(axis=1)
-
-
-def _ink_mask(im: Image.Image, threshold: int = 245) -> np.ndarray:
-    rgb = Image.new("RGB", im.size, "white")
-    rgb.paste(im, mask=im.split()[-1] if im.mode == "RGBA" else None)
-    return np.asarray(rgb.convert("L")) < threshold
-
-
-def crop_title(src: Image.Image) -> tuple[Image.Image | None, str]:
-    """Remove the two-line in-image title above the plot.
-
-    Anchoring on "the first band of ink" is not safe here: the title's two
-    lines are separated by only a few blank pixels, and so is the gap between
-    the second line and the topmost y-tick label, so a gap-width heuristic
-    walks straight into the plot.  Instead the axes frame is located directly
-    -- it is the first row whose ink spans most of the canvas width -- and the
-    cut is placed at the last fully blank row above everything attached to it
-    (the top spine plus the tick label that overhangs it).  That guarantees no
-    plot pixel is removed.  Returns (cropped, explanation) or (None, reason).
-    """
-    ink = _ink_mask(src)
-    rows = ink.any(axis=1)
-    h, w = ink.shape
-
-    idx = np.flatnonzero(rows)
-    if idx.size == 0:
-        return None, "image contains no ink"
-    first = int(idx[0])
-    if first > h * 0.2:
-        return None, f"first ink row at y={first} -- no title band to remove"
-
-    # Axes frame: the first row whose ink spans at least half the canvas is the
-    # top spine; the first such column is the left spine.
-    spine_rows = np.flatnonzero(ink.sum(axis=1) > 0.5 * w)
-    spine_cols = np.flatnonzero(ink.sum(axis=0) > 0.5 * h)
-    if spine_rows.size == 0 or spine_cols.size == 0:
-        return None, "no axes frame found (no row/column spans >50% of the canvas)"
-    top_spine, left_spine = int(spine_rows[0]), int(spine_cols[0])
-
-    # Walk up from the top spine through contiguous ink: the spine itself plus
-    # the topmost y-tick label, which overhangs it.
-    y = top_spine
-    while y > 0 and rows[y - 1]:
-        y -= 1
-    plot_top = y
-
-    # Nothing is ever plotted above the top spine, so any ink up there that
-    # sits well inside the axes' horizontal span is title text. If such ink
-    # shares rows with the tick label, no horizontal cut can remove the whole
-    # title without clipping the label.
-    band = ink[plot_top:top_spine, left_spine + 20:]
-    if band.any():
-        overlap_rows = plot_top + np.flatnonzero(band.any(axis=1))
-        return None, (
-            f"the title's lower line occupies rows "
-            f"{int(overlap_rows[0])}-{int(overlap_rows[-1])}, which are the same "
-            f"rows as the topmost y-axis tick label (contiguous ink from y="
-            f"{plot_top} down to the top spine at y={top_spine}). There is no "
-            f"blank row between them, so no horizontal crop removes the whole "
-            f"title without clipping the tick label")
-
-    # The last fully blank row above the plot is the cut line.
-    z = plot_top
-    while z > 0 and not rows[z - 1]:
-        z -= 1
-    blank_lo = z
-    gap_h = plot_top - blank_lo
-
-    if blank_lo <= first:
-        return None, (f"no blank gap between the title band (starting y={first}) "
-                      f"and the plot (starting y={plot_top}) -- no safe cut line")
-    if plot_top > h * 0.25:
-        return None, (f"plot content starts at y={plot_top} of {h} -- unexpected "
-                      f"layout, not cropping")
-    if gap_h < 4:
-        return None, (f"only {gap_h}px of blank space above the plot at "
-                      f"y={plot_top} -- no safe cut line")
-
-    cut = blank_lo + max(1, gap_h // 3)
-    return src.crop((0, cut, src.width, src.height)), (
-        f"title y=[{first},{blank_lo}) removed; axes frame at y={top_spine}, "
-        f"topmost plot ink at y={plot_top}; cut at y={cut} inside a {gap_h}px "
-        f"blank gap, so no plot pixel was touched")
-
-
-def build_roc_figures() -> dict:
-    """Copy (and where safe, crop) the six LiRA log-log ROC PNGs."""
-    C.FIGURES_PNG.mkdir(parents=True, exist_ok=True)
-    report = {}
-    for ds in L.active_dataset_dirs():
-        src_path = C.REPO / L.LIRA_ROC_PNG.format(ds=ds)
-        name = f"loglog_roc_{ds}"
-        dst = C.FIGURES_PNG / f"{name}.png"
-        im = Image.open(src_path)
-        cropped, why = crop_title(im)
-        if cropped is None:
-            im.save(dst)
-            gap(f"{name}: title crop not attempted / not safe ({why}); the "
-                f"original PNG was copied unchanged and still carries its "
-                f"two-line in-image title. Source: {L.rel(src_path)}")
-            report[name] = {"cropped": False, "reason": why,
-                            "size": im.size, "source": L.rel(src_path)}
-        else:
-            cropped.save(dst)
-            report[name] = {"cropped": True, "reason": why,
-                            "size": cropped.size, "before": im.size,
-                            "source": L.rel(src_path)}
-            print(f"  wrote figures/png/{name}.png  ({why})")
-    return report
-
-
-# ==========================================================================
 # Driver
 # ==========================================================================
 
@@ -545,17 +422,10 @@ def main() -> int:
     fig_gap_vs_leakage_vs_N(d)
     fig_residual_floor_ci()
     build_rq_figures()
-    roc = build_roc_figures()
-
-    gap("loglog_roc_<DS> (all six): these show the NON-PRIVATE (standard) "
-        "targets only. _loglog_roc() in Attack/LiRA/run_lira.py filters to "
-        "variant == 'standard', and the underlying _roc_fpr / _roc_tpr arrays "
-        "are stripped before the CSV is written, so DP-variant ROC curves "
-        "cannot be produced without re-running LiRA.")
 
     C.LOGS.mkdir(parents=True, exist_ok=True)
     (C.LOGS / "_figure_gaps.json").write_text(
-        json.dumps({"gaps": _gaps, "roc": roc}, indent=2) + "\n")
+        json.dumps({"gaps": _gaps}, indent=2) + "\n")
     print(f"\n{len(_gaps)} figure gap(s) -> logs/_figure_gaps.json")
     return 0
 

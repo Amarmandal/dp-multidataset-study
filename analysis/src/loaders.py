@@ -88,7 +88,6 @@ SHORT_TO_DIR = {"RF": "RandomForest", "LR": "LR", "GNB": "GaussianNB",
 SHORT_TO_STEM = {"RF": "rf", "LR": "lr", "GNB": "gnb", "SVM": "svm", "DNN": "dnn"}
 
 # DP mechanism per family (CLAUDE.md S4; corroborated by the report JSONs).
-# Plain text (Greek letters, no LaTeX): build_tables.py renders ε/δ as math.
 DP_MECHANISM = {
     "RF": "Exponential mechanism (split selection), pure ε-DP",
     "LR": "Objective perturbation (diffprivlib), pure ε-DP",
@@ -104,7 +103,16 @@ ATTACK_CSV = {
     "yeom": ("Attack/MIA_YEOM/results/{ds}/{ds}_mia_results.csv"),
 }
 
-LIRA_ROC_PNG = "Attack/LiRA/results/{ds}/{ds}_loglog_roc.png"
+LIRA_ROC_CSV = "Attack/LiRA/results/{ds}/{ds}_lira_roc.csv.gz"
+LIRA_RUN_CSV = "Attack/LiRA/results/{ds}/{ds}_lira_runs.csv"
+
+LIRA_RUN_REQUIRED = {
+    "dataset", "model", "variant", "epsilon", "run_seed",
+    "op_1pct_target_fpr", "op_1pct_threshold",
+    "op_1pct_tp", "op_1pct_fp", "op_1pct_tn", "op_1pct_fn",
+    "op_1pct_tpr", "op_1pct_fpr", "op_1pct_fpr_resolvable",
+    "op_1pct_selection_rule",
+}
 
 
 def active_dataset_dirs() -> list[str]:
@@ -152,6 +160,29 @@ def load_attack_csv(attack: str, ds_dir: str) -> pd.DataFrame:
 def load_all_attack_csvs(attack: str) -> pd.DataFrame:
     return pd.concat([load_attack_csv(attack, d) for d in DATASET_DIRS],
                      ignore_index=True)
+
+
+def load_lira_runs(ds_dir: str) -> pd.DataFrame:
+    """Load seed-level LiRA outcomes, refusing legacy summary-only results."""
+    path = C.REPO / LIRA_RUN_CSV.format(ds=ds_dir)
+    if not path.exists():
+        raise FileNotFoundError(
+            f"{path} is missing; rerun Attack/LiRA/run_lira.py for {ds_dir} "
+            "before rebuilding low-FPR uncertainty"
+        )
+    df = pd.read_csv(path)
+    missing = LIRA_RUN_REQUIRED.difference(df.columns)
+    if missing:
+        raise ValueError(f"{path}: missing run-level columns {sorted(missing)}")
+    df["dataset_dir"] = ds_dir
+    return df
+
+
+def load_all_lira_runs() -> pd.DataFrame:
+    """Load seed-level LiRA outcomes for the datasets enabled in config.py."""
+    return pd.concat(
+        [load_lira_runs(ds) for ds in active_dataset_dirs()], ignore_index=True
+    )
 
 
 # ---- reused analysis outputs (never recomputed) ---------------------------
@@ -386,9 +417,9 @@ def coverage_report() -> str:
         add(f"  {name:30s} shape={fn().shape}")
     add("")
 
-    add("LiRA log-log ROC PNGs:")
+    add("LiRA persisted ROC coordinates:")
     for d in DATASET_DIRS:
-        p = C.REPO / LIRA_ROC_PNG.format(ds=d)
+        p = C.REPO / LIRA_ROC_CSV.format(ds=d)
         add(f"  {d:14s} {'present' if p.exists() else 'MISSING'}  {p.relative_to(C.REPO)}")
     add("=" * 74)
     return "\n".join(lines)

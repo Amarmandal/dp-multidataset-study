@@ -1,8 +1,8 @@
 """
 Driver: run the LiRA (Carlini et al. 2022) per-example membership inference
-attack against the exported Standard vs DP targets, and write a report whose
-headline metric is **TPR at a low fixed FPR** — the worst-case leakage number
-that the average-case Shokri / Yeom attacks already in the study cannot see.
+attack against the exported Standard vs DP targets. Its headline metric is
+**TPR at a low fixed FPR** — the worst-case leakage number that the average-case
+Shokri / Yeom attacks already in the study cannot see.
 
 It reuses the Shokri pipeline's target loaders and shadow factory
 (``Attack/MIA_Shokri/exported_models.py``), but trains shadows on **real data
@@ -16,9 +16,9 @@ spread reported in ``*_std`` is purely shadow-calibration noise around one fixed
 target.
 
 Outputs (under Attack/LiRA/results/):
-  * lira_comparison.csv                tidy table across datasets
-  * results/<dataset>/                 per-dataset CSV (ground truth) +
-                                       figures + analysis.md
+  * results/<dataset>/<dataset>_lira_results.csv   configuration summaries
+  * results/<dataset>/<dataset>_lira_runs.csv      one row per attack run
+  * results/<dataset>/<dataset>_lira_roc.csv.gz    reconstructible ROC curves
   No JSON is written.
 
 Usage:
@@ -39,12 +39,8 @@ import sys
 import time
 import warnings
 
-import matplotlib
 import numpy as np
 import pandas as pd
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
@@ -71,18 +67,6 @@ DATASETS = [
 ]
 DEFAULT_EPSILONS = [0.1, 0.2, 0.4, 0.8, 1.0, 2.0, 4.0, 8.0, 10.0]
 OUT_DIR = os.path.join(os.path.dirname(__file__), "results")
-
-MODELS = ["LR", "RF", "GNB", "SVM", "DNN"]
-COLORS = {
-    "LR": "#1f77b4",
-    "RF": "#d62728",
-    "GNB": "#2ca02c",
-    "SVM": "#9467bd",
-    "DNN": "#ff7f0e",
-}
-# TPR@1%FPR above this = real worst-case leakage (random baseline is 0.01).
-LEAK_TPR1 = 0.05
-
 
 # --------------------------------------------------------------------------- #
 # Data
@@ -152,16 +136,26 @@ def aggregate(runs, family, variant, epsilon):
         row[f"{k}_std"] = float(np.std(vals)) if vals else None
     for k in PASS_KEYS:
         row[k] = ok[0].get(k)
-    # The log-log ROC figure (standard targets only) and the JSON both need the
-    # per-target curve; carry the first run's. The CSV strips _roc* downstream.
-    for k in ("_roc_fpr", "_roc_tpr"):
+    # Carry the first run's curve for callers that inspect aggregate results.
+    # Authoritative persisted ROC coordinates are written from the raw runs.
+    for k in ("_roc_fpr", "_roc_tpr", "_roc_threshold"):
         if k in ok[0]:
             row[k] = ok[0][k]
     return row
 
 
 def attack_target(
-    fam, variant, data, n_classes, low, high, args, ds, epsilon=None, seeds=(0,)
+    fam,
+    variant,
+    data,
+    n_classes,
+    low,
+    high,
+    args,
+    ds,
+    epsilon=None,
+    seeds=(0,),
+    include_runs=False,
 ):
     view, lo, hi = em.family_dataview(fam, data, low, high)
     n_features = view["X_train"].shape[1]
@@ -172,9 +166,17 @@ def attack_target(
     try:
         target = em.load_target(REPO, ds, fam, variant, epsilon, n_classes)
     except Exception as exc:  # unloadable target -> one error row, run continues
-        row = aggregate([{"error": str(exc)}], fam, variant, epsilon)
+        failed = [{
+            "dataset": ds,
+            "model": fam,
+            "variant": variant,
+            "epsilon": epsilon,
+            "run_seed": None,
+            "error": str(exc),
+        }]
+        row = aggregate(failed, fam, variant, epsilon)
         row["dataset"] = ds
-        return row
+        return (row, failed) if include_runs else row
 
     runs = []
     for seed in tuple(seeds):
@@ -203,14 +205,21 @@ def attack_target(
                 m["test_acc"] = target_test_acc(target, view)
         except Exception as exc:  # a single bad seed shouldn't sink the run
             m = {"error": str(exc)}
+        m.update({
+            "dataset": ds,
+            "model": fam,
+            "variant": variant,
+            "epsilon": epsilon,
+            "run_seed": int(seed),
+        })
         runs.append(m)
 
     row = aggregate(runs, fam, variant, epsilon)
     row["dataset"] = ds
-    return row
+    return (row, runs) if include_runs else row
 
 
-def _attack_target_worker(ds, fam, variant, epsilon, args, seeds):
+def _attack_target_worker(ds, fam, variant, epsilon, args, seeds, include_runs=False):
     """Run one independent target configuration in a child process."""
     label = "standard" if variant == "standard" else f"epsilon={epsilon}"
     print(f"  [{fam}] worker started {label}", flush=True)
@@ -226,10 +235,11 @@ def _attack_target_worker(ds, fam, variant, epsilon, args, seeds):
         ds,
         epsilon=epsilon,
         seeds=seeds,
+        include_runs=include_runs,
     )
 
 
-def _parallel_targets(ds, fam, args, seeds):
+def _parallel_targets(ds, fam, args, seeds, include_runs=False):
     """Evaluate DP targets and individual standard seeds concurrently."""
     dp_epsilons = [
         eps
@@ -252,6 +262,7 @@ def _parallel_targets(ds, fam, args, seeds):
                 epsilon,
                 args,
                 seeds,
+                include_runs,
             )
             pending[future] = ("dp", epsilon)
 
@@ -266,42 +277,69 @@ def _parallel_targets(ds, fam, args, seeds):
                 None,
                 args,
                 (seed,),
+                include_runs,
             )
             pending[future] = ("standard_seed", seed)
 
         for future in as_completed(pending):
             kind, value = pending[future]
             result = future.result()
+            if include_runs:
+                result, raw_runs = result
+            else:
+                raw_runs = []
             if kind == "dp":
                 epsilon = value
                 dp_results[epsilon] = result
+                if include_runs:
+                    dp_results[(epsilon, "runs")] = raw_runs
                 _print_row(fam, f"eps={epsilon:<4}", result)
                 print(f"  [{fam}] completed epsilon={epsilon}", flush=True)
             else:
                 seed = value
                 standard_runs[seed] = result
+                if include_runs:
+                    standard_runs[(seed, "runs")] = raw_runs
                 print(
                     f"  [{fam}] completed standard seed={seed} "
-                    f"({len(standard_runs)}/{len(seeds)})",
+                    f"({sum(isinstance(k, int) for k in standard_runs)}/{len(seeds)})",
                     flush=True,
                 )
 
-    standard = aggregate(
-        [standard_runs[seed] for seed in seeds], fam, "standard", None
-    )
+    if include_runs:
+        standard_raw = [
+            run
+            for seed in seeds
+            for run in standard_runs[(seed, "runs")]
+        ]
+        standard = aggregate(standard_raw, fam, "standard", None)
+    else:
+        standard_raw = []
+        standard = aggregate(
+            [standard_runs[seed] for seed in seeds], fam, "standard", None
+        )
     standard["dataset"] = ds
     _print_row(fam, "STD  ", standard)
     print(f"  [{fam}] completed standard aggregate", flush=True)
-    return [standard] + [dp_results[epsilon] for epsilon in dp_epsilons]
+    summaries = [standard] + [dp_results[epsilon] for epsilon in dp_epsilons]
+    if not include_runs:
+        return summaries
+    raw = standard_raw + [
+        run
+        for epsilon in dp_epsilons
+        for run in dp_results[(epsilon, "runs")]
+    ]
+    return summaries, raw
 
 
-def run_dataset(ds, args, rows):
+def run_dataset(ds, args):
     data, n_classes, low, high = load_dataset(ds)
     print(
         f"\n{'=' * 72}\n{ds}  (classes={n_classes}, n_train={len(data['y_train'])}, "
         f"n_features={data['X_train'].shape[1]})  [LiRA, {args.n_shadow} shadows]\n{'=' * 72}"
     , flush=True)
     results = []
+    run_records = []
 
     for fam in args.models:
         if fam not in em.MODEL_FAMILIES or not em.model_exists(
@@ -311,8 +349,8 @@ def run_dataset(ds, args, rows):
             continue
 
         t0 = time.time()
-        # Shadow seeds: 0..n-1, distinct per run and per family run count.
-        seeds = tuple(range(family_runs(fam, args)))
+        # Distinct shadow seeds, starting at --seed for reproducible resumptions.
+        seeds = tuple(args.seed + i for i in range(family_runs(fam, args)))
         print(
             f"  [{fam}] {len(seeds)} run(s), shadow seeds {seeds[0]}..{seeds[-1]}",
             flush=True,
@@ -323,10 +361,14 @@ def run_dataset(ds, args, rows):
                 f"targets with {args.workers} workers",
                 flush=True,
             )
-            results.extend(_parallel_targets(ds, fam, args, seeds))
+            summaries, raw_runs = _parallel_targets(
+                ds, fam, args, seeds, include_runs=True
+            )
+            results.extend(summaries)
+            run_records.extend(raw_runs)
         else:
             print(f"  [{fam}] processing standard", flush=True)
-            m = attack_target(
+            m, raw_runs = attack_target(
                 fam,
                 "standard",
                 data,
@@ -336,15 +378,17 @@ def run_dataset(ds, args, rows):
                 args,
                 ds,
                 seeds=seeds,
+                include_runs=True,
             )
             results.append(m)
+            run_records.extend(raw_runs)
             _print_row(fam, "STD  ", m)
 
             for eps in args.epsilons:
                 if not em.model_exists(REPO, ds, fam, "dp", eps):
                     continue
                 print(f"  [{fam}] processing epsilon={eps}", flush=True)
-                m = attack_target(
+                m, raw_runs = attack_target(
                     fam,
                     "dp",
                     data,
@@ -355,16 +399,14 @@ def run_dataset(ds, args, rows):
                     ds,
                     epsilon=eps,
                     seeds=seeds,
+                    include_runs=True,
                 )
                 results.append(m)
+                run_records.extend(raw_runs)
                 _print_row(fam, f"eps={eps:<4}", m)
         print(f"  [{fam}] done in {time.time() - t0:.1f}s", flush=True)
 
-    df = pd.DataFrame(
-        [{k: v for k, v in r.items() if not k.startswith("_roc")} for r in results]
-    )
-    rows.extend(df.to_dict("records"))
-    build_report(ds, df, results, n_classes, data)
+    write_results(ds, results, run_records)
 
 
 def _print_row(fam, tag, m):
@@ -380,286 +422,73 @@ def _print_row(fam, tag, m):
 
 
 # --------------------------------------------------------------------------- #
-# Report
+# Authoritative CSV outputs
 # --------------------------------------------------------------------------- #
-def _curve(df, metric, ylabel, ds, path, baseline=None):
-    dp = df[df["variant"] == "dp"].sort_values("epsilon")
-    std = df[df["variant"] == "standard"]
-    if dp.empty or metric not in dp:
-        return
-    fig, ax = plt.subplots(figsize=(7, 5))
-    for m in MODELS:
-        d = dp[dp["model"] == m]
-        if d.empty or d[metric].isna().all():
-            continue
-        ax.plot(d["epsilon"], d[metric], marker="o", color=COLORS[m], label=f"DP-{m}")
-        s = std[std["model"] == m]
-        if not s.empty and np.isfinite(s[metric].values[0]):
-            ax.axhline(s[metric].values[0], ls="--", lw=1, color=COLORS[m], alpha=0.6)
-    if baseline is not None:
-        ax.axhline(baseline, ls=":", color="grey", lw=1, label="random baseline")
-    ax.set_xscale("log")
-    ax.set_xlabel("Privacy budget  ε  (log scale)")
-    ax.set_ylabel(ylabel)
-    ax.set_title(f"{ds}: {ylabel} vs ε  (dashed = Standard baseline)")
-    ax.grid(True, alpha=0.3)
-    ax.legend(fontsize=8)
-    fig.tight_layout()
-    fig.savefig(path, dpi=150)
-    plt.close(fig)
+def _without_roc_arrays(record):
+    return {key: value for key, value in record.items() if not key.startswith("_roc")}
 
 
-def _loglog_roc(targets, ds, path):
-    """The signature LiRA plot: log-log ROC for the Standard targets."""
-    fig, ax = plt.subplots(figsize=(6, 6))
-    lo = 1e-3
-    ax.plot([lo, 1], [lo, 1], ls="--", color="grey", lw=1, label="random")
-    for t in targets:
-        if t.get("variant") != "standard" or "_roc_fpr" not in t:
-            continue
-        fpr = np.asarray(t["_roc_fpr"])
-        tpr = np.asarray(t["_roc_tpr"])
-        ax.plot(
-            np.clip(fpr, lo, 1),
-            np.clip(tpr, lo, 1),
-            color=COLORS.get(t["model"], "k"),
-            label=t["model"],
+def _representative_roc_rows(run_records):
+    """Long-form ROC coordinates for the first successful standard run per model.
+
+    This is the exact curve the old attack-side plot used.  Run-level operating
+    thresholds and integer outcomes for every repetition live in
+    ``*_lira_runs.csv``; only the representative full curves are persisted here
+    to keep the reconstructible figure input compact.
+    """
+    rows = []
+    successful = [
+        record
+        for record in run_records
+        if record.get("variant") == "standard"
+        and "error" not in record
+        and "_roc_fpr" in record
+    ]
+    models = sorted({record["model"] for record in successful})
+    for model in models:
+        candidates = sorted(
+            (record for record in successful if record["model"] == model),
+            key=lambda record: record["run_seed"],
         )
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-    ax.set_xlim(lo, 1)
-    ax.set_ylim(lo, 1)
-    ax.set_xlabel("False positive rate (log)")
-    ax.set_ylabel("True positive rate (log)")
-    ax.set_title(
-        f"{ds}: LiRA ROC (Standard targets)\npoints above the diagonal at low FPR = worst-case leakage"
-    )
-    ax.grid(True, which="both", alpha=0.3)
-    ax.legend(fontsize=8)
-    fig.tight_layout()
-    fig.savefig(path, dpi=150)
-    plt.close(fig)
+        record = candidates[0]
+        fpr = record["_roc_fpr"]
+        tpr = record["_roc_tpr"]
+        thresholds = record["_roc_threshold"]
+        if not (len(fpr) == len(tpr) == len(thresholds)):
+            raise ValueError(
+                f"ROC array length mismatch for {record['dataset']}/{model}"
+            )
+        for index, (x, y, threshold) in enumerate(zip(fpr, tpr, thresholds)):
+            rows.append({
+                "dataset": record["dataset"],
+                "model": model,
+                "variant": "standard",
+                "epsilon": None,
+                "run_seed": record["run_seed"],
+                "point_index": index,
+                "threshold": threshold,
+                "fpr": x,
+                "tpr": y,
+                "curve_selection": "first_successful_standard_run",
+            })
+    return rows
 
 
-def _tpr_bars(df, ds, path):
-    models = [m for m in MODELS if m in df["model"].unique()]
-    std_v, dp_v = [], []
-    for m in models:
-        s = df[(df["model"] == m) & (df["variant"] == "standard")]
-        dp = df[(df["model"] == m) & (df["variant"] == "dp")].sort_values("epsilon")
-        std_v.append(s["tpr_at_1pct"].values[0] if not s.empty else 0)
-        dp_v.append(dp["tpr_at_1pct"].values[0] if not dp.empty else 0)
-    x = np.arange(len(models))
-    fig, ax = plt.subplots(figsize=(max(5, 1.3 * len(models)), 4.5))
-    ax.bar(x - 0.2, std_v, 0.4, label="Standard", color="#d62728")
-    ax.bar(x + 0.2, dp_v, 0.4, label="DP (ε=min)", color="#1f77b4")
-    ax.axhline(0.01, ls=":", color="grey", lw=1, label="random (FPR=1%)")
-    ax.set_xticks(x)
-    ax.set_xticklabels(models)
-    ax.set_ylabel("TPR @ 1% FPR")
-    ax.set_title(f"{ds}: worst-case leakage (TPR@1%FPR), Standard vs strong DP")
-    ax.grid(True, axis="y", alpha=0.3)
-    ax.legend(fontsize=8)
-    fig.tight_layout()
-    fig.savefig(path, dpi=150)
-    plt.close(fig)
-
-
-def build_report(ds, df, targets, n_classes, data):
+def write_results(ds, summaries, run_records):
     out = os.path.join(OUT_DIR, ds)
     os.makedirs(out, exist_ok=True)
-    df.to_csv(os.path.join(out, f"{ds}_lira_results.csv"), index=False)
-
-    _curve(
-        df,
-        "tpr_at_1pct",
-        "TPR @ 1% FPR",
-        ds,
-        os.path.join(out, f"{ds}_tpr1_vs_epsilon.png"),
-        baseline=0.01,
+    pd.DataFrame([_without_roc_arrays(row) for row in summaries]).to_csv(
+        os.path.join(out, f"{ds}_lira_results.csv"), index=False
     )
-    _curve(
-        df,
-        "attack_auc",
-        "Attack AUC",
-        ds,
-        os.path.join(out, f"{ds}_auc_vs_epsilon.png"),
-        baseline=0.5,
+    pd.DataFrame([_without_roc_arrays(row) for row in run_records]).to_csv(
+        os.path.join(out, f"{ds}_lira_runs.csv"), index=False
     )
-    _loglog_roc(targets, ds, os.path.join(out, f"{ds}_loglog_roc.png"))
-    _tpr_bars(df, ds, os.path.join(out, f"{ds}_tpr1_std_vs_dp_bars.png"))
-
-    _write_analysis(ds, df, n_classes, data, out)
-    print(f"  -> figures + analysis.md written to {out}/")
-
-
-def _write_analysis(ds, df, n_classes, data, out):
-    std = df[df["variant"] == "standard"]
-    dp = df[df["variant"] == "dp"]
-    eps_list = sorted(dp["epsilon"].dropna().unique())
-
-    def fmt(v, p=3):
-        return (
-            "—"
-            if v is None or (isinstance(v, float) and not np.isfinite(v))
-            else f"{v:.{p}f}"
-        )
-
-    # worst standard leaker by TPR@1%FPR
-    leak = std.dropna(subset=["tpr_at_1pct"])
-    worst = leak.loc[leak["tpr_at_1pct"].idxmax()] if not leak.empty else None
-    n_shadow = (
-        int(df["n_shadow_trained"].dropna().max()) if "n_shadow_trained" in df else None
+    pd.DataFrame(_representative_roc_rows(run_records)).to_csv(
+        os.path.join(out, f"{ds}_lira_roc.csv.gz"),
+        index=False,
+        compression="gzip",
     )
-    balanced = bool(df["balanced"].dropna().any()) if "balanced" in df else False
-    n_mem = int(df["n_members"].dropna().max()) if "n_members" in df else None
-    n_non = int(df["n_nonmembers"].dropna().max()) if "n_nonmembers" in df else None
-
-    lines = []
-    A = lines.append
-    A(f"# {ds} — LiRA (Likelihood Ratio Attack) Analysis\n")
-    A(f"*Auto-generated by `run_lira.py`. Raw numbers: `{ds}_lira_results.csv`.*\n")
-    A(
-        "LiRA — Carlini, Tramèr, Terzis, Song, Steinke, Jagielski, Erlingsson, "
-        "Oprea et al. (2022), *Membership Inference Attacks From First Principles* "
-        "(IEEE S&P, arXiv:2112.03404) — run against the **exported** targets in "
-        f"`{ds}/<family>/output/model/`.\n"
-    )
-
-    A("## 1. Why LiRA, on top of Shokri + Yeom")
-    A(
-        "Shokri (shadow models) and Yeom (loss threshold) are **average-case** "
-        "attacks: a single rule for every record, summarised by AUC / advantage "
-        "near 0.5. LiRA is **per-example** — for each record it asks whether the "
-        "target's confidence is more consistent with models trained *with* that "
-        "record (IN) or *without* it (OUT), via a Gaussian likelihood-ratio test "
-        "on logit-scaled confidence. This surfaces the few records that leak "
-        "strongly even when the average AUC is ~0.5, so the headline metric is "
-        "**TPR at a low fixed FPR**, not AUC.\n"
-    )
-
-    A("## 2. What was run")
-    A("| Item | Value |")
-    A("|------|-------|")
-    A(
-        f"| Samples | N = {len(data['y_train']) + len(data['y_test'])} "
-        f"({len(data['y_train'])} train / {len(data['y_test'])} test) |"
-    )
-    A(f"| Classes | {n_classes} |")
-    A(f"| Features | {data['X_train'].shape[1]} |")
-    A(f"| Shadow models / target | {n_shadow} (trained on **real** random halves) |")
-    A(f"| DP budgets ε | {', '.join(f'{e:g}' for e in eps_list)} |")
-    A("| Membership ground truth | record ∈ target's training set (X_train) |")
-    if n_mem and n_non:
-        ratio = f"{n_mem / n_non:.2g}:1"
-        note = (
-            " — members subsampled to the non-member count (`--balance`)"
-            if balanced
-            else " — the raw train/test split"
-        )
-        A(f"| Evaluation set | {n_mem} members : {n_non} non-members ({ratio}){note} |")
-    A("| Score | online LiRA, log N(φ;μ_in,σ) − log N(φ;μ_out,σ), fixed σ |\n")
-
-    A("## 3. How to read it")
-    A("| Metric | Meaning | No leak | Leak |")
-    A("|--------|---------|---------|------|")
-    A(
-        "| TPR @ 1% FPR | members caught while wrongly flagging 1% of non-members | 0.01 | ≫ 0.01 |"
-    )
-    A(
-        "| TPR @ 0.1% FPR | the strict worst-case (limited by #non-members) | 0.001 | ≫ 0.001 |"
-    )
-    A("| Attack AUC | average-case ranking quality | 0.5 | > 0.6 |")
-    A("| Advantage | max(TPR − FPR) over thresholds | 0.0 | > 0.1 |\n")
-
-    A("## 4. Results")
-    A(
-        "| Model | Variant | ε | AUC | TPR@10% | TPR@1% | TPR@0.1% | Advantage | Test acc |"
-    )
-    A(
-        "|-------|---------|---|-----|---------|--------|----------|-----------|----------|"
-    )
-    for _, r in df.iterrows():
-        eps = "∞" if r["variant"] == "standard" else f"{r['epsilon']:g}"
-        if "error" in r and isinstance(r.get("error"), str):
-            A(f"| {r['model']} | {r['variant']} | {eps} | ERROR: {r['error']} |")
-            continue
-        A(
-            f"| {r['model']} | {r['variant'].upper() if r['variant'] == 'dp' else 'Standard'} "
-            f"| {eps} | {fmt(r.get('attack_auc'))} | {fmt(r.get('tpr_at_10pct'))} "
-            f"| {fmt(r.get('tpr_at_1pct'))} | {fmt(r.get('tpr_at_0p1pct'))} "
-            f"| {fmt(r.get('advantage'))} | {fmt(r.get('test_acc'))} |"
-        )
-    A("")
-
-    A("## 5. Figures")
-    for title, fn, cap in [
-        (
-            "LiRA ROC (log-log, Standard targets)",
-            f"{ds}_loglog_roc.png",
-            "The diagnostic LiRA view. A curve hugging the diagonal at low FPR means "
-            "no worst-case leakage; a curve bowing up on the left means specific "
-            "records are reliably identified as members.",
-        ),
-        (
-            "TPR@1%FPR vs ε",
-            f"{ds}_tpr1_vs_epsilon.png",
-            "Worst-case leakage for each DP model across the budget; dashed = Standard "
-            "baseline, dotted = random (0.01). Lower is more private.",
-        ),
-        (
-            "Attack AUC vs ε",
-            f"{ds}_auc_vs_epsilon.png",
-            "Average-case ranking quality; 0.5 is random. Provided for continuity with "
-            "the Shokri/Yeom results.",
-        ),
-        (
-            "TPR@1%FPR: Standard vs strong DP",
-            f"{ds}_tpr1_std_vs_dp_bars.png",
-            "Per family, non-private vs strongest-privacy DP worst-case leakage.",
-        ),
-    ]:
-        A(f"### {title}\n")
-        A(f"![{title}]({fn})\n")
-        A(cap + "\n")
-
-    A("## 6. Interpretation")
-    if worst is not None:
-        A(
-            f"Strongest worst-case leakage among the **Standard** models: "
-            f"**{worst['model']}** at TPR@1%FPR = **{fmt(worst['tpr_at_1pct'])}** "
-            f"(AUC {fmt(worst['attack_auc'])}), vs the 0.01 random baseline. "
-            "LiRA is a strictly stronger attack than the average-case Shokri/Yeom "
-            "runs, so this is the most adversarial membership estimate in the study."
-        )
-    dp_leak = dp.dropna(subset=["tpr_at_1pct"])
-    if not dp_leak.empty:
-        worst_dp = dp_leak.loc[dp_leak["tpr_at_1pct"].idxmax()]
-        A(
-            f"\nUnder DP, the worst case drops to TPR@1%FPR = "
-            f"**{fmt(worst_dp['tpr_at_1pct'])}** "
-            f"({worst_dp['model']}, ε={worst_dp['epsilon']:g}) — "
-            "quantifying the protection DP buys at the per-record level."
-        )
-    A(
-        "\n> Caveat: TPR at very low FPR is bounded by the number of non-members "
-        f"({len(data['y_test'])} here), and the DNN shadows are non-private even for "
-        "DP-DNN targets (an approximation inherited from the shadow factory). Treat "
-        "0.1% FPR as indicative, 1% FPR as the robust worst-case figure.\n"
-    )
-
-    A("## 7. Reproduce")
-    A("```bash")
-    A("cd Attack/LiRA")
-    A(
-        f"python3 run_lira.py --datasets {ds} --n-shadow {n_shadow or 32}"
-        f"{' --balance' if balanced else ''}"
-    )
-    A("```")
-
-    with open(os.path.join(out, "analysis.md"), "w") as f:
-        f.write("\n".join(lines))
-
+    print(f"  -> summary, per-run, and ROC CSVs written to {out}/", flush=True)
 
 # --------------------------------------------------------------------------- #
 def main():
@@ -676,7 +505,9 @@ def main():
         action="store_true",
         help="subsample members to the non-member count (1:1 evaluation set)",
     )
-    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument(
+        "--seed", type=int, default=0, help="first shadow-calibration run seed"
+    )
     ap.add_argument(
         "--runs",
         type=int,
@@ -711,6 +542,8 @@ def main():
 
     if args.workers < 1:
         ap.error("--workers must be at least 1")
+    if args.runs < 1 or args.dnn_runs < 1 or args.svm_runs < 1:
+        ap.error("--runs, --dnn-runs, and --svm-runs must each be at least 1")
 
     if args.skip_dnn:
         args.models = [m for m in args.models if m != "DNN"]
@@ -723,15 +556,8 @@ def main():
         args.svm_runs = min(args.svm_runs, 3)
 
     os.makedirs(OUT_DIR, exist_ok=True)
-    rows = []
     for ds in args.datasets:
-        run_dataset(ds, args, rows)
-
-    pd.DataFrame(rows).to_csv(os.path.join(OUT_DIR, "lira_comparison.csv"), index=False)
-    print(
-        f"\nSaved comparison table -> {os.path.join(OUT_DIR, 'lira_comparison.csv')}",
-        flush=True,
-    )
+        run_dataset(ds, args)
 
 
 if __name__ == "__main__":

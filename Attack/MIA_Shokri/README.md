@@ -94,18 +94,13 @@ python run_mia.py
 python run_mia.py --datasets GALLSTONE KIDNEY_STONE --models RF LR
 python run_mia.py --epsilons 0.1 1.0 10.0 --dp-runs 5 --n-per-class 300
 python run_mia.py --quick          # fast smoke test
-
-# Figures (after run_mia.py)
-python plots.py
 ```
 
 ### Outputs (`results/`)
 
-- `shokri_mia_comparison.csv` — tidy table (one row per target config), mean ± std
-  over `--dp-runs` seeds.
-- `<dataset>_mia.json` — full metrics incl. per-seed runs and target utility.
-- `figures/` — advantage/AUC-vs-ε curves per dataset, Standard-vs-DP bar charts,
-  and advantage-vs-overfitting scatter (from `plots.py`).
+- `<dataset>/<dataset>_results.csv` — authoritative tidy table containing the
+  Standard and DP target configurations, with mean and standard deviation over
+  the configured shadow-model repetitions.
 
 ### Key parameters
 

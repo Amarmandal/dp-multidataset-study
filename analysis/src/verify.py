@@ -28,7 +28,6 @@ from scipy.stats import spearmanr
 
 import config as C
 import loaders as L
-from build_tables import clopper_pearson
 
 TOL = 1e-6
 
@@ -303,13 +302,47 @@ _DP_COLS = [
     ("shokri", "shokri_auc_std", "attack_auc_std"),
     ("lira", "lira_auc", "attack_auc"),
     ("lira", "lira_auc_std", "attack_auc_std"),
-    ("lira", "lira_tpr_at_1pct", "tpr_at_1pct"),
-    ("lira", "lira_tpr_at_1pct_std", "tpr_at_1pct_std"),
 ]
+
+
+def _expected_low_fpr_runs() -> dict:
+    runs = L.load_all_lira_runs()
+    runs = runs[
+        (runs["variant"] == "dp")
+        & np.isclose(pd.to_numeric(runs["epsilon"], errors="coerce"), C.EPS_TARGET)
+    ].copy()
+    expected = {}
+    for group_index, (key, group) in enumerate(
+        runs.groupby(["dataset_dir", "model"], sort=True)
+    ):
+        tp = pd.to_numeric(group["op_1pct_tp"], errors="raise").to_numpy(int)
+        fp = pd.to_numeric(group["op_1pct_fp"], errors="raise").to_numpy(int)
+        tn = pd.to_numeric(group["op_1pct_tn"], errors="raise").to_numpy(int)
+        fn = pd.to_numeric(group["op_1pct_fn"], errors="raise").to_numpy(int)
+        tpr = tp / (tp + fn)
+        fpr = fp / (fp + tn)
+        rng = np.random.default_rng(20_260_829 + group_index)
+        means = rng.choice(tpr, size=(20_000, len(tpr)), replace=True).mean(axis=1)
+        low, high = np.quantile(means, [0.025, 0.975])
+        resolvable = group["op_1pct_fpr_resolvable"].astype(str).str.lower().eq("true")
+        expected[key] = {
+            "lira_tpr_at_1pct": float(np.mean(tpr)),
+            "lira_tpr_at_1pct_std": float(np.std(tpr)),
+            "lira_tpr_at_1pct_ci_low": float(low),
+            "lira_tpr_at_1pct_ci_high": float(high),
+            "n_attack_runs": len(group),
+            "n_members_per_run": int((tp + fn)[0]),
+            "n_nonmembers_per_run": int((fp + tn)[0]),
+            "all_runs_fpr_resolvable": "yes" if resolvable.all() else "no",
+            "low_fpr_ci_method": "run-level percentile bootstrap (20000 resamples)",
+            "fpr_max": float(np.max(fpr)),
+        }
+    return expected
 
 
 def v_residual_leakage_eps1() -> None:
     t = read_table("residual_leakage_eps1")
+    low_fpr = _expected_low_fpr_runs()
     for r in t.itertuples():
         ds = L.DISPLAY_TO_DIR[r.dataset]
         fam = r.family
@@ -323,22 +356,19 @@ def v_residual_leakage_eps1() -> None:
             check("residual_leakage_eps1", tag, tcol, getattr(r, tcol),
                   float(getattr(a, scol)), src, filt)
 
-        # Clopper-Pearson recomputed from scratch.
-        a = att("lira", ds, fam, "dp", C.EPS_TARGET)
-        src, filt = att_src("lira", ds, fam, "dp", C.EPS_TARGET)
-        k, n, lo, hi = clopper_pearson(float(a.tpr_at_1pct), float(a.n_members))
-        check("residual_leakage_eps1", tag, "cp_k", r.cp_k, k,
-              "derived", "round(TPR * n_members)")
-        check("residual_leakage_eps1", tag, "cp_n_members", r.cp_n_members, n,
-              src, filt + " -> n_members")
-        check("residual_leakage_eps1", tag, "lira_tpr_at_1pct_ci_low",
-              r.lira_tpr_at_1pct_ci_low, lo,
-              "derived", f"binomtest({k},{n}).proportion_ci(method='exact')")
-        check("residual_leakage_eps1", tag, "lira_tpr_at_1pct_ci_high",
-              r.lira_tpr_at_1pct_ci_high, hi,
-              "derived", f"binomtest({k},{n}).proportion_ci(method='exact')")
+        raw = low_fpr[(ds, fam)]
+        src = L.LIRA_RUN_CSV.format(ds=ds)
+        for column in (
+            "lira_tpr_at_1pct", "lira_tpr_at_1pct_std",
+            "lira_tpr_at_1pct_ci_low", "lira_tpr_at_1pct_ci_high",
+            "n_attack_runs", "n_members_per_run", "n_nonmembers_per_run",
+            "all_runs_fpr_resolvable", "low_fpr_ci_method",
+        ):
+            check("residual_leakage_eps1", tag, column, getattr(r, column),
+                  raw[column], src, "variant=dp, epsilon=1.0, exact run outcomes")
         check("residual_leakage_eps1", tag, "ci_excludes_random",
-              r.ci_excludes_random, "yes" if lo > C.RANDOM_FPR else "no",
+              r.ci_excludes_random,
+              "yes" if raw["lira_tpr_at_1pct_ci_low"] > C.RANDOM_FPR else "no",
               "derived", f"ci_low > RANDOM_FPR={C.RANDOM_FPR}")
         check("residual_leakage_eps1", tag, "epsilon", r.epsilon, C.EPS_TARGET,
               "analysis/src/config.py", "EPS_TARGET")
@@ -456,14 +486,6 @@ def v_bound_violations() -> None:
               int(a.n_members), src, filt)
         check("bound_violations", tag, "n_nonmembers", r.n_nonmembers,
               int(a.n_nonmembers), src, filt)
-        k, n, lo, hi = clopper_pearson(float(a.tpr_at_1pct), float(a.n_members))
-        check("bound_violations", tag, "cp_ci_low", r.cp_ci_low, lo,
-              "derived", f"binomtest({k},{n}).proportion_ci(method='exact')")
-        check("bound_violations", tag, "cp_ci_high", r.cp_ci_high, hi,
-              "derived", f"binomtest({k},{n}).proportion_ci(method='exact')")
-        check("bound_violations", tag, "ci_low_exceeds_bound",
-              r.ci_low_exceeds_bound, "yes" if lo > bound else "no",
-              "derived", "cp_ci_low > bound")
 
 
 # ==========================================================================

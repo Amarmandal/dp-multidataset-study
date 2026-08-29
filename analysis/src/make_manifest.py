@@ -41,8 +41,8 @@ TABLES = [
      "Gallstone's minimum resolvable FPR (0.0156) exceeds 1%. See gaps.md 1.1."),
     ("residual_leakage_eps1", "[14][15]", "Section 4.4 (Residual leakage under DP)",
      f"{MIA}; {ATTACKS}",
-     "DP targets at eps=1.0. Clopper-Pearson exact 95% CI on the LiRA TPR@1%, "
-     "n = n_members, k = round(TPR * n_members)."),
+     "DP targets at eps=1.0. The LiRA 95% CI bootstraps saved seed-level "
+     "integer outcomes; repeated evaluations of the same records are not pooled."),
     ("rho_by_epsilon", "[19]", "Section 4.5 (Utility-leakage association)",
      "analysis/correlation_stats/rho_by_epsilon.csv",
      "Reformat only; nothing recomputed. Significance markers are uncorrected "
@@ -53,9 +53,8 @@ TABLES = [
      "Significance counts uncorrected."),
     ("bound_violations", "[3][33]", "Section 5 (Discussion) / [TBD]",
      f"{MIA}; Attack/LiRA/results/<DS>/<DS>_lira_results.csv",
-     "41 of 270 DP LiRA configs exceed e^eps * 0.01. NOT evidence of a broken "
-     "guarantee -- see the table note and gaps.md 4.2. ci_low_exceeds_bound "
-     "marks the rows that survive the exact CI."),
+     "Descriptive screening only; no confidence or guarantee-exceedance claim "
+     "is computed. See the table note and gaps.md 4.2."),
     ("config_inventory", "[9][59][61]", "Appendix A (Reproducibility) / [TBD]",
      f"<DS>/<FAMILY>/**/std_*_report.json; <DS>/<FAMILY>/**/dp_*_report.json; {UTIL}",
      "All software-version fields are [MISSING]: not recorded in any report and "
@@ -77,7 +76,7 @@ FIGURES = [
     ("residual_floor_ci", "[14][15]", "Section 4.4 (Residual leakage under DP)",
      "analysis/tables/csv/residual_leakage_eps1.csv; "
      "analysis/tables/csv/baseline_leakage_all_pairs.csv",
-     "RQ2b common-floor figure with Clopper-Pearson error bars on every point. "
+     "RQ2b common-floor figure with run-level bootstrap error bars on every point. "
      "Floor estimator (median, with IQR) stated in the axis annotation."),
     ("rq1c_utility_vs_protection", "[72][73][75]", "Section 4.5 (RQ1c)",
      "analysis/figures/figure_input.csv; analysis/figures/correlations.csv",
@@ -105,16 +104,12 @@ FIGURES = [
 def rows() -> list[dict]:
     out = []
     for stem, items, loc, src, note in TABLES:
-        for ext, kind in (("csv", "table (CSV)"), ("tex", "table (LaTeX fragment)")):
-            extra = ("" if ext == "csv" else
-                     " MDPI booktabs fragment: \\input-able, carries "
-                     "\\label{tab:%s}, no document preamble." % stem)
-            out.append({
-                "artifact_path": f"analysis/tables/{ext}/{stem}.{ext}",
-                "type": kind, "referee_items": items,
-                "manuscript_location": loc, "source_files": src,
-                "generated_by": "analysis/src/build_tables.py",
-                "notes": note + extra})
+        out.append({
+            "artifact_path": f"analysis/tables/csv/{stem}.csv",
+            "type": "table (CSV)", "referee_items": items,
+            "manuscript_location": loc, "source_files": src,
+            "generated_by": "analysis/src/build_tables.py",
+            "notes": note})
 
     for stem, items, loc, src, note in FIGURES:
         for ext, kind in (("pdf", "figure (PDF, vector)"), ("png", "figure (PNG, 300 dpi)")):
@@ -125,22 +120,20 @@ def rows() -> list[dict]:
                 "generated_by": "analysis/src/build_figures.py",
                 "notes": note})
 
-    for ds in L.active_dataset_dirs():
+    roc_sources = "; ".join(
+        L.LIRA_ROC_CSV.format(ds=ds) for ds in L.active_dataset_dirs()
+    )
+    for ext, kind in (("pdf", "figure (PDF, vector)"),
+                      ("png", "figure (PNG, 600 dpi)")):
         out.append({
-            "artifact_path": f"analysis/figures/png/loglog_roc_{ds}.png",
-            "type": "figure (PNG, relocated)",
+            "artifact_path": f"analysis/figures/{ext}/loglog_roc_grid.{ext}",
+            "type": kind,
             "referee_items": "[62][78]",
-            "manuscript_location": "Section 4.3 (LiRA ROC) / [TBD]",
-            "source_files": L.LIRA_ROC_PNG.format(ds=ds),
-            "generated_by": "analysis/src/build_figures.py",
-            "notes": ("COVERS STANDARD (NON-PRIVATE) TARGETS ONLY -- _loglog_roc() "
-                      "filters to variant=='standard' and the ROC arrays are "
-                      "stripped before the CSV write, so DP curves cannot be "
-                      "produced without re-running LiRA. Copied UNCHANGED: the "
-                      "title crop was attempted, inspected and found unsafe "
-                      "(the title's lower line shares rows 77-79 with the top "
-                      "y-tick label), so the two-line in-image title REMAINS. "
-                      "See gaps.md 1.2 and 1.3.")})
+            "manuscript_location": "Section 4.3 (LiRA ROC) / Figure 8",
+            "source_files": roc_sources,
+            "generated_by": "analysis/src/make_roc_grid.py",
+            "notes": ("Six standard-target LiRA ROC panels redrawn from persisted "
+                      "FPR/TPR coordinates; no attack-side raster is embedded.")})
 
     src_notes = {
         "config.py": ("Switches: INCLUDE_LUNG_CANCER, UTILITY_LABEL, RANDOM_FPR. "
@@ -151,9 +144,8 @@ def rows() -> list[dict]:
                        "processed_data.pkl through a restricted unpickler that "
                        "stubs every non-numpy class, so no estimator is ever "
                        "constructed. Run directly for a coverage report."),
-        "build_tables.py": "Builds all nine tables as CSV + LaTeX.",
-        "build_figures.py": ("Builds the eight generated figures and relocates the "
-                             "six LiRA ROC PNGs."),
+        "build_tables.py": "Builds all nine tables as CSV files.",
+        "build_figures.py": "Builds the eight generated analysis figures.",
         "extract_provenance.py": ("Parses the report JSONs (globbed -- they sit at "
                                   "inconsistent depths) into config_inventory."),
         "verify.py": ("Re-derives every numeric table cell independently and writes "
@@ -202,7 +194,7 @@ def main() -> int:
                and r["artifact_path"] != "analysis/MANIFEST.csv"
                and r["artifact_path"] != "analysis/README.md"]
     with open(C.ANALYSIS / "MANIFEST.csv", "w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=COLUMNS)
+        w = csv.DictWriter(fh, fieldnames=COLUMNS, lineterminator="\n")
         w.writeheader()
         w.writerows(data)
     print(f"wrote MANIFEST.csv with {len(data)} rows")
