@@ -15,8 +15,7 @@ models and the Algorithm-1 synthesis RNG, so ``*_std`` reports shadow-calibratio
 noise around one fixed target.
 
 Outputs (under Attack/MIA_Shokri/results/):
-  * shokri_mia_comparison.csv   tidy table for plotting / the paper
-  * results/<dataset>/          per-dataset CSV (ground truth) + figures
+  * results/<dataset>/<dataset>_results.csv   authoritative per-dataset data
   No JSON is written.
 
 Usage:
@@ -37,7 +36,6 @@ import warnings
 import exported_models as em
 import numpy as np
 import pandas as pd
-import report
 from shokri_mia import run_shokri_attack
 
 warnings.filterwarnings("ignore")  # diffprivlib privacy/convergence chatter
@@ -166,15 +164,15 @@ def aggregate(runs, family, variant, epsilon):
     row = {"model": family, "variant": variant, "epsilon": epsilon, "n_runs": len(runs)}
     if not ok:
         row["error"] = runs[0].get("error", "unknown")
-        return row, runs
+        return row
     for k in keys:
         vals = [r[k] for r in ok if k in r]
         row[f"{k}_mean"] = float(np.mean(vals)) if vals else None
         row[f"{k}_std"] = float(np.std(vals)) if vals else None
-    return row, runs
+    return row
 
 
-def run_dataset_disk(ds, args, rows):
+def run_dataset_disk(ds, args):
     """Attack every exported target for one dataset."""
     repo = REPO
     data, n_classes, low, high = load_dataset(ds)
@@ -182,14 +180,6 @@ def run_dataset_disk(ds, args, rows):
         f"\n{'=' * 72}\n{ds}  (classes={n_classes}, n_train={len(data['y_train'])}, "
         f"n_features={data['X_train'].shape[1]})  [exported targets]\n{'=' * 72}"
     )
-    ds_results = {
-        "dataset": ds,
-        "n_classes": n_classes,
-        "n_train": int(len(data["y_train"])),
-        "n_test": int(len(data["y_test"])),
-        "source": "exported",
-        "targets": [],
-    }
     ds_rows = []
 
     for fam in args.models:
@@ -207,7 +197,7 @@ def run_dataset_disk(ds, args, rows):
             f"{fam_seeds[0]}..{fam_seeds[-1]}"
         )
         # Standard target
-        row, runs = attack_disk(
+        row = attack_disk(
             fam,
             "standard",
             data,
@@ -224,7 +214,6 @@ def run_dataset_disk(ds, args, rows):
             seeds=fam_seeds,
         )
         ds_rows.append({"dataset": ds, **row})
-        ds_results["targets"].append({"config": row, "runs": runs})
         print(
             f"  [{fam}] STD       adv={row.get('advantage_mean'):.3f} "
             f"auc={row.get('attack_auc_mean'):.3f} "
@@ -237,7 +226,7 @@ def run_dataset_disk(ds, args, rows):
                 print(f"  [{fam}] DP eps={eps:<5} skipped (not exported)")
                 continue
             seeds = fam_seeds
-            row, runs = attack_disk(
+            row = attack_disk(
                 fam,
                 "dp",
                 data,
@@ -251,7 +240,6 @@ def run_dataset_disk(ds, args, rows):
                 seeds=seeds,
             )
             ds_rows.append({"dataset": ds, **row})
-            ds_results["targets"].append({"config": row, "runs": runs})
             if "error" in row:
                 print(f"  [{fam}] DP eps={eps:<5} ERROR: {row['error']}")
             else:
@@ -262,18 +250,11 @@ def run_dataset_disk(ds, args, rows):
                 )
         print(f"  [{fam}] done in {time.time() - t0:.1f}s")
 
-    rows.extend(ds_rows)
-
-    meta = {
-        "n_classes": n_classes,
-        "n_train": int(len(data["y_train"])),
-        "n_test": int(len(data["y_test"])),
-        "n_features": int(data["X_train"].shape[1]),
-    }
-    out_dir = report.build_report(
-        ds, pd.DataFrame(ds_rows), meta, OUT_DIR, targets=ds_results["targets"]
-    )
-    print(f"  -> report + figures + analysis.md written to {out_dir}/")
+    out_dir = os.path.join(OUT_DIR, ds)
+    os.makedirs(out_dir, exist_ok=True)
+    csv_path = os.path.join(out_dir, f"{ds}_results.csv")
+    pd.DataFrame(ds_rows).to_csv(csv_path, index=False)
+    print(f"  -> CSV written to {csv_path}")
 
 
 def main():
@@ -306,6 +287,9 @@ def main():
     ap.add_argument("--quick", action="store_true", help="tiny config for smoke test")
     args = ap.parse_args()
 
+    if args.dp_runs < 1 or args.dnn_runs < 1:
+        ap.error("--dp-runs and --dnn-runs must each be at least 1")
+
     if args.models is None:
         args.models = em.MODEL_FAMILIES
 
@@ -317,15 +301,8 @@ def main():
         args.n_shadow = 3
 
     os.makedirs(OUT_DIR, exist_ok=True)
-    rows = []
     for ds in args.datasets:
-        run_dataset_disk(ds, args, rows)
-
-    df = pd.DataFrame(rows)
-    csv_path = os.path.join(OUT_DIR, "shokri_mia_comparison.csv")
-    df.to_csv(csv_path, index=False)
-    print(f"\nSaved comparison table -> {csv_path}")
-    print(f"Authoritative per-dataset CSVs -> {OUT_DIR}/<dataset>/<dataset>_results.csv")
+        run_dataset_disk(ds, args)
 
 
 if __name__ == "__main__":

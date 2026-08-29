@@ -52,6 +52,61 @@ def logit_conf(proba, y, eps=1e-6):
 # --------------------------------------------------------------------------- #
 # Metrics — TPR at low FPR is the headline
 # --------------------------------------------------------------------------- #
+LOW_FPR_POINTS = {
+    "10pct": 0.10,
+    "1pct": 0.01,
+    "0p1pct": 0.001,
+}
+
+
+def empirical_operating_point(member, score, fpr, tpr, thresholds, target_fpr):
+    """Select an observed ROC point at or below ``target_fpr``.
+
+    The selected point maximises empirical TPR subject to empirical FPR being
+    no greater than the requested limit.  Unlike interpolation, the returned
+    rates come from integer TP/FP/TN/FN counts at one actual score threshold.
+    """
+    member = np.asarray(member, int)
+    score = np.asarray(score, float)
+    fpr = np.asarray(fpr, float)
+    tpr = np.asarray(tpr, float)
+    thresholds = np.asarray(thresholds, float)
+
+    eligible = np.flatnonzero(fpr <= float(target_fpr) + 1e-15)
+    if not len(eligible):
+        raise ValueError(f"ROC has no point at or below FPR={target_fpr}")
+
+    eligible_tpr = tpr[eligible]
+    best_tpr = np.max(eligible_tpr)
+    # roc_curve orders thresholds from strict to permissive.  The last point
+    # at the best TPR is the least strict threshold without exceeding the FPR
+    # constraint, which makes the tie-breaking rule deterministic.
+    best = eligible[np.flatnonzero(eligible_tpr == best_tpr)[-1]]
+    threshold = float(thresholds[best])
+    predicted_member = score >= threshold
+    actual_member = member == 1
+
+    tp = int(np.sum(predicted_member & actual_member))
+    fp = int(np.sum(predicted_member & ~actual_member))
+    fn = int(np.sum(~predicted_member & actual_member))
+    tn = int(np.sum(~predicted_member & ~actual_member))
+    n_members = tp + fn
+    n_nonmembers = fp + tn
+
+    return {
+        "target_fpr": float(target_fpr),
+        "threshold": threshold,
+        "tp": tp,
+        "fp": fp,
+        "tn": tn,
+        "fn": fn,
+        "tpr": float(tp / n_members),
+        "fpr": float(fp / n_nonmembers),
+        "fpr_resolvable": bool(n_nonmembers and 1.0 / n_nonmembers <= target_fpr),
+        "selection_rule": "max_tpr_with_empirical_fpr_le_target",
+    }
+
+
 def attack_metrics(member, score):
     """ROC-based metrics for a membership score (higher = more member-like)."""
     member = np.asarray(member, int)
@@ -63,22 +118,31 @@ def attack_metrics(member, score):
         return {"error": "only one membership class present"}
 
     auc = float(roc_auc_score(member, score))
-    fpr, tpr, _ = roc_curve(member, score)
+    fpr, tpr, thresholds = roc_curve(member, score)
 
-    def tpr_at(target_fpr):
+    def interpolated_tpr_at(target_fpr):
         return float(np.interp(target_fpr, fpr, tpr))
 
-    return {
+    metrics = {
         "attack_auc": auc,
         "advantage": float(np.max(tpr - fpr)),       # KS statistic (max TPR-FPR)
-        "tpr_at_10pct": tpr_at(0.10),
-        "tpr_at_1pct": tpr_at(0.01),
-        "tpr_at_0p1pct": tpr_at(0.001),
         "n_members": int((member == 1).sum()),
         "n_nonmembers": int((member == 0).sum()),
         "_roc_fpr": fpr.tolist(),                    # kept for log-log ROC plot
         "_roc_tpr": tpr.tolist(),
+        "_roc_threshold": thresholds.tolist(),
     }
+    for label, target_fpr in LOW_FPR_POINTS.items():
+        point = empirical_operating_point(
+            member, score, fpr, tpr, thresholds, target_fpr
+        )
+        # The primary low-FPR estimate is an attainable empirical ROC point.
+        # Retain interpolation under an explicit name only for diagnostics.
+        metrics[f"tpr_at_{label}"] = point["tpr"]
+        metrics[f"tpr_at_{label}_interpolated"] = interpolated_tpr_at(target_fpr)
+        for key, value in point.items():
+            metrics[f"op_{label}_{key}"] = value
+    return metrics
 
 
 # --------------------------------------------------------------------------- #

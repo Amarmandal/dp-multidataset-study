@@ -14,7 +14,6 @@ import math
 
 import numpy as np
 import pandas as pd
-from scipy.stats import binomtest
 
 import config as C
 import loaders as L
@@ -116,20 +115,81 @@ def write_table(name: str, df: pd.DataFrame, caption: str, note: str,
 # Shared helpers
 # ==========================================================================
 
-def clopper_pearson(tpr: float, n_members: float) -> tuple:
-    """Exact binomial 95% CI on a TPR observed over ``n_members`` positives.
+def bootstrap_run_mean_ci(
+    values: np.ndarray, *, seed: int, n_resamples: int = 20_000
+) -> tuple[float, float]:
+    """Percentile 95% CI for the mean across independent attack repetitions."""
+    values = np.asarray(values, dtype=float)
+    if values.ndim != 1 or len(values) < 2 or not np.isfinite(values).all():
+        raise ValueError("run-level bootstrap needs at least two finite outcomes")
+    rng = np.random.default_rng(seed)
+    means = rng.choice(values, size=(n_resamples, len(values)), replace=True).mean(axis=1)
+    low, high = np.quantile(means, [0.025, 0.975])
+    return float(low), float(high)
 
-    k = round(TPR * n_members), n = n_members, per the referee's prescription.
-    Returns (k, n, low, high); (MISSING, ...) when either input is absent.
-    """
-    if tpr is None or n_members is None or pd.isna(tpr) or pd.isna(n_members):
-        m = C.MISSING.format(what="TPR or n_members")
-        return m, m, m, m
-    n = int(round(float(n_members)))
-    k = int(round(float(tpr) * n))
-    k = min(max(k, 0), n)
-    ci = binomtest(k, n).proportion_ci(method="exact")
-    return k, n, float(ci.low), float(ci.high)
+
+def _low_fpr_run_summary() -> pd.DataFrame:
+    """Summarise exact 1%-FPR outcomes across LiRA shadow-calibration runs."""
+    runs = L.load_all_lira_runs()
+    runs = runs[
+        (runs["variant"] == "dp")
+        & np.isclose(pd.to_numeric(runs["epsilon"], errors="coerce"), C.EPS_TARGET)
+    ].copy()
+    if runs.empty:
+        raise ValueError(f"no LiRA per-run rows found at epsilon={C.EPS_TARGET}")
+    if "error" in runs and runs["error"].notna().any():
+        failed = runs.loc[runs["error"].notna(), ["dataset_dir", "model", "run_seed"]]
+        raise ValueError(f"LiRA has failed epsilon=1 runs; rerun them:\n{failed}")
+
+    count_cols = ["op_1pct_tp", "op_1pct_fp", "op_1pct_tn", "op_1pct_fn"]
+    for column in count_cols:
+        values = pd.to_numeric(runs[column], errors="raise").to_numpy(float)
+        if not np.equal(values, np.floor(values)).all() or (values < 0).any():
+            raise ValueError(f"{column} must contain non-negative integer outcomes")
+        runs[column] = values.astype(int)
+
+    rows = []
+    grouped = runs.groupby(["dataset_dir", "model"], sort=True)
+    for group_index, ((dataset_dir, model), group) in enumerate(grouped):
+        if group["run_seed"].duplicated().any():
+            raise ValueError(f"duplicate LiRA run_seed for {dataset_dir}/{model}")
+        target = pd.to_numeric(group["op_1pct_target_fpr"], errors="raise").to_numpy(float)
+        if not np.allclose(target, C.RANDOM_FPR):
+            raise ValueError(f"unexpected target FPR for {dataset_dir}/{model}")
+        if set(group["op_1pct_selection_rule"]) != {
+            "max_tpr_with_empirical_fpr_le_target"
+        }:
+            raise ValueError(f"unexpected ROC-point rule for {dataset_dir}/{model}")
+
+        n_members = group["op_1pct_tp"] + group["op_1pct_fn"]
+        n_nonmembers = group["op_1pct_fp"] + group["op_1pct_tn"]
+        if n_members.nunique() != 1 or n_nonmembers.nunique() != 1:
+            raise ValueError(f"evaluation-set sizes vary across {dataset_dir}/{model} runs")
+        tpr = group["op_1pct_tp"].to_numpy(float) / n_members.to_numpy(float)
+        fpr = group["op_1pct_fp"].to_numpy(float) / n_nonmembers.to_numpy(float)
+        recorded_tpr = pd.to_numeric(group["op_1pct_tpr"], errors="raise").to_numpy(float)
+        recorded_fpr = pd.to_numeric(group["op_1pct_fpr"], errors="raise").to_numpy(float)
+        if not np.allclose(tpr, recorded_tpr) or not np.allclose(fpr, recorded_fpr):
+            raise ValueError(f"stored rates disagree with integer outcomes for {dataset_dir}/{model}")
+        if (fpr > C.RANDOM_FPR + 1e-15).any():
+            raise ValueError(f"selected ROC point exceeds 1% FPR for {dataset_dir}/{model}")
+
+        low, high = bootstrap_run_mean_ci(tpr, seed=20_260_829 + group_index)
+        resolvable = group["op_1pct_fpr_resolvable"].astype(str).str.lower().eq("true")
+        rows.append({
+            "dataset": L.DIR_TO_DISPLAY[dataset_dir],
+            "model": model,
+            "lira_tpr_at_1pct": float(np.mean(tpr)),
+            "lira_tpr_at_1pct_std": float(np.std(tpr)),
+            "lira_tpr_at_1pct_ci_low": low,
+            "lira_tpr_at_1pct_ci_high": high,
+            "n_attack_runs": int(len(group)),
+            "n_members_per_run": int(n_members.iloc[0]),
+            "n_nonmembers_per_run": int(n_nonmembers.iloc[0]),
+            "all_runs_fpr_resolvable": "yes" if resolvable.all() else "no",
+            "low_fpr_ci_method": "run-level percentile bootstrap (20000 resamples)",
+        })
+    return pd.DataFrame(rows)
 
 
 def _std_leakage() -> pd.DataFrame:
@@ -342,40 +402,31 @@ def t_residual_leakage_eps1(conflicts: list) -> pd.DataFrame:
               .rename(columns={"attack_auc_mean": "shokri_auc",
                                "attack_auc_std": "shokri_auc_std"}))
     lira = (dp[dp["attack"] == "lira"]
-            [["dataset", "model", "attack_auc_mean", "attack_auc_std",
-              "tpr_at_1pct", "tpr_at_1pct_std", "n_members", "n_nonmembers"]]
+            [["dataset", "model", "attack_auc_mean", "attack_auc_std"]]
             .rename(columns={"attack_auc_mean": "lira_auc",
-                             "attack_auc_std": "lira_auc_std",
-                             "tpr_at_1pct": "lira_tpr_at_1pct",
-                             "tpr_at_1pct_std": "lira_tpr_at_1pct_std"}))
+                             "attack_auc_std": "lira_auc_std"}))
     d = (yeom.drop(columns=["n_members"])
          .merge(shokri, on=["dataset", "model"])
-         .merge(lira, on=["dataset", "model"]))
+         .merge(lira, on=["dataset", "model"])
+         .merge(_low_fpr_run_summary(), on=["dataset", "model"]))
 
-    ks, ns, los, his = [], [], [], []
-    for r in d.itertuples():
-        k, n, lo, hi = clopper_pearson(r.lira_tpr_at_1pct, r.n_members)
-        ks.append(k); ns.append(n); los.append(lo); his.append(hi)
     d["epsilon"] = C.EPS_TARGET
     d["family"] = d["model"]
     d["model"] = d["model"].map(L.SHORT_TO_DP)
-    d["cp_k"] = ks
-    d["cp_n_members"] = ns
-    d["lira_tpr_at_1pct_ci_low"] = los
-    d["lira_tpr_at_1pct_ci_high"] = his
     d["random_guess_tpr"] = C.RANDOM_FPR
     d["ci_excludes_random"] = [
         ("yes" if (not isinstance(lo, str) and lo > C.RANDOM_FPR) else "no")
-        for lo in los]
+        for lo in d["lira_tpr_at_1pct_ci_low"]]
 
     cols = ["dataset", "model", "family", "epsilon",
             "yeom_advantage", "yeom_advantage_std",
             "shokri_auc", "shokri_auc_std",
             "lira_auc", "lira_auc_std",
             "lira_tpr_at_1pct", "lira_tpr_at_1pct_std",
-            "cp_k", "cp_n_members",
             "lira_tpr_at_1pct_ci_low", "lira_tpr_at_1pct_ci_high",
-            "random_guess_tpr", "ci_excludes_random", "n_nonmembers"]
+            "n_attack_runs", "n_members_per_run", "n_nonmembers_per_run",
+            "all_runs_fpr_resolvable", "low_fpr_ci_method",
+            "random_guess_tpr", "ci_excludes_random"]
     return _order(d[cols])
 
 
@@ -443,7 +494,6 @@ def t_bound_violations(conflicts: list) -> pd.DataFrame:
         tpr = float(r.tpr_at_1pct)
         if not (tpr > bound):
             continue
-        k, n, lo, hi = clopper_pearson(tpr, r.n_members)
         rows.append({
             "dataset": r.dataset,
             "model": L.SHORT_TO_DP[r.model],
@@ -454,15 +504,12 @@ def t_bound_violations(conflicts: list) -> pd.DataFrame:
             "ratio_tpr_over_bound": tpr / bound,
             "n_members": int(r.n_members),
             "n_nonmembers": int(r.n_nonmembers),
-            "cp_ci_low": lo,
-            "cp_ci_high": hi,
-            "ci_low_exceeds_bound": "yes" if (not isinstance(lo, str) and lo > bound) else "no",
         })
     if not rows:
         return pd.DataFrame(columns=[
             "dataset", "model", "family", "epsilon", "lira_tpr_at_1pct",
             "bound_exp_eps_times_fpr", "ratio_tpr_over_bound", "n_members",
-            "n_nonmembers", "cp_ci_low", "cp_ci_high", "ci_low_exceeds_bound"])
+            "n_nonmembers"])
     return _order(pd.DataFrame(rows)).sort_values(
         "ratio_tpr_over_bound", ascending=False).reset_index(drop=True)
 
@@ -480,10 +527,11 @@ def t_config_inventory(conflicts: list) -> pd.DataFrame:
 # Driver
 # ==========================================================================
 
-CP_NOTE = ("Clopper--Pearson (exact binomial) 95\\% confidence intervals, computed as "
-           "\\texttt{scipy.stats.binomtest(k, n).proportion\\_ci(method='exact')} with "
-           "$n = n_\\mathrm{members}$ and $k = \\mathrm{round}(\\mathrm{TPR} \\times "
-           "n_\\mathrm{members})$.")
+RUN_CI_NOTE = ("The LiRA interval is a deterministic percentile bootstrap of the "
+               "mean across the saved attack repetitions (20,000 resamples). Each "
+               "repetition contributes its observed integer TP/FN outcome at an "
+               "actual ROC threshold whose empirical FPR is at most 1\\%; repeated "
+               "evaluations of the same records are not pooled as independent people.")
 
 
 def main() -> list[str]:
@@ -599,8 +647,8 @@ def main() -> list[str]:
         "residual_leakage_eps1", d5,
         caption=("Residual membership inference leakage against the DP targets at "
                  "$\\varepsilon = 1.0$, for all 30 dataset $\\times$ model pairs, with "
-                 "exact 95\\% confidence intervals on the LiRA TPR@1\\%."),
-        note=(CP_NOTE + " The interval is placed on the LiRA TPR@1\\%, the worst-case "
+                 "run-level 95\\% bootstrap intervals on the LiRA TPR@1\\%."),
+        note=(RUN_CI_NOTE + " The interval is placed on the LiRA TPR@1\\%, the worst-case "
               "rate the residual-leakage claim rests on. \\texttt{ci\\_excludes\\_random} "
               "is \\texttt{yes} only where the lower confidence limit lies above the "
               "1\\% chance rate. Source: "
@@ -667,27 +715,24 @@ def main() -> list[str]:
         caption=("DP configurations whose measured LiRA TPR@1\\% exceeds the "
                  "$\\varepsilon$-DP upper bound $e^{\\varepsilon}\\cdot\\mathrm{FPR}$ at "
                  "$\\mathrm{FPR}=0.01$."),
-        note=(CP_NOTE + " A row appearing here is not by itself evidence that the "
+        note=("This is a descriptive screening table only. A row appearing here is "
+              "not by itself evidence that the "
               "privacy guarantee is violated: the bound is stated on a single "
               "attack's true-positive rate at a fixed operating point, the reported "
               "TPR is a mean over repeated attack runs, and the finite non-member set "
               "limits the resolution of the 1\\% FPR threshold (see "
-              "Table~\\ref{tab:evaluation_set_sizes}). "
-              "\\texttt{ci\\_low\\_exceeds\\_bound} marks the rows where even the lower "
-              "exact confidence limit sits above the bound."),
+              "Table~\\ref{tab:evaluation_set_sizes}). No confidence/exceedance claim "
+              "is computed here."),
         tex_columns=["dataset", "model", "epsilon", "lira_tpr_at_1pct",
                      "bound_exp_eps_times_fpr", "ratio_tpr_over_bound",
-                     "n_nonmembers", "cp_ci_low", "cp_ci_high",
-                     "ci_low_exceeds_bound"],
+                     "n_nonmembers"],
         headers={"dataset": "Dataset", "model": "Model",
                  "epsilon": "$\\varepsilon$",
                  "lira_tpr_at_1pct": "TPR@1\\%",
                  "bound_exp_eps_times_fpr": "$e^{\\varepsilon}\\cdot 0.01$",
                  "ratio_tpr_over_bound": "Ratio",
-                 "n_nonmembers": "$n_{\\mathrm{nonmembers}}$",
-                 "cp_ci_low": "CI low", "cp_ci_high": "CI high",
-                 "ci_low_exceeds_bound": "CI$>$bound?"},
-        col_spec="llrrrrrrrl")
+                 "n_nonmembers": "$n_{\\mathrm{nonmembers}}$"},
+        col_spec="llrrrrr")
 
     # --- 9 -----------------------------------------------------------------
     d9 = t_config_inventory(conflicts)
