@@ -1,8 +1,9 @@
-"""Within-pair correlations — Spearman correlation between AL and leakage.
+"""Within-pair correlations between artifact-matched ACL and leakage.
 
-For each of the 30 dataset x model pairs, correlate AL against each leakage
-metric ACROSS the nine paired epsilons (n=9 per pair). Repeated for all four
-leakage metrics. Nothing is dropped or adjusted.
+For each of the 30 dataset x model pairs, correlate ACL_exported against each
+leakage metric across the nine paired epsilons (n=9 per pair). Leakage and
+utility therefore describe the same exported run-0 artifact. Nothing is
+dropped or adjusted.
 
 Outputs: analysis/within_pair/pair_correlations.csv, analysis/within_pair/summary.csv
 """
@@ -30,7 +31,7 @@ def main():
         for _, _, label in LEAKAGE_METRICS:
             n_expected = len(EPSILONS)
             n_present = int(g[label].notna().sum())
-            res = spearman_with_ci(g["AL"], g[label])
+            res = spearman_with_ci(g["AL_exported"], g[label])
             note = res["note"]
             if n_present < n_expected:
                 miss = f"{n_expected - n_present} of {n_expected} epsilons missing in {label}"

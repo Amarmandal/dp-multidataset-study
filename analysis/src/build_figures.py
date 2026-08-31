@@ -275,7 +275,6 @@ def fig_residual_floor_ci() -> None:
 
 RQ_FIGURE_SPEC = {
     "l4_avg_vs_worst_case": "L4  yeom_adv_base vs lira_auc_base",
-    "rq1c_utility_vs_protection": "RQ1c ACL vs tpr1_dp",
     "rq1c_utility_vs_protection_exported": "RQ1c ACL_exported vs tpr1_dp",
     "rq2a_benefit_vs_baseline": "RQ2a tpr1_base vs reduction",
     "l6_baseline_leakage_vs_N": "L6  n_samples vs std-RF tpr1_base",
@@ -343,8 +342,7 @@ def build_rq_figures() -> None:
     save(fig, "l4_avg_vs_worst_case")
 
     # ---- RQ1c: utility paid vs protection gained --------------------------
-    for key, col in (("rq1c_utility_vs_protection", "ACL"),
-                     ("rq1c_utility_vs_protection_exported", "ACL_exported")):
+    for key, col in (("rq1c_utility_vs_protection_exported", "ACL_exported"),):
         sub = d.dropna(subset=[col])
         if len(sub) < len(d):
             gap(f"{key}: {len(d) - len(sub)} of {len(d)} pairs have no "

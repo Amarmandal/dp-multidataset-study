@@ -1,12 +1,12 @@
 al_definition,description,metric,analysis,n_pairs_total,n_computable,n_undefined,median_rho,iqr_low,iqr_high,min_rho,max_rho,n_significant_p05,n_significant_negative,n_significant_positive,pooled_rho,pooled_n,pooled_p,pooled_ci_low,pooled_ci_high
-AL,accuracy-based AL,yeom_advantage,"within-pair Spearman, n=9 per pair",30.0,30.0,0.0,0.09205101496312953,-0.5469530409603415,0.5416666666666666,-1.0,0.9333333333333332,12.0,7.0,5.0,,,,,
-AL,accuracy-based AL,lira_auc,"within-pair Spearman, n=9 per pair",30.0,30.0,0.0,-0.30910202992625907,-0.7614674634957229,0.1625,-1.0,0.9166666666666666,13.0,11.0,2.0,,,,,
-AL,accuracy-based AL,shokri_auc,"within-pair Spearman, n=9 per pair",30.0,29.0,1.0,0.06666666666666667,-0.43333333333333335,0.2881769890388444,-0.9492889050691345,0.6780635036208105,3.0,2.0,1.0,,,,,
-AL,accuracy-based AL,lira_tpr_at_1pct,"within-pair Spearman, n=9 per pair",30.0,30.0,0.0,0.07106044823578866,-0.34337395172988067,0.4947196407399883,-0.9288784237188525,0.9500000000000001,8.0,3.0,5.0,,,,,
-AL,accuracy-based AL,yeom_advantage,pooled Spearman over all paired points,,,,,,,,,,,,-0.0732335533235979,270.0,0.2303809065826086,-0.19109503580238787,0.04670965297813159
-AL,accuracy-based AL,lira_auc,pooled Spearman over all paired points,,,,,,,,,,,,0.09623848367397525,270.0,0.11463752893244629,-0.023683571004767243,0.21343020377875319
-AL,accuracy-based AL,shokri_auc,pooled Spearman over all paired points,,,,,,,,,,,,0.0015291522081303164,270.0,0.9800470078857513,-0.11786832303757783,0.12088304482141295
-AL,accuracy-based AL,lira_tpr_at_1pct,pooled Spearman over all paired points,,,,,,,,,,,,0.412109009153299,270.0,1.7101408234697557e-12,0.30335647880871264,0.510263476057398
+AL_exported,artifact-matched ACL,yeom_advantage,"within-pair Spearman, n=9 per pair",30.0,30.0,0.0,0.032421421115919336,-0.7236648899030964,0.5747772618290892,-1.0,1.0,12.0,8.0,4.0,,,,,
+AL_exported,artifact-matched ACL,lira_auc,"within-pair Spearman, n=9 per pair",30.0,30.0,0.0,-0.13868189786888424,-0.6624016441777509,0.200252849846706,-0.8355727485873495,0.9121418755437382,11.0,8.0,3.0,,,,,
+AL_exported,artifact-matched ACL,shokri_auc,"within-pair Spearman, n=9 per pair",30.0,29.0,1.0,0.0,-0.4100454302903043,0.22129462863566354,-0.8333333333333333,0.7848730094898416,3.0,2.0,1.0,,,,,
+AL_exported,artifact-matched ACL,lira_tpr_at_1pct,"within-pair Spearman, n=9 per pair",30.0,30.0,0.0,0.23389282824958862,-0.2297044262893002,0.6196789231921785,-0.8451956828432803,0.9411764705882354,9.0,2.0,7.0,,,,,
+AL_exported,artifact-matched ACL,yeom_advantage,pooled Spearman over all paired points,,,,,,,,,,,,-0.043675942298903044,270.0,0.47480652372702015,-0.16226179712201128,0.07615356253671597
+AL_exported,artifact-matched ACL,lira_auc,pooled Spearman over all paired points,,,,,,,,,,,,0.06139123924053284,270.0,0.31488282760684844,-0.058525314296642116,0.17956131546854304
+AL_exported,artifact-matched ACL,shokri_auc,pooled Spearman over all paired points,,,,,,,,,,,,-0.058336882492266845,270.0,0.33960855015092534,-0.17658256570900663,0.06156868714567739
+AL_exported,artifact-matched ACL,lira_tpr_at_1pct,pooled Spearman over all paired points,,,,,,,,,,,,0.386850077867073,270.0,4.540555302198848e-11,0.27635918905365336,0.4872478132434267
 AL_balanced,balanced-accuracy AL,yeom_advantage,"within-pair Spearman, n=9 per pair",30.0,30.0,0.0,0.07531446678801507,-0.5341656846385023,0.5416666666666666,-1.0,0.9333333333333332,12.0,7.0,5.0,,,,,
 AL_balanced,balanced-accuracy AL,lira_auc,"within-pair Spearman, n=9 per pair",30.0,30.0,0.0,-0.30910202992625907,-0.7385690571538353,0.21183473389355748,-1.0,0.9333333333333332,12.0,10.0,2.0,,,,,
 AL_balanced,balanced-accuracy AL,shokri_auc,"within-pair Spearman, n=9 per pair",30.0,29.0,1.0,-0.05085476277156078,-0.42576344347996997,0.20920685218893076,-0.9153857298880941,0.6780635036208105,3.0,2.0,1.0,,,,,

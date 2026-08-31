@@ -190,5 +190,5 @@
   "notes": [
     "global | n_runs | 36 DP rows carry no n_runs at all (Breast Cancer/DP-DNN, Cancer Risk/DP-DNN, Diabetes/DP-DNN, Gallstone/DP-DNN); their dp_dnn_report.json predates the per-run bookkeeping. Not a value mismatch -- an absent field."
   ],
-  "n_checks": 1775
+  "n_checks": 1772
 }

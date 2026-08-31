@@ -45,12 +45,13 @@ TABLES = [
      "integer outcomes; repeated evaluations of the same records are not pooled."),
     ("rho_by_epsilon", "[19]", "Section 4.5 (Utility-leakage association)",
      "analysis/correlation_stats/rho_by_epsilon.csv",
-     "Reformat only; nothing recomputed. Significance markers are uncorrected "
-     "for multiple comparisons (108 tests). Exact p-values in the CSV."),
+     "Primary all-pairs rows use artifact-matched ACL_exported at all nine "
+     "budgets. Significance markers are uncorrected. Exact p-values are in "
+     "the CSV; balanced-accuracy rows are explicitly labeled sensitivity rows."),
     ("within_pair_correlations", "[18]", "Section 4.5 (Utility-leakage association)",
      "analysis/within_pair/summary.csv; analysis/within_pair/pair_correlations.csv",
-     "Reformat only; nothing recomputed. One Shokri pair is undefined. "
-     "Significance counts uncorrected."),
+     "Uses artifact-matched ACL_exported across nine budgets inside each pair. "
+     "One Shokri pair is undefined. Significance counts are uncorrected."),
     ("bound_violations", "[3][33]", "Section 5 (Discussion) / [TBD]",
      f"{MIA}; Attack/LiRA/results/<DS>/<DS>_lira_results.csv",
      "Descriptive screening only; no confidence or guarantee-exceedance claim "
@@ -78,11 +79,6 @@ FIGURES = [
      "analysis/tables/csv/baseline_leakage_all_pairs.csv",
      "RQ2b common-floor figure with run-level bootstrap error bars on every point. "
      "Floor estimator (median, with IQR) stated in the axis annotation."),
-    ("rq1c_utility_vs_protection", "[72][73][75]", "Section 4.5 (RQ1c)",
-     "analysis/figures/figure_input.csv; analysis/figures/correlations.csv",
-     "Regenerated from the RQ figure input; the recorded correlation is asserted, not "
-     "recomputed, and a mismatch aborts the build. Utility axis labelled ACL. "
-     "All 30 pairs."),
     ("rq1c_utility_vs_protection_exported", "[72][73][75]", "Section 4.5 (RQ1c)",
      "analysis/figures/figure_input.csv; analysis/figures/correlations.csv",
      "As above but on ACL_exported, which matches the artefact the attacks "

@@ -137,7 +137,6 @@ supplied" (the pattern `source_url` already uses) or reverting the injection.
 | `gap_vs_leakage_vs_N` | **Figure 12** |
 | `l6_baseline_leakage_vs_N` | **Figure 13** |
 | `gap_vs_leakage` | supporting, not in the manuscript |
-| `rq1c_utility_vs_protection` | supporting — the `ACL` (30-run mean) variant of Figure 9 |
 
 Figure 9 uses **`ACL_exported`**, not `ACL`. The attacks target the exported
 run-0 artifact, so pairing leakage against the 30-run mean would describe two
@@ -153,6 +152,25 @@ the representative standard-target curves.
 `baseline_leakage_all_pairs` · `evaluation_set_sizes` · `residual_leakage_eps1` ·
 `rho_by_epsilon` · `within_pair_correlations` · `bound_violations` ·
 `config_inventory`
+
+The primary RQ1 tables `rho_by_epsilon` and `within_pair_correlations` use
+`ACL_exported`, paired with leakage from the same exported run-0 artifact.
+Thirty-run mean ACL is not used in these primary tables; it is retained only
+for the standalone utility landscape and explicitly labeled sensitivity work.
+
+### Upload-ready manuscript CSVs
+
+The following files are presentation-ready sources named after the manuscript
+table numbers:
+
+| Manuscript table | Upload-ready CSV |
+|---|---|
+| Table 11 | `tables/csv/table_11_artifact_matched_acl_exported_epsilon_1.csv` |
+| Table 12 | `tables/csv/table_12_artifact_matched_acl_exported_all_budgets.csv` |
+| Table 13 | `tables/csv/table_13_artifact_matched_acl_exported_within_pair.csv` |
+
+Tables 12 and 13 contain the revised values. Table 11 is supplied under an
+explicit filename for traceability; its artifact-matched values are unchanged.
 
 ---
 

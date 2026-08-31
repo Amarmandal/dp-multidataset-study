@@ -1,7 +1,9 @@
 """Shared loading + correlation helpers for the RQ1 correlation analyses.
 
 Authoritative inputs ONLY:
-  Results/dataset_results/consolidated_data.csv    (utility; AL = `ACL`)
+  Results/dataset_results/consolidated_data.csv
+      (primary utility: AL_exported = `ACL_exported`;
+       sensitivity utility: AL_mean = `ACL`)
   Results/attack_results/consolidated_mia_data.csv (leakage)
 
 Nothing here drops, winsorises, clips or floors a value. Negative Yeom
@@ -52,7 +54,7 @@ def load_mia() -> pd.DataFrame:
 
 
 def build_paired(utility: pd.DataFrame, mia: pd.DataFrame) -> pd.DataFrame:
-    """One row per (dataset, model, epsilon) with AL and every leakage metric.
+    """One row per key with artifact-matched AL and every leakage metric.
 
     Join keys: dataset + model + epsilon, both sides filtered to variant=='dp'
     and to the nine-point grid. Model names normalised via MODEL_MAP.
@@ -65,9 +67,15 @@ def build_paired(utility: pd.DataFrame, mia: pd.DataFrame) -> pd.DataFrame:
         raise ValueError(f"unmapped utility model names: {bad}")
 
     base = u[["dataset", "dataset_dir", "model", "model_key", "epsilon",
-              "accuracy_mean", "balanced_accuracy_mean", "ACL", "n_runs"]].rename(
-        columns={"ACL": "AL", "n_runs": "utility_n_runs"}
+              "accuracy_mean", "balanced_accuracy_mean", "ACL",
+              "ACL_exported", "n_runs"]].rename(
+        columns={"ACL": "AL_mean", "ACL_exported": "AL_exported",
+                 "n_runs": "utility_n_runs"}
     )
+    if base["AL_exported"].isna().any():
+        missing = base.loc[base["AL_exported"].isna(),
+                           ["dataset", "model", "epsilon"]]
+        raise ValueError(f"missing artifact-matched ACL_exported rows:\n{missing}")
     # eps stored as float on both sides; round to kill any float-repr mismatch
     base["epsilon"] = base["epsilon"].round(6)
 

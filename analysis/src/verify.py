@@ -572,7 +572,6 @@ def v_rq_correlations() -> None:
     rf = d[d["model"] == "RF"]
     spec = {
         "L4  yeom_adv_base vs lira_auc_base": (d, "yeom_adv_base", "lira_auc_base"),
-        "RQ1c ACL vs tpr1_dp": (d.dropna(subset=["ACL"]), "ACL", "tpr1_dp"),
         "RQ1c ACL_exported vs tpr1_dp":
             (d.dropna(subset=["ACL_exported"]), "ACL_exported", "tpr1_dp"),
         "RQ2a tpr1_base vs reduction": (d, "tpr1_base", "reduction"),

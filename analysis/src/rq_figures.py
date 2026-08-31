@@ -1,7 +1,7 @@
 """RQ figures — RQ1 / RQ2 scatter figures pairing utility with leakage.
 
 Every number is read from the two authoritative CSVs via ``common.py``:
-  Results/dataset_results/consolidated_data.csv    (utility; AL = `ACL`)
+  Results/dataset_results/consolidated_data.csv    (utility: `ACL_exported`)
   Results/attack_results/consolidated_mia_data.csv (leakage)
 
 Nothing is dropped, clipped, floored or winsorised. Negative Yeom advantages
@@ -9,17 +9,14 @@ and sub-random AUCs are real and are plotted as they are.
 
 Figures written to analysis/figures/ (both .pdf and .png):
   L4   baseline Yeom advantage      vs baseline LiRA AUC
-  RQ1c AL at eps=1.0                vs DP residual LiRA TPR@1% at eps=1.0
+  RQ1c ACL_exported at eps=1.0      vs DP residual LiRA TPR@1% at eps=1.0
   RQ2a baseline LiRA TPR@1%         vs DP leakage reduction at eps=1.0
   RQ2b baseline LiRA TPR@1% (log)   vs DP residual LiRA TPR@1% at eps=1.0
   L6   dataset size N (log)         vs standard-RF LiRA TPR@1%
 
-RQ1c is emitted twice. `ACL` uses the 30-run mean; `ACL_exported` is the
-accuracy of the exact run-0 artefact the attacks target (CLAUDE.md 12.3). Both
-now carry all 30 pairs: the four DP-DNN rows that were blank (BCP, CANCER_RISK,
-DIABETES, GALLSTONE) were recovered by scoring the exported artefacts directly
-(Results/dataset_results/measure_exported_accuracy.py). Both rho values are
-printed, and they still differ — the two columns are not interchangeable.
+RQ1c uses only `ACL_exported`, the accuracy loss of the exact run-0 artifact
+that the attacks target. Thirty-run mean ACL is reserved for the standalone
+utility landscape and is not paired with leakage in this RQ pipeline.
 """
 
 from __future__ import annotations
@@ -76,7 +73,7 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame]:
 
     ut = u[(u["variant"] == "dp") & (u["epsilon"] == EPS_TARGET)].copy()
     ut["model"] = ut["model"].map(MODEL_MAP)
-    ut = ut[["dataset", "model", "ACL", "ACL_exported"]]
+    ut = ut[["dataset", "model", "ACL_exported"]]
 
     d = (yeom_b.merge(lira_b, on=["dataset", "model"])
               .merge(dp, on=["dataset", "model"])
@@ -137,22 +134,22 @@ def main():
     ax.legend(fontsize=7, loc="upper left")
     _save(fig, "L4_avg_vs_worst_case")
 
-    # ---- RQ1c: utility paid vs protection gained --------------------------
-    for col, tag in (("ACL", ""), ("ACL_exported", "_ACLexported")):
-        sub = d.dropna(subset=[col])
-        r = spearman_with_ci(sub[col], sub["tpr1_dp"])
-        stats.append((f"RQ1c {col} vs tpr1_dp", r))
-        fig, ax = plt.subplots(figsize=(5.2, 4.0))
-        _scatter(ax, sub, col, "tpr1_dp")
-        ax.axhline(0.01, color="#333333", linestyle="--", linewidth=1.2,
-                   zorder=10, label="random (1%)")
-        ax.set_xlabel(f"{col} @ $\\varepsilon$=1.0 (utility paid)")
-        ax.set_ylabel("DP residual leakage (TPR@1%)")
-        ax.set_title(f"Utility paid $\\neq$ protection gained "
-                     f"($\\rho$={r['rho']:.2f}, n={r['n']})", fontsize=9.5)
-        ax.grid(True, alpha=0.25, color="#cccccc")
-        ax.legend(fontsize=7, loc="upper left")
-        _save(fig, f"RQ1c_utility_vs_protection{tag}")
+    # ---- RQ1c: artifact-matched utility paid vs protection gained ---------
+    col = "ACL_exported"
+    sub = d.dropna(subset=[col])
+    r = spearman_with_ci(sub[col], sub["tpr1_dp"])
+    stats.append(("RQ1c ACL_exported vs tpr1_dp", r))
+    fig, ax = plt.subplots(figsize=(5.2, 4.0))
+    _scatter(ax, sub, col, "tpr1_dp")
+    ax.axhline(0.01, color="#333333", linestyle="--", linewidth=1.2,
+               zorder=10, label="random (1%)")
+    ax.set_xlabel("ACL_exported @ $\\varepsilon$=1.0 (utility paid)")
+    ax.set_ylabel("DP residual leakage (TPR@1%)")
+    ax.set_title(f"Utility paid $\\neq$ protection gained "
+                 f"($\\rho$={r['rho']:.2f}, n={r['n']})", fontsize=9.5)
+    ax.grid(True, alpha=0.25, color="#cccccc")
+    ax.legend(fontsize=7, loc="upper left")
+    _save(fig, "RQ1c_utility_vs_protection_ACLexported")
 
     # ---- RQ2a: DP benefit scales with baseline leakage --------------------
     r = spearman_with_ci(d["tpr1_base"], d["reduction"])

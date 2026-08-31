@@ -1,8 +1,8 @@
-"""Correlation statistics — full correlation stats, rho-vs-epsilon, robustness, balanced-accuracy AL.
+"""Artifact-matched correlation statistics and labeled sensitivity analyses.
 
 (a) all_correlations.csv  — every correlation computed anywhere in the RQ1 correlation analysis,
     each with rho, n, p and a 95% CI. No bare rho is emitted.
-(b) rho_by_epsilon.csv    — at each of the nine budgets, AL vs leakage
+(b) rho_by_epsilon.csv    — at each budget, ACL_exported vs leakage
     across the 30 dataset x model pairs (n=30 per row), one row per metric.
 (c) robustness_excluded.csv — (b) recomputed after excluding pairs whose
     NON-PRIVATE baseline accuracy is within 0.05 of majority-class accuracy.
@@ -79,7 +79,11 @@ def majority_class_accuracy(dataset_dirs) -> pd.DataFrame:
 # --------------------------------------------------------------------------- #
 # (b) rho vs epsilon
 # --------------------------------------------------------------------------- #
-def rho_by_epsilon(paired: pd.DataFrame, al_col: str = "AL", tag: str = "all_pairs"):
+def rho_by_epsilon(
+    paired: pd.DataFrame,
+    al_col: str = "AL_exported",
+    tag: str = "all_pairs",
+):
     rows = []
     for _, _, label in LEAKAGE_METRICS:
         for eps in EPSILONS:
@@ -95,7 +99,11 @@ def rho_by_epsilon(paired: pd.DataFrame, al_col: str = "AL", tag: str = "all_pai
     return pd.DataFrame(rows)
 
 
-def within_pair(paired: pd.DataFrame, al_col: str = "AL", tag: str = "all_pairs"):
+def within_pair(
+    paired: pd.DataFrame,
+    al_col: str = "AL_exported",
+    tag: str = "all_pairs",
+):
     rows = []
     for (dataset, model), g in paired.groupby(["dataset", "model"], sort=True):
         g = g.sort_values("epsilon")
@@ -110,7 +118,11 @@ def within_pair(paired: pd.DataFrame, al_col: str = "AL", tag: str = "all_pairs"
     return pd.DataFrame(rows)
 
 
-def pooled(paired: pd.DataFrame, al_col: str = "AL", tag: str = "all_pairs"):
+def pooled(
+    paired: pd.DataFrame,
+    al_col: str = "AL_exported",
+    tag: str = "all_pairs",
+):
     rows = []
     for _, _, label in LEAKAGE_METRICS:
         res = spearman_with_ci(paired[al_col], paired[label])
@@ -171,14 +183,16 @@ def main():
     kept = paired[~paired.apply(lambda r: (r["dataset"], r["model"]) in keys, axis=1)]
 
     # ---------------- (b) + (c) rho vs epsilon ---------------------------- #
-    rbe_all = rho_by_epsilon(paired, "AL", "all_pairs")
-    rbe_rob = rho_by_epsilon(kept, "AL", "robustness_excluded_near_majority")
+    rbe_all = rho_by_epsilon(paired, "AL_exported", "all_pairs")
+    rbe_rob = rho_by_epsilon(
+        kept, "AL_exported", "robustness_excluded_near_majority"
+    )
     rbe_bal = rho_by_epsilon(paired, "AL_balanced", "all_pairs")
     rho_eps = pd.concat([rbe_all, rbe_rob, rbe_bal], ignore_index=True)
     rho_eps.to_csv(OUT / "rho_by_epsilon.csv", index=False)
 
     pd.set_option("display.width", 220)
-    print("\n=== (b) rho vs epsilon, accuracy-based AL, all 30 pairs ===")
+    print("\n=== (b) rho vs epsilon, artifact-matched ACL_exported, all 30 pairs ===")
     print(rbe_all[["metric", "epsilon", "rho", "n", "p", "ci_low", "ci_high"]]
           .to_string(index=False))
     print("\n=== (c) rho vs epsilon, robustness subset ===")
@@ -186,12 +200,14 @@ def main():
           .to_string(index=False))
 
     # ---------------- (d) balanced-accuracy headline ---------------------- #
-    wp_acc = within_pair(paired, "AL", "all_pairs")
+    wp_acc = within_pair(paired, "AL_exported", "all_pairs")
     wp_bal = within_pair(paired, "AL_balanced", "all_pairs")
-    wp_rob = within_pair(kept, "AL", "robustness_excluded_near_majority")
+    wp_rob = within_pair(
+        kept, "AL_exported", "robustness_excluded_near_majority"
+    )
 
     bal_rows = []
-    for al_col, wp, tag in (("AL", wp_acc, "accuracy-based AL"),
+    for al_col, wp, tag in (("AL_exported", wp_acc, "artifact-matched ACL"),
                             ("AL_balanced", wp_bal, "balanced-accuracy AL")):
         for _, _, label in LEAKAGE_METRICS:
             sub = wp[wp["metric"] == label]
@@ -264,11 +280,12 @@ def main():
         norm(rbe_all, "across-pair at fixed epsilon (n=30)"),
         norm(rbe_rob, "across-pair at fixed epsilon, robustness subset"),
         norm(rbe_bal, "across-pair at fixed epsilon, balanced-accuracy AL"),
-        norm(pooled(paired, "AL", "all_pairs"), "pooled over all paired points"),
+        norm(pooled(paired, "AL_exported", "all_pairs"),
+             "pooled over all paired points, artifact-matched ACL"),
         norm(pooled(paired, "AL_balanced", "all_pairs"),
              "pooled, balanced-accuracy AL"),
-        norm(pooled(kept, "AL", "robustness_excluded_near_majority"),
-             "pooled, robustness subset"),
+        norm(pooled(kept, "AL_exported", "robustness_excluded_near_majority"),
+             "pooled, robustness subset, artifact-matched ACL"),
         norm(trend.assign(al_definition="see subset"),
              "trend of per-epsilon rho against epsilon (n=9)"),
     ], ignore_index=True)
