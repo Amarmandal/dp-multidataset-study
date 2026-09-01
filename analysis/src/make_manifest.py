@@ -23,7 +23,7 @@ ATTACKS = ("Attack/LiRA/results/<DS>/<DS>_lira_results.csv; "
 # (stem, referee items, manuscript location, sources, notes)
 TABLES = [
     ("dataset_characteristics", "[48][49][50]", "Section 3.1 (Datasets)",
-     f"<DS>/data/processed_data.pkl; {UTIL}; analysis/correlation_stats/majority_class_accuracy.csv",
+     f"<DS>/data/processed_data.pkl; {UTIL}; analysis/stats/correlation_stats/majority_class_accuracy.csv",
      "Real/synthetic is [MISSING] for all six datasets: not recorded in the "
      "repository and not derivable from the source URL. URLs reproduced verbatim."),
     ("baseline_accuracy_matrix", "[11][51]", "Section 4.1 (Non-private baselines)",
@@ -44,12 +44,13 @@ TABLES = [
      "DP targets at eps=1.0. The LiRA 95% CI bootstraps saved seed-level "
      "integer outcomes; repeated evaluations of the same records are not pooled."),
     ("rho_by_epsilon", "[19]", "Section 4.5 (Utility-leakage association)",
-     "analysis/correlation_stats/rho_by_epsilon.csv",
+     "analysis/stats/correlation_stats/rho_by_epsilon.csv",
      "Primary all-pairs rows use artifact-matched ACL_exported at all nine "
-     "budgets. Significance markers are uncorrected. Exact p-values are in "
-     "the CSV; balanced-accuracy rows are explicitly labeled sensitivity rows."),
+     "budgets. P-values exactly permute the six dataset blocks; 95% intervals "
+     "bootstrap whole datasets. Markers are uncorrected; balanced-accuracy "
+     "rows are explicitly labeled sensitivity rows."),
     ("within_pair_correlations", "[18]", "Section 4.5 (Utility-leakage association)",
-     "analysis/within_pair/summary.csv; analysis/within_pair/pair_correlations.csv",
+     "analysis/stats/within_pair/summary.csv; analysis/stats/within_pair/pair_correlations.csv",
      "Uses artifact-matched ACL_exported across nine budgets inside each pair. "
      "One Shokri pair is undefined. Significance counts are uncorrected."),
     ("bound_violations", "[3][33]", "Section 5 (Discussion) / [TBD]",
@@ -80,20 +81,32 @@ FIGURES = [
      "RQ2b common-floor figure with run-level bootstrap error bars on every point. "
      "Floor estimator (median, with IQR) stated in the axis annotation."),
     ("rq1c_utility_vs_protection_exported", "[72][73][75]", "Section 4.5 (RQ1c)",
-     "analysis/figures/figure_input.csv; analysis/figures/correlations.csv",
-     "As above but on ACL_exported, which matches the artefact the attacks "
-     "target. Carries 26 of 30 pairs: four DP-DNN rows have no exported "
-     "accuracy. See gaps.md 3.1."),
+     "analysis/stats/rq/figure_input.csv; analysis/stats/rq/correlations.csv",
+     "Uses ACL_exported, which matches the artefact the attacks target. "
+     "Dataset-block permutation p-value and dataset-cluster bootstrap interval."),
     ("rq2a_benefit_vs_baseline", "[72][73][75]", "Section 4.5 (RQ2a)",
-     "analysis/figures/figure_input.csv; analysis/figures/correlations.csv",
-     "Regenerated from the RQ figure input; recorded correlation asserted."),
+     "analysis/stats/rq/figure_input.csv; analysis/stats/rq/correlations.csv",
+     "Regenerated from the RQ figure input; cluster-aware recorded inference asserted."),
     ("l4_avg_vs_worst_case", "[72][73][75]", "Section 4.3 (Attack agreement)",
-     "analysis/figures/figure_input.csv; analysis/figures/correlations.csv",
+     "analysis/stats/rq/figure_input.csv; analysis/stats/rq/correlations.csv",
      "Agreement between the two average-case attack summaries, Yeom advantage "
-     "and LiRA AUC, on the non-private targets. Recorded correlation asserted."),
+     "and LiRA AUC, on the non-private targets. Cluster-aware inference asserted."),
     ("l6_baseline_leakage_vs_N", "[72][73][75]", "Section 4.3 (Dataset size)",
-     "analysis/figures/figure_input.csv; analysis/figures/correlations.csv",
-     "Non-private RF leakage against N. Six points. Recorded correlation asserted."),
+     "analysis/stats/rq/figure_input.csv; analysis/stats/rq/correlations.csv",
+     "Non-private RF low-FPR leakage against N. Six points; exact permutation "
+     "p-value and observation-bootstrap interval asserted."),
+]
+
+UPLOAD_TABLES = [
+    ("table_11_artifact_matched_acl_exported_epsilon_1", "Table 11",
+     "analysis/stats/correlation_stats/rho_by_epsilon.csv",
+     "Fixed-budget correlations with dataset-cluster-aware p-values and intervals."),
+    ("table_12_artifact_matched_acl_exported_all_budgets", "Table 12",
+     "analysis/stats/correlation_stats/rho_by_epsilon.csv",
+     "Nine-budget rho matrix; stars use exact dataset-block permutation p-values."),
+    ("table_13_artifact_matched_acl_exported_within_pair", "Table 13",
+     "analysis/stats/within_pair/summary.csv",
+     "Within-pair nine-budget correlation summary."),
 ]
 
 
@@ -104,6 +117,16 @@ def rows() -> list[dict]:
             "artifact_path": f"analysis/tables/csv/{stem}.csv",
             "type": "table (CSV)", "referee_items": items,
             "manuscript_location": loc, "source_files": src,
+            "generated_by": "analysis/src/build_tables.py",
+            "notes": note})
+
+    for stem, table_name, src, note in UPLOAD_TABLES:
+        out.append({
+            "artifact_path": f"analysis/tables/csv/{stem}.csv",
+            "type": "upload-ready manuscript table (CSV)",
+            "referee_items": "[5]",
+            "manuscript_location": table_name,
+            "source_files": src,
             "generated_by": "analysis/src/build_tables.py",
             "notes": note})
 
@@ -135,12 +158,22 @@ def rows() -> list[dict]:
         "config.py": ("Switches: INCLUDE_LUNG_CANCER, UTILITY_LABEL, RANDOM_FPR. "
                       "Also holds paths, the epsilon grids and the [MISSING]/"
                       "[CONFLICT] placeholder strings."),
+        "common.py": ("Loads the consolidated inputs and implements the exact "
+                      "dataset-block permutation, dataset-cluster bootstrap, "
+                      "small-n exact permutation and within-pair helpers."),
+        "within_pair_correlations.py": ("Computes artifact-matched correlations "
+                                        "across nine budgets inside each pair."),
+        "correlation_statistics.py": ("Computes and records all cross-sectional "
+                                      "cluster-aware inference and sensitivities."),
+        "rq_figures.py": ("Builds the authoritative RQ figure inputs and records "
+                          "their cluster-aware correlations."),
         "loaders.py": ("Single source of truth for canonical naming (DP-RF vs RF, "
                        "BCP vs Breast Cancer) and for all input loading. Reads "
                        "processed_data.pkl through a restricted unpickler that "
                        "stubs every non-numpy class, so no estimator is ever "
                        "constructed. Run directly for a coverage report."),
-        "build_tables.py": "Builds all nine tables as CSV files.",
+        "build_tables.py": ("Builds nine core tables and three upload-ready "
+                            "manuscript tables as CSV files."),
         "build_figures.py": "Builds the eight generated analysis figures.",
         "extract_provenance.py": ("Parses the report JSONs (globbed -- they sit at "
                                   "inconsistent depths) into config_inventory."),
@@ -175,6 +208,14 @@ def rows() -> list[dict]:
         "referee_items": "n/a", "manuscript_location": "n/a",
         "source_files": "n/a", "generated_by": "hand-written",
         "notes": "What the pipeline does and does not do; how to re-run it."})
+    out.append({
+        "artifact_path": "analysis/RESULTS.md", "type": "documentation",
+        "referee_items": "[5]", "manuscript_location": "Response letter / manuscript",
+        "source_files": ("analysis/stats/correlation_stats/rho_by_epsilon.csv; "
+                         "analysis/stats/rq/correlations.csv"),
+        "generated_by": "hand-written from the generated statistics",
+        "notes": ("Cluster-aware numerical results, limitations and replacement "
+                  "wording for the manuscript.")})
     out.append({
         "artifact_path": "analysis/MANIFEST.csv", "type": "documentation",
         "referee_items": "n/a", "manuscript_location": "n/a",

@@ -30,7 +30,8 @@ import pandas as pd
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from common import MODEL_MAP, load_mia, load_utility, spearman_with_ci  # noqa: E402
+from common import (MODEL_MAP, clustered_spearman_with_ci,
+                    exact_spearman_with_ci, load_mia, load_utility)  # noqa: E402
 
 OUT = Path(__file__).resolve().parents[1] / "stats" / "rq"
 
@@ -118,8 +119,12 @@ def main():
 
     stats = []
 
+    def clustered(frame, xcol, ycol):
+        return clustered_spearman_with_ci(
+            frame[xcol], frame[ycol], frame["dataset"], frame["model"])
+
     # ---- L4: agreement between the two average-case attacks (baselines) ----
-    r = spearman_with_ci(d["yeom_adv_base"], d["lira_auc_base"])
+    r = clustered(d, "yeom_adv_base", "lira_auc_base")
     stats.append(("L4  yeom_adv_base vs lira_auc_base", r))
     fig, ax = plt.subplots(figsize=(5.2, 4.0))
     _scatter(ax, d, "yeom_adv_base", "lira_auc_base")
@@ -137,7 +142,7 @@ def main():
     # ---- RQ1c: artifact-matched utility paid vs protection gained ---------
     col = "ACL_exported"
     sub = d.dropna(subset=[col])
-    r = spearman_with_ci(sub[col], sub["tpr1_dp"])
+    r = clustered(sub, col, "tpr1_dp")
     stats.append(("RQ1c ACL_exported vs tpr1_dp", r))
     fig, ax = plt.subplots(figsize=(5.2, 4.0))
     _scatter(ax, sub, col, "tpr1_dp")
@@ -151,8 +156,8 @@ def main():
     ax.legend(fontsize=7, loc="upper left")
     _save(fig, "RQ1c_utility_vs_protection_ACLexported")
 
-    # ---- RQ2a: DP benefit scales with baseline leakage --------------------
-    r = spearman_with_ci(d["tpr1_base"], d["reduction"])
+    # ---- RQ2a: association of baseline leakage with DP reduction ----------
+    r = clustered(d, "tpr1_base", "reduction")
     stats.append(("RQ2a tpr1_base vs reduction", r))
     fig, ax = plt.subplots(figsize=(5.2, 4.0))
     lim = max(d["tpr1_base"].max(), d["reduction"].max()) * 1.05
@@ -162,15 +167,15 @@ def main():
     _annotate(ax, d.nlargest(3, "tpr1_base"), "tpr1_base", "reduction")
     ax.set_xlabel("Baseline leakage (LiRA TPR@1%)")
     ax.set_ylabel("DP leakage reduction")
-    ax.set_title(f"DP benefit scales with baseline leakage "
+    ax.set_title(f"Baseline leakage vs DP leakage reduction "
                  f"($\\rho$={r['rho']:.2f})", fontsize=9.5)
     ax.grid(True, alpha=0.25, color="#cccccc")
     ax.legend(fontsize=7, loc="upper left")
     _save(fig, "RQ2a_benefit_vs_baseline")
 
-    # ---- RQ2b: DP collapses every model to a common floor -----------------
+    # ---- RQ2b: association of baseline and residual leakage ---------------
     floor = float(d["tpr1_dp"].median())
-    r = spearman_with_ci(d["tpr1_base"], d["tpr1_dp"])
+    r = clustered(d, "tpr1_base", "tpr1_dp")
     stats.append(("RQ2b tpr1_base vs tpr1_dp", r))
     fig, ax = plt.subplots(figsize=(5.2, 4.0))
     _scatter(ax, d, "tpr1_base", "tpr1_dp")
@@ -179,14 +184,14 @@ def main():
     ax.set_xscale("log")
     ax.set_xlabel("Baseline leakage TPR@1% (log)")
     ax.set_ylabel("DP residual leakage TPR@1%")
-    ax.set_title("DP collapses every model to a common floor", fontsize=9.5)
+    ax.set_title("Baseline vs DP residual leakage", fontsize=9.5)
     ax.grid(True, alpha=0.25, color="#cccccc")
     ax.legend(fontsize=7, loc="upper left")
     _save(fig, "RQ2b_common_floor")
 
-    # ---- L6: baseline leakage shrinks with N (standard RF) ----------------
+    # ---- L6: dataset size and baseline leakage (standard RF) --------------
     rf = d[d["model"] == "RF"].sort_values("n_samples")
-    r = spearman_with_ci(rf["n_samples"], rf["tpr1_base"])
+    r = exact_spearman_with_ci(rf["n_samples"], rf["tpr1_base"])
     stats.append(("L6  n_samples vs std-RF tpr1_base", r))
     fig, ax = plt.subplots(figsize=(5.2, 4.0))
     ax.scatter(rf["n_samples"], rf["tpr1_base"], c=MCOLOR["RF"], s=55,
@@ -197,15 +202,19 @@ def main():
     ax.set_xscale("log")
     ax.set_xlabel("$N$ (log)")
     ax.set_ylabel("Std-RF LiRA TPR@1%")
-    ax.set_title(f"Baseline leakage shrinks with $N$ "
+    ax.set_title(f"Dataset size vs baseline leakage "
                  f"($\\rho$={r['rho']:.2f}, n={r['n']})", fontsize=9.5)
     ax.grid(True, alpha=0.25, color="#cccccc")
     ax.legend(fontsize=7, loc="upper right")
     _save(fig, "L6_baseline_leakage_vs_N")
 
     # ---- stats table ------------------------------------------------------
-    rows = [{"figure": name, "rho": s["rho"], "n": s["n"], "p": s["p"],
-             "ci_low": s["ci_low"], "ci_high": s["ci_high"], "note": s["note"]}
+    rows = [{"figure": name, "rho": s["rho"], "n": s["n"],
+             "n_dataset_clusters": s["n_clusters"], "p": s["p"],
+             "p_method": s["p_method"], "ci_low": s["ci_low"],
+             "ci_high": s["ci_high"], "ci_method": s["ci_method"],
+             "n_permutations": s["n_permutations"],
+             "n_bootstrap_valid": s["n_bootstrap_valid"], "note": s["note"]}
             for name, s in stats]
     df = pd.DataFrame(rows)
     df.to_csv(OUT / "correlations.csv", index=False)

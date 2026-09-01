@@ -3,7 +3,8 @@
 (a) all_correlations.csv  — every correlation computed anywhere in the RQ1 correlation analysis,
     each with rho, n, p and a 95% CI. No bare rho is emitted.
 (b) rho_by_epsilon.csv    — at each budget, ACL_exported vs leakage
-    across the 30 dataset x model pairs (n=30 per row), one row per metric.
+    across the 30 dataset x model pairs (n=30 per row), with exact dataset-block
+    permutation p-values and dataset-cluster bootstrap intervals.
 (c) robustness_excluded.csv — (b) recomputed after excluding pairs whose
     NON-PRIVATE baseline accuracy is within 0.05 of majority-class accuracy.
     Majority-class accuracy is read from the label distribution in each
@@ -23,8 +24,8 @@ import numpy as np
 import pandas as pd
 
 from common import (EPSILONS, LEAKAGE_METRICS, MODEL_MAP, PRIMARY_METRIC, REPO,
-                    build_paired, load_mia, load_utility, spearman_with_ci,
-                    summarise)
+                    build_paired, clustered_spearman_with_ci, load_mia,
+                    load_utility, spearman_with_ci, summarise)
 
 OUT = Path(__file__).resolve().parents[1] / "stats" / "correlation_stats"
 
@@ -88,11 +89,16 @@ def rho_by_epsilon(
     for _, _, label in LEAKAGE_METRICS:
         for eps in EPSILONS:
             g = paired[np.isclose(paired["epsilon"], eps)]
-            res = spearman_with_ci(g[al_col], g[label])
+            res = clustered_spearman_with_ci(
+                g[al_col], g[label], g["dataset"], g["model_key"])
             rows.append({
                 "subset": tag, "al_definition": al_col, "metric": label,
                 "epsilon": eps, "rho": res["rho"], "n": res["n"], "p": res["p"],
                 "ci_low": res["ci_low"], "ci_high": res["ci_high"],
+                "n_dataset_clusters": res["n_clusters"],
+                "p_method": res["p_method"], "ci_method": res["ci_method"],
+                "n_permutations": res["n_permutations"],
+                "n_bootstrap_valid": res["n_bootstrap_valid"],
                 "n_pairs_available": int(len(g)),
                 "note": res["note"],
             })
@@ -125,13 +131,20 @@ def pooled(
 ):
     rows = []
     for _, _, label in LEAKAGE_METRICS:
-        res = spearman_with_ci(paired[al_col], paired[label])
+        strata = (paired["model_key"].astype(str) + "|eps="
+                  + paired["epsilon"].astype(str))
+        res = clustered_spearman_with_ci(
+            paired[al_col], paired[label], paired["dataset"], strata)
         rows.append({
             "subset": tag, "al_definition": al_col, "metric": label,
             "rho": res["rho"], "n": res["n"], "p": res["p"],
             "ci_low": res["ci_low"], "ci_high": res["ci_high"],
-            "note": (res["note"] + "; points are not independent "
-                     "(9 epsilons nested in 30 pairs)").strip("; "),
+            "n_dataset_clusters": res["n_clusters"],
+            "p_method": res["p_method"], "ci_method": res["ci_method"],
+            "n_permutations": res["n_permutations"],
+            "n_bootstrap_valid": res["n_bootstrap_valid"],
+            "note": (res["note"] + "; all model/budget rows are nested "
+                     "inside six dataset clusters").strip("; "),
         })
     return pd.DataFrame(rows)
 
@@ -227,6 +240,9 @@ def main():
                 "n_significant_positive": np.nan,
                 "pooled_rho": r["rho"], "pooled_n": r["n"], "pooled_p": r["p"],
                 "pooled_ci_low": r["ci_low"], "pooled_ci_high": r["ci_high"],
+                "pooled_n_dataset_clusters": r["n_dataset_clusters"],
+                "pooled_p_method": r["p_method"],
+                "pooled_ci_method": r["ci_method"],
             })
     bal = pd.DataFrame(bal_rows)
     bal.to_csv(OUT / "balanced_accuracy.csv", index=False)
@@ -270,8 +286,20 @@ def main():
         for c in ("dataset", "model", "epsilon"):
             if c not in d:
                 d[c] = "n/a" if c != "epsilon" else np.nan
+        defaults = {
+            "n_dataset_clusters": np.nan,
+            "p_method": "asymptotic Spearman",
+            "ci_method": "Bonett-Wright Fisher-z",
+            "n_permutations": 0,
+            "n_bootstrap_valid": 0,
+        }
+        for c, value in defaults.items():
+            if c not in d:
+                d[c] = value
         return d[["analysis", "subset", "al_definition", "dataset", "model",
-                  "metric", "epsilon", "rho", "n", "p", "ci_low", "ci_high", "note"]]
+                  "metric", "epsilon", "rho", "n", "n_dataset_clusters",
+                  "p", "p_method", "ci_low", "ci_high", "ci_method",
+                  "n_permutations", "n_bootstrap_valid", "note"]]
 
     all_corr = pd.concat([
         norm(wp_acc, "within-pair (n=9 across epsilons)"),

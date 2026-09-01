@@ -1,5 +1,5 @@
-leakage_metric,rho,n,p,ci_low,ci_high,ci_95
-Yeom advantage,-0.1567,30,0.4084,-0.4911,0.2180,"[-0.4911, 0.2180]"
-Shokri AUC,-0.2347,30,0.2119,-0.5522,0.1422,"[-0.5522, 0.1422]"
-LiRA AUC,0.2957,30,0.1127,-0.0804,0.5981,"[-0.0804, 0.5981]"
-LiRA TPR@1%,0.3108,30,0.0946,-0.0647,0.6092,"[-0.0647, 0.6092]"
+leakage_metric,rho,n,n_datasets,p,ci_low,ci_high,ci_95,p_method,ci_method
+Yeom advantage,-0.1567,30,6,0.3694,-0.2771,0.0536,"[-0.2771, 0.0536]",exact dataset-block permutation,dataset-cluster percentile bootstrap (20000 resamples)
+Shokri AUC,-0.2347,30,6,0.3958,-0.7615,0.4092,"[-0.7615, 0.4092]",exact dataset-block permutation,dataset-cluster percentile bootstrap (20000 resamples)
+LiRA AUC,0.2957,30,6,0.1514,-0.1187,0.7159,"[-0.1187, 0.7159]",exact dataset-block permutation,dataset-cluster percentile bootstrap (20000 resamples)
+LiRA TPR@1%,0.3108,30,6,0.2569,-0.1584,0.7526,"[-0.1584, 0.7526]",exact dataset-block permutation,dataset-cluster percentile bootstrap (20000 resamples)

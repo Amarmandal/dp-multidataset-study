@@ -1,7 +1,8 @@
 # `analysis/` — statistics, tables and figures for the manuscript
 
-Turns the consolidated experiment results into the **nine tables** and **eight
-figures** the paper uses, plus the correlation statistics behind them.
+Turns the consolidated experiment results into **nine core tables**, **three
+upload-ready manuscript tables**, and **eight figures**, plus the correlation
+statistics behind them.
 
 It is a pure post-processing stage. It trains nothing, attacks nothing, loads no
 model, and touches nothing outside `analysis/`. Everything it reads is already
@@ -12,9 +13,10 @@ analysis/
   src/            every script (13 files)
   stats/          intermediate statistics
     within_pair/          per-pair correlations
-    correlation_stats/    full correlation tables, rho-vs-epsilon, robustness
+    correlation_stats/    clustered cross-sectional inference, rho-vs-epsilon,
+                          within-pair and robustness analyses
     rq/                   RQ figure input + recorded correlations
-  tables/csv/     the nine tables, as data
+  tables/csv/     nine core + three upload-ready manuscript tables
   figures/pdf/    paper figures, vector
   figures/png/    paper figures, 300 dpi raster
   logs/           verification.txt, gaps.md
@@ -114,7 +116,7 @@ It re-derives **every numeric table cell** independently from its primary source
 and exits non-zero if any disagree beyond 1e-06. Do not treat a table as final
 while it fails.
 
-Current state: `checks=1813  failures=186  notes=1`. **All 186 failures are the
+Current state: `checks=2121  failures=186  notes=1`. **All 186 failures are the
 same known issue** — `config_inventory` software versions and
 `dataset_characteristics` real/synthetic flags are author-supplied constants,
 while `verify.py` still asserts they equal `[MISSING: …]`. No measured quantity
@@ -129,7 +131,7 @@ supplied" (the pattern `source_url` already uses) or reverting the injection.
 
 | File | Manuscript |
 |---|---|
-| `l4_avg_vs_worst_case` | **Figure 7** |
+| `l4_avg_vs_worst_case` (legacy filename; both axes are average-case) | **Figure 7** |
 | `loglog_roc_grid` | **Figure 8** |
 | `rq1c_utility_vs_protection_exported` | **Figure 9** |
 | `residual_floor_ci` | **Figure 10** |
@@ -158,6 +160,27 @@ The primary RQ1 tables `rho_by_epsilon` and `within_pair_correlations` use
 Thirty-run mean ACL is not used in these primary tables; it is retained only
 for the standalone utility landscape and explicitly labeled sensitivity work.
 
+### Correlation inference
+
+Cross-sectional rows contain 30 dataset-model observations but only six
+independent datasets. Their descriptive Spearman rho still uses all 30 rows,
+while uncertainty treats the dataset as the sampling unit:
+
+- `p`: exact permutation of the six complete outcome-dataset blocks
+  (`6! = 720` assignments), retaining model or model-budget strata;
+- `ci_low`, `ci_high`: percentile bootstrap that resamples all rows of a
+  dataset together (20,000 resamples, seed `20260901`);
+- the 29-row near-majority sensitivity subset has unequal blocks and therefore
+  uses a labeled CR1 dataset-cluster rank-regression test with `G-1` degrees of
+  freedom, while retaining the dataset-cluster bootstrap interval;
+- the six-point RF dataset-size analysis uses all `6! = 720` observation-level
+  permutations and an observation-level percentile bootstrap interval.
+
+The inference method, number of dataset clusters, permutation count and valid
+bootstrap count are persisted in `stats/correlation_stats/*.csv` and
+`stats/rq/correlations.csv`. Significance markers remain uncorrected across
+the family of budgets and metrics.
+
 ### Upload-ready manuscript CSVs
 
 The following files are presentation-ready sources named after the manuscript
@@ -169,8 +192,9 @@ table numbers:
 | Table 12 | `tables/csv/table_12_artifact_matched_acl_exported_all_budgets.csv` |
 | Table 13 | `tables/csv/table_13_artifact_matched_acl_exported_within_pair.csv` |
 
-Tables 12 and 13 contain the revised values. Table 11 is supplied under an
-explicit filename for traceability; its artifact-matched values are unchanged.
+`build_tables.py` regenerates all three upload-ready tables. Table 11 includes
+the dataset count and inference-method columns; Table 12 significance stars use
+the dataset-block permutation p-values.
 
 ---
 
