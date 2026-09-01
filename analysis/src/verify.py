@@ -24,10 +24,10 @@ import sys
 
 import numpy as np
 import pandas as pd
-from scipy.stats import spearmanr
 
 import config as C
 import loaders as L
+from common import clustered_spearman_with_ci, exact_spearman_with_ci
 
 TOL = 1e-6
 
@@ -403,6 +403,13 @@ def v_rho_by_epsilon() -> None:
             check("rho_by_epsilon", tag, f"p_eps_{e}", r[f"p_eps_{e}"],
                   float(m.iloc[0]["p"]), src, filt)
             check("rho_by_epsilon", tag, "n", r["n"], int(m.iloc[0]["n"]), src, filt)
+            check("rho_by_epsilon", tag, "n_dataset_clusters",
+                  r["n_dataset_clusters"], int(m.iloc[0]["n_dataset_clusters"]),
+                  src, filt)
+            check("rho_by_epsilon", tag, "p_method", r["p_method"],
+                  m.iloc[0]["p_method"], src, filt)
+            check("rho_by_epsilon", tag, "ci_method", r["ci_method"],
+                  m.iloc[0]["ci_method"], src, filt)
 
 
 def v_within_pair_correlations() -> None:
@@ -564,7 +571,7 @@ def v_n_runs() -> None:
 
 
 def v_rq_correlations() -> None:
-    """The six RQ-figure correlations must reproduce from figure_input.csv."""
+    """RQ statistics must reproduce with the recorded cluster-aware methods."""
     d = L.load_figure_input()
     corr = L.load_correlations()
     src = "analysis/figures/figure_input.csv"
@@ -587,13 +594,28 @@ def v_rq_correlations() -> None:
                  f"module has no re-derivation for it")
             continue
         frame, xc, yc = spec[fig]
-        res = spearmanr(frame[xc], frame[yc])
-        check("d16_correlations", fig, "rho", float(r.rho), float(res.statistic),
-              src, f"spearmanr({xc}, {yc}), n={len(frame)}")
-        check("d16_correlations", fig, "p", float(r.p), float(res.pvalue),
-              src, f"spearmanr({xc}, {yc})")
+        if fig == "L6  n_samples vs std-RF tpr1_base":
+            res = exact_spearman_with_ci(frame[xc], frame[yc])
+        else:
+            res = clustered_spearman_with_ci(
+                frame[xc], frame[yc], frame["dataset"], frame["model"])
+        method = f"{res['p_method']}; {res['ci_method']}"
+        check("d16_correlations", fig, "rho", float(r.rho), float(res["rho"]),
+              src, f"cluster-aware Spearman({xc}, {yc}), n={len(frame)}")
+        check("d16_correlations", fig, "p", float(r.p), float(res["p"]),
+              src, method)
         check("d16_correlations", fig, "n", int(r.n), len(frame),
               src, f"len of non-null {xc}/{yc}")
+        check("d16_correlations", fig, "n_dataset_clusters",
+              int(r.n_dataset_clusters), int(res["n_clusters"]), src, method)
+        check("d16_correlations", fig, "p_method", r.p_method,
+              res["p_method"], src, method)
+        check("d16_correlations", fig, "ci_low", float(r.ci_low),
+              float(res["ci_low"]), src, method)
+        check("d16_correlations", fig, "ci_high", float(r.ci_high),
+              float(res["ci_high"]), src, method)
+        check("d16_correlations", fig, "ci_method", r.ci_method,
+              res["ci_method"], src, method)
     for fig in spec:
         if fig not in seen:
             fail(f"rq_figures | {fig} | figure | expected in correlations.csv, absent")

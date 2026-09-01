@@ -357,7 +357,10 @@ def t_rho_by_epsilon(conflicts: list) -> pd.DataFrame:
             ["subset", "al_definition", "metric"], sort=False):
         g = grp.set_index("epsilon")
         row = {"subset": subset, "al_definition": al, "metric": metric,
-               "n": int(g["n"].iloc[0])}
+               "n": int(g["n"].iloc[0]),
+               "n_dataset_clusters": int(g["n_dataset_clusters"].iloc[0]),
+               "p_method": str(g["p_method"].iloc[0]),
+               "ci_method": str(g["ci_method"].iloc[0])}
         for e in eps:
             if e in g.index:
                 row[f"rho_eps_{e}"] = float(g.loc[e, "rho"])
@@ -367,6 +370,73 @@ def t_rho_by_epsilon(conflicts: list) -> pd.DataFrame:
                 row[f"p_eps_{e}"] = C.MISSING.format(what=f"p at eps={e}")
         rows.append(row)
     return pd.DataFrame(rows)
+
+
+METRIC_DISPLAY = {
+    "yeom_advantage": "Yeom advantage",
+    "shokri_auc": "Shokri AUC",
+    "lira_auc": "LiRA AUC",
+    "lira_tpr_at_1pct": "LiRA TPR@1%",
+}
+METRIC_ORDER = ["yeom_advantage", "shokri_auc", "lira_auc",
+                "lira_tpr_at_1pct"]
+
+
+def write_upload_ready_tables() -> None:
+    """Regenerate manuscript Tables 11--13 from their authoritative stats."""
+    rho = L.load_rho_by_epsilon()
+    primary = rho[(rho["subset"] == "all_pairs")
+                  & (rho["al_definition"] == "AL_exported")].copy()
+    primary["_order"] = primary["metric"].map(
+        {metric: i for i, metric in enumerate(METRIC_ORDER)})
+
+    t11 = (primary[np.isclose(primary["epsilon"], C.EPS_TARGET)]
+           .sort_values("_order").reset_index(drop=True))
+    t11 = pd.DataFrame({
+        "leakage_metric": t11["metric"].map(METRIC_DISPLAY),
+        "rho": t11["rho"].round(4),
+        "n": t11["n"].astype(int),
+        "n_datasets": t11["n_dataset_clusters"].astype(int),
+        "p": t11["p"].round(4),
+        "ci_low": t11["ci_low"].round(4),
+        "ci_high": t11["ci_high"].round(4),
+        "ci_95": [f"[{lo:.4f}, {hi:.4f}]"
+                  for lo, hi in zip(t11["ci_low"], t11["ci_high"])],
+        "p_method": t11["p_method"],
+        "ci_method": t11["ci_method"],
+    })
+    write_table("table_11_artifact_matched_acl_exported_epsilon_1", t11)
+
+    t12_rows = []
+    for metric in METRIC_ORDER:
+        sub = primary[primary["metric"] == metric].set_index("epsilon")
+        row = {"metric": METRIC_DISPLAY[metric]}
+        for epsilon in C.PAIRED_EPSILONS:
+            value = float(sub.loc[epsilon, "rho"])
+            star = "*" if float(sub.loc[epsilon, "p"]) < 0.05 else ""
+            row[f"epsilon_{epsilon}"] = f"{value:.3f}{star}"
+        t12_rows.append(row)
+    write_table("table_12_artifact_matched_acl_exported_all_budgets",
+                pd.DataFrame(t12_rows))
+
+    summary = L.load_within_pair_summary().set_index("metric")
+    t13_rows = []
+    for metric in METRIC_ORDER:
+        r = summary.loc[metric]
+        t13_rows.append({
+            "metric": METRIC_DISPLAY[metric],
+            "median_rho": f"{float(r['median_rho']):+.3f}",
+            "iqr": f"[{float(r['iqr_low']):+.3f}, {float(r['iqr_high']):+.3f}]",
+            "range": f"[{float(r['min_rho']):+.3f}, {float(r['max_rho']):+.3f}]",
+            "p_lt_0.05": f"{int(r['n_significant_p05'])}/{int(r['n_computable'])}",
+            "sig_negative": int(r["n_significant_negative"]),
+            "sig_positive": int(r["n_significant_positive"]),
+            "n_pairs_total": int(r["n_pairs_total"]),
+            "n_computable": int(r["n_computable"]),
+            "n_undefined": int(r["n_undefined"]),
+        })
+    write_table("table_13_artifact_matched_acl_exported_within_pair",
+                pd.DataFrame(t13_rows))
 
 
 # ==========================================================================
@@ -445,6 +515,7 @@ def main() -> list[str]:
     ]
     for name, builder in tables:
         write_table(name, builder(conflicts))
+    write_upload_ready_tables()
 
     # Persist for gaps.md; verify.py appends its own findings to the same file.
     C.LOGS.mkdir(parents=True, exist_ok=True)

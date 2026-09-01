@@ -1,8 +1,8 @@
 """
 Driver: run the LiRA (Carlini et al. 2022) per-example membership inference
 attack against the exported Standard vs DP targets. Its headline metric is
-**TPR at a low fixed FPR** — the worst-case leakage number that the average-case
-Shokri / Yeom attacks already in the study cannot see.
+**TPR at a low fixed FPR** — a tail-oriented aggregate leakage statistic that
+the average-case Shokri / Yeom attacks already in the study do not capture.
 
 It reuses the Shokri pipeline's target loaders and shadow factory
 (``Attack/MIA_Shokri/exported_models.py``), but trains shadows on **real data

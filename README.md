@@ -194,7 +194,7 @@ uv run python within_pair_correlations.py   # -> ../stats/
 uv run python correlation_statistics.py
 uv run python rq_figures.py
 
-uv run python build_tables.py               # -> ../tables/{csv,tex}/
+uv run python build_tables.py               # -> ../tables/csv/
 uv run python verify.py                     # gate: non-zero exit on mismatch
 uv run python build_figures.py              # -> ../figures/{pdf,png}/
 uv run python make_roc_grid.py
@@ -203,7 +203,7 @@ uv run python make_manifest.py              # -> ../MANIFEST.csv
 
 **`verify.py` is a gate** — it re-derives every numeric table cell from its
 primary source and exits non-zero on any mismatch beyond 1e-06. It currently
-reports `checks=1813 failures=186`; all 186 are one known issue with
+reports `checks=2121 failures=186`; all 186 are one known issue with
 author-supplied constants, documented in [analysis/README.md](analysis/README.md).
 No measured quantity disagrees.
 

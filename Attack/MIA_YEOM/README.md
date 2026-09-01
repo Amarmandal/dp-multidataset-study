@@ -38,8 +38,8 @@ shrinks the gap, which is precisely why it suppresses the advantage.
 | `Attack/LiRA` | Which **individual** records leak? | TPR @ low fixed FPR |
 | `Attack/MIA_Shokri` | Can a shadow-trained classifier infer membership? | attack accuracy / AUC |
 
-Yeom is the average-case view; LiRA is the worst-case companion on the same
-targets.
+Yeom is the average-case view; low-FPR LiRA TPR is the tail-oriented aggregate
+companion on the same targets.
 
 ---
 

@@ -19,13 +19,14 @@ import math
 import matplotlib
 import numpy as np
 import pandas as pd
-from scipy.stats import spearmanr
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt          # noqa: E402
 
 import config as C                       # noqa: E402
 import loaders as L                      # noqa: E402
+from common import (clustered_spearman_with_ci,
+                    exact_spearman_with_ci)  # noqa: E402
 
 # Same house style as analysis/figures_rq_figures.py, minus the titles.
 plt.rcParams.update({
@@ -135,9 +136,12 @@ def scatter_by_family(ax, d, xcol, ycol, families=None, size=42):
                    edgecolors="#333333", linewidth=0.4, zorder=5)
 
 
-def stat_text(rho, n, p) -> str:
+def stat_text(rho, n, p, p_method="") -> str:
     p_txt = "$p < 10^{-4}$" if p < 1e-4 else f"$p = {p:.4f}$"
-    return f"Spearman $\\rho = {rho:.3f}$, $n = {n}$, {p_txt}"
+    inference = ("exact permutation" if p_method.startswith("exact observation")
+                 else "dataset-block permutation")
+    return (f"Spearman $\\rho = {rho:.3f}$, $n = {n}$, {p_txt}\n"
+            f"{inference} inference")
 
 
 def annotate_stats(ax, text, loc="lower right"):
@@ -172,7 +176,8 @@ def fig_gap_vs_leakage(d: pd.DataFrame) -> None:
     for ax, ycol, ylabel, ref in (
             (axes[0], "lira_tpr_at_1pct", "Baseline LiRA TPR@1%", C.RANDOM_FPR),
             (axes[1], "lira_auc", "Baseline LiRA AUC", 0.5)):
-        r = spearmanr(d["train_test_gap"], d[ycol])
+        r = clustered_spearman_with_ci(
+            d["train_test_gap"], d[ycol], d["dataset"], d["family"])
         scatter_by_family(ax, d, "train_test_gap", ycol)
         ax.axhline(ref, color="#333333", linestyle="--", linewidth=1.1, zorder=10,
                    label=f"chance ({ref:g})")
@@ -181,7 +186,8 @@ def fig_gap_vs_leakage(d: pd.DataFrame) -> None:
         ax.grid(True, alpha=0.25, color="#cccccc")
         ax.margins(x=0.12)
         leg = ax.legend(fontsize=7, loc="upper left")
-        box = annotate_stats(ax, stat_text(r.statistic, len(d), r.pvalue))
+        box = annotate_stats(
+            ax, stat_text(r["rho"], r["n"], r["p"], r["p_method"]))
         # Annotate the datasets that sit furthest out on either axis, keeping
         # clear of the legend and the statistics box.
         out = pd.concat([d.nlargest(3, ycol), d.nlargest(3, "train_test_gap")])
@@ -198,17 +204,23 @@ def fig_gap_vs_leakage_vs_N(d: pd.DataFrame) -> None:
     """The gap-based relationship beside the N-based one, same y axis."""
     fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1), sharey=True)
 
-    r_gap = spearmanr(d["train_test_gap"], d["lira_tpr_at_1pct"])
+    r_gap = clustered_spearman_with_ci(
+        d["train_test_gap"], d["lira_tpr_at_1pct"],
+        d["dataset"], d["family"])
     scatter_by_family(axes[0], d, "train_test_gap", "lira_tpr_at_1pct")
     axes[0].set_xlabel("Train $-$ test accuracy gap (non-private)")
     axes[0].set_ylabel("Baseline LiRA TPR@1%")
-    annotate_stats(axes[0], stat_text(r_gap.statistic, len(d), r_gap.pvalue))
+    annotate_stats(axes[0], stat_text(
+        r_gap["rho"], r_gap["n"], r_gap["p"], r_gap["p_method"]))
 
-    r_n = spearmanr(d["n_samples"], d["lira_tpr_at_1pct"])
+    r_n = clustered_spearman_with_ci(
+        d["n_samples"], d["lira_tpr_at_1pct"],
+        d["dataset"], d["family"])
     scatter_by_family(axes[1], d, "n_samples", "lira_tpr_at_1pct")
     axes[1].set_xscale("log")
     axes[1].set_xlabel("$N$ (log scale)")
-    annotate_stats(axes[1], stat_text(r_n.statistic, len(d), r_n.pvalue))
+    annotate_stats(axes[1], stat_text(
+        r_n["rho"], r_n["n"], r_n["p"], r_n["p_method"]))
 
     for ax in axes:
         ax.axhline(C.RANDOM_FPR, color="#333333", linestyle="--", linewidth=1.1,
@@ -281,24 +293,32 @@ RQ_FIGURE_SPEC = {
 }
 
 
-def _rq_stats(corr: pd.DataFrame, key: str, x, y) -> tuple:
+def _rq_stats(corr: pd.DataFrame, key: str, frame: pd.DataFrame,
+              xcol: str, ycol: str) -> tuple:
     """Look up the recorded statistic and assert it reproduces from the data."""
-    row = corr[corr["figure"] == key]
+    recorded_key = RQ_FIGURE_SPEC[key]
+    row = corr[corr["figure"] == recorded_key]
     if len(row) != 1:
         raise AssertionError(
-            f"correlations.csv has {len(row)} rows for {key!r}")
-    rec_rho, rec_n, rec_p = (float(row.iloc[0]["rho"]), int(row.iloc[0]["n"]),
-                             float(row.iloc[0]["p"]))
-    res = spearmanr(x, y)
-    if not (math.isclose(rec_rho, float(res.statistic), abs_tol=1e-6)
-            and rec_n == len(x)
-            and math.isclose(rec_p, float(res.pvalue), abs_tol=1e-6)):
+            f"correlations.csv has {len(row)} rows for {recorded_key!r}")
+    record = row.iloc[0]
+    rec_rho, rec_n, rec_p = (float(record["rho"]), int(record["n"]),
+                             float(record["p"]))
+    if key == "l6_baseline_leakage_vs_N":
+        res = exact_spearman_with_ci(frame[xcol], frame[ycol])
+    else:
+        res = clustered_spearman_with_ci(
+            frame[xcol], frame[ycol], frame["dataset"], frame["model"])
+    if not (math.isclose(rec_rho, float(res["rho"]), abs_tol=1e-6)
+            and rec_n == len(frame)
+            and math.isclose(rec_p, float(res["p"]), abs_tol=1e-6)
+            and record["p_method"] == res["p_method"]):
         raise AssertionError(
             f"{key}: correlations.csv records rho={rec_rho!r}, n={rec_n}, "
             f"p={rec_p!r}, but the same statistic computed from "
-            f"figure_input.csv is rho={float(res.statistic)!r}, "
-            f"n={len(x)}, p={float(res.pvalue)!r}. Refusing to plot.")
-    return rec_rho, rec_n, rec_p
+            f"figure_input.csv is rho={float(res['rho'])!r}, "
+            f"n={len(frame)}, p={float(res['p'])!r}. Refusing to plot.")
+    return rec_rho, rec_n, rec_p, str(record["p_method"])
 
 
 def build_rq_figures() -> None:
@@ -313,18 +333,23 @@ def build_rq_figures() -> None:
             "longer apply. The statistics annotated on these five figures were "
             "recomputed on the reduced set and are NOT the published values.")
 
-    def stats(key, x, y):
+    def stats(key, frame, xcol, ycol):
         if C.INCLUDE_LUNG_CANCER:
-            return _rq_stats(corr, RQ_FIGURE_SPEC[key], x, y)
-        res = spearmanr(x, y)
-        return float(res.statistic), len(x), float(res.pvalue)
+            return _rq_stats(corr, key, frame, xcol, ycol)
+        if key == "l6_baseline_leakage_vs_N":
+            res = exact_spearman_with_ci(frame[xcol], frame[ycol])
+        else:
+            res = clustered_spearman_with_ci(
+                frame[xcol], frame[ycol], frame["dataset"], frame["model"])
+        return res["rho"], res["n"], res["p"], res["p_method"]
 
     # ---- L4: agreement between the two average-case attacks (baselines) ----
     # Both axes are average-case summaries: Yeom advantage is TPR-FPR at a single
-    # loss threshold, and AUC aggregates over all thresholds. LiRA's worst-case
-    # metric is TPR at a low fixed FPR, which is plotted in residual_floor_ci and
-    # l6_baseline_leakage_vs_N -- not here. Do not label this axis "worst-case".
-    rho, n, p = stats("l4_avg_vs_worst_case", d["yeom_adv_base"], d["lira_auc_base"])
+    # loss threshold, and AUC aggregates over all thresholds. LiRA's tail-oriented
+    # aggregate metric is TPR at a low fixed FPR, plotted in residual_floor_ci and
+    # l6_baseline_leakage_vs_N.
+    rho, n, p, p_method = stats(
+        "l4_avg_vs_worst_case", d, "yeom_adv_base", "lira_auc_base")
     fig, ax = plt.subplots(figsize=(5.6, 4.2))
     scatter_by_family(ax, d, "yeom_adv_base", "lira_auc_base")
     ax.axhline(0.5, color="#666666", linestyle=":", linewidth=1.1, zorder=10,
@@ -334,7 +359,7 @@ def build_rq_figures() -> None:
     ax.grid(True, alpha=0.25, color="#cccccc")
     ax.margins(x=0.12)
     leg = ax.legend(fontsize=7, loc="upper left")
-    box = annotate_stats(ax, stat_text(rho, n, p))
+    box = annotate_stats(ax, stat_text(rho, n, p, p_method))
     out = d.nlargest(4, "lira_auc_base")
     place_labels(ax, out["yeom_adv_base"], out["lira_auc_base"], out["dataset"],
                  reserve=(leg, box))
@@ -354,7 +379,7 @@ def build_rq_figures() -> None:
                 f"artefacts directly (see Results/dataset_results/"
                 f"measure_exported_accuracy.py); if this gap has reappeared, "
                 f"consolidated_data.csv has been regenerated without that step.")
-        rho, n, p = stats(key, sub[col], sub["tpr1_dp"])
+        rho, n, p, p_method = stats(key, sub, col, "tpr1_dp")
         fig, ax = plt.subplots(figsize=(5.6, 4.2))
         scatter_by_family(ax, sub, col, "tpr1_dp")
         ax.axhline(C.RANDOM_FPR, color="#333333", linestyle="--", linewidth=1.2,
@@ -365,12 +390,13 @@ def build_rq_figures() -> None:
                       f"$\\varepsilon={C.EPS_TARGET:g}$")
         ax.grid(True, alpha=0.25, color="#cccccc")
         ax.legend(fontsize=7, loc="upper left")
-        annotate_stats(ax, stat_text(rho, n, p))
+        annotate_stats(ax, stat_text(rho, n, p, p_method))
         fig.tight_layout()
         save(fig, key)
 
-    # ---- RQ2a: DP benefit scales with baseline leakage --------------------
-    rho, n, p = stats("rq2a_benefit_vs_baseline", d["tpr1_base"], d["reduction"])
+    # ---- RQ2a: association of baseline leakage with DP reduction ----------
+    rho, n, p, p_method = stats(
+        "rq2a_benefit_vs_baseline", d, "tpr1_base", "reduction")
     fig, ax = plt.subplots(figsize=(5.6, 4.2))
     lim = max(d["tpr1_base"].max(), d["reduction"].max()) * 1.05
     ax.plot([0, lim], [0, lim], color="#333333", linestyle="--", linewidth=1.0,
@@ -381,16 +407,17 @@ def build_rq_figures() -> None:
     ax.grid(True, alpha=0.25, color="#cccccc")
     ax.margins(x=0.12)
     leg = ax.legend(fontsize=7, loc="upper left")
-    box = annotate_stats(ax, stat_text(rho, n, p))
+    box = annotate_stats(ax, stat_text(rho, n, p, p_method))
     out = d.nlargest(4, "tpr1_base")
     place_labels(ax, out["tpr1_base"], out["reduction"], out["dataset"],
                  reserve=(leg, box))
     fig.tight_layout()
     save(fig, "rq2a_benefit_vs_baseline")
 
-    # ---- L6: baseline leakage shrinks with N (standard RF) ----------------
+    # ---- L6: dataset size and baseline leakage (standard RF) --------------
     rf = d[d["model"] == "RF"].sort_values("n_samples")
-    rho, n, p = stats("l6_baseline_leakage_vs_N", rf["n_samples"], rf["tpr1_base"])
+    rho, n, p, p_method = stats(
+        "l6_baseline_leakage_vs_N", rf, "n_samples", "tpr1_base")
     fig, ax = plt.subplots(figsize=(5.6, 4.2))
     ax.scatter(rf["n_samples"], rf["tpr1_base"], c=MCOLOR["RF"], s=55,
                edgecolors="#333333", linewidth=0.4, zorder=5, label="RF")
@@ -402,7 +429,7 @@ def build_rq_figures() -> None:
     ax.grid(True, alpha=0.25, color="#cccccc")
     ax.margins(x=0.18, y=0.12)
     leg = ax.legend(fontsize=7, loc="upper right")
-    box = annotate_stats(ax, stat_text(rho, n, p), loc="lower left")
+    box = annotate_stats(ax, stat_text(rho, n, p, p_method), loc="lower left")
     place_labels(ax, rf["n_samples"], rf["tpr1_base"], rf["dataset"],
                  fontsize=6.5, reserve=(leg, box))
     fig.tight_layout()
