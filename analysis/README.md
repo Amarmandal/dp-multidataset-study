@@ -116,12 +116,17 @@ It re-derives **every numeric table cell** independently from its primary source
 and exits non-zero if any disagree beyond 1e-06. Do not treat a table as final
 while it fails.
 
-Current state: `checks=2121  failures=186  notes=1`. **All 186 failures are the
-same known issue** — `config_inventory` software versions and
-`dataset_characteristics` real/synthetic flags are author-supplied constants,
-while `verify.py` still asserts they equal `[MISSING: …]`. No measured quantity
-disagrees. Fixing it means either checking those constants "verbatim as
-supplied" (the pattern `source_url` already uses) or reverting the injection.
+Current committed state: **all 2,307 comparisons pass, with zero failures and
+one informational note**. The verifier independently reads the five library
+versions from the exact `==` pins in the root `pyproject.toml`. Python 3.13 is
+checked against the explicitly author-confirmed value recorded in
+`extract_provenance.py`. The six real/synthetic dataset classifications are
+checked verbatim against the author-supplied `DATASET_PROVENANCE` mapping and
+are not inferred from dataset URLs.
+
+The remaining note records 36 older DP-DNN rows whose source reports predate
+per-run bookkeeping and therefore contain no `n_runs` field. This is an absent
+source field, not a value mismatch, so it does not fail the gate.
 
 ---
 

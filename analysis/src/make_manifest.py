@@ -24,8 +24,10 @@ ATTACKS = ("Attack/LiRA/results/<DS>/<DS>_lira_results.csv; "
 TABLES = [
     ("dataset_characteristics", "[48][49][50]", "Section 3.1 (Datasets)",
      f"<DS>/data/processed_data.pkl; {UTIL}; analysis/stats/correlation_stats/majority_class_accuracy.csv",
-     "Real/synthetic is [MISSING] for all six datasets: not recorded in the "
-     "repository and not derivable from the source URL. URLs reproduced verbatim."),
+     "Real/synthetic classifications are author-supplied in "
+     "analysis/src/loaders.py:DATASET_PROVENANCE and are not inferred from the "
+     "source URLs. Kidney Stone remains author-reported as Unknown. URLs are "
+     "reproduced verbatim."),
     ("baseline_accuracy_matrix", "[11][51]", "Section 4.1 (Non-private baselines)",
      f"{UTIL}; <DS>/<FAMILY>/**/std_*_report.json; Attack/MIA_Shokri/results/<DS>/<DS>_results.csv",
      "Carries both the 30-run mean accuracy and the exported run-0 artefact "

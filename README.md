@@ -201,11 +201,13 @@ uv run python make_roc_grid.py
 uv run python make_manifest.py              # -> ../MANIFEST.csv
 ```
 
-**`verify.py` is a gate** — it re-derives every numeric table cell from its
-primary source and exits non-zero on any mismatch beyond 1e-06. It currently
-reports `checks=2121 failures=186`; all 186 are one known issue with
-author-supplied constants, documented in [analysis/README.md](analysis/README.md).
-No measured quantity disagrees.
+**`verify.py` is a gate** — it re-derives table cells from their primary
+sources and exits non-zero on any mismatch beyond 1e-06. The current committed
+run passes all 2,307 comparisons with zero failures and one informational note.
+Software versions are checked against the exact project pins (with Python 3.13
+author-confirmed), and real/synthetic dataset classifications are checked
+verbatim against the explicitly identified author-supplied provenance mapping.
+See [analysis/README.md](analysis/README.md) for details.
 
 [analysis/README.md](analysis/README.md) lists the **preconditions** — which
 upstream files must exist before this stage will produce a complete result, and

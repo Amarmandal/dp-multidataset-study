@@ -21,12 +21,14 @@ from __future__ import annotations
 import json
 import math
 import sys
+import tomllib
 
 import numpy as np
 import pandas as pd
 
 import config as C
 import loaders as L
+from extract_provenance import SOFTWARE_VERSIONS
 from common import clustered_spearman_with_ci, exact_spearman_with_ci
 
 TOL = 1e-6
@@ -153,8 +155,9 @@ def v_dataset_characteristics() -> None:
               L.DATASET_URL[ds], "analysis/src/loaders.py:DATASET_URL",
               "verbatim as supplied")
         check("dataset_characteristics", ds, "real_or_synthetic",
-              r.real_or_synthetic, C.MISSING.format(what="real/synthetic"),
-              "n/a", "not recorded anywhere in the repository")
+              r.real_or_synthetic, L.DATASET_PROVENANCE[ds][0],
+              "analysis/src/loaders.py:DATASET_PROVENANCE",
+              "verbatim author-supplied classification")
 
 
 # ==========================================================================
@@ -502,6 +505,31 @@ def v_bound_violations() -> None:
 def v_config_inventory() -> None:
     t = read_table("config_inventory")
     u = L.load_utility()
+
+    # Independently obtain the five library versions from the project's exact
+    # dependency pins. Python is different: ``requires-python`` records only a
+    # lower bound, so its value remains the explicitly author-confirmed version
+    # documented by extract_provenance.SOFTWARE_VERSIONS.
+    project = tomllib.loads((C.REPO / "pyproject.toml").read_text())["project"]
+    exact_pins = {}
+    for requirement in project["dependencies"]:
+        if "==" not in requirement:
+            continue
+        package, version = requirement.split("==", 1)
+        exact_pins[package.strip().lower()] = version.strip()
+    package_names = {
+        "numpy": "numpy",
+        "scikit_learn": "scikit-learn",
+        "pytorch": "torch",
+        "opacus": "opacus",
+        "diffprivlib": "diffprivlib",
+    }
+    expected_versions = {
+        "python": SOFTWARE_VERSIONS["python"],
+        **{field: exact_pins[package]
+           for field, package in package_names.items()},
+    }
+
     for r in t.itertuples():
         ds = r.dataset_dir
         fam = r.family
@@ -535,9 +563,15 @@ def v_config_inventory() -> None:
               f"variant=dp, epsilon={C.EPS_TARGET}, model={L.SHORT_TO_DP[fam]}")
 
         for col in [c for c in t.columns if c.startswith("version_")]:
+            field = col.removeprefix("version_")
+            if field == "python":
+                source = "analysis/src/extract_provenance.py:SOFTWARE_VERSIONS"
+                filt = "Python 3.13 author-confirmed"
+            else:
+                source = "pyproject.toml:project.dependencies"
+                filt = f"{package_names[field]}== exact pin"
             check("config_inventory", tag, col, getattr(r, col),
-                  C.MISSING.format(what="software version"),
-                  "n/a", "not recorded in any report JSON; not read from this machine")
+                  expected_versions[field], source, filt)
 
 
 # ==========================================================================
