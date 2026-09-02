@@ -15,7 +15,7 @@
         "kernel": "rbf",
         "C": 1.0,
         "gamma": "scale",
-        "random_state": "run_idx * 10 + 3",
+        "random_state": "run_idx * 10 + 42",
         "probability": true
     },
     "train_accuracy": 0.9802197802197802,
