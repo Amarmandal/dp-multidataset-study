@@ -363,20 +363,20 @@ and are **uncorrected for multiple comparisons**. `rho_by_epsilon` alone reports
 **None found.**
 
 Every cross-checked quantity agreed to within 1e-6 across its independent
-sources. Specifically verified, with 1999 individual cell checks logged in
+sources. Specifically verified, with 2307 individual cell checks logged in
 `verification.txt`:
 
 - All 7800 comparable values in `consolidated_mia_data.csv` match the
   corresponding rows of the 18 per-dataset attack CSVs under `Attack/*/results/`.
 - `n_samples`, `n_features`, `n_train` and `n_test` agree between each
   `processed_data.pkl`, `consolidated_data.csv`, and
-  `analysis/d15/d15_majority_class_accuracy.csv`.
+  `analysis/stats/correlation_stats/majority_class_accuracy.csv`.
 - Every non-private accuracy in `baseline_accuracy_matrix` matches its
   `std_*_report.json`.
 - Evaluation-set sizes agree between the LiRA CSVs, the Yeom CSVs and the
   pickled splits.
-- All six correlations in `analysis/d16/d16_correlations.csv` reproduce from
-  `analysis/d16/d16_figure_input.csv`.
+- All five correlations in `analysis/stats/rq/correlations.csv` reproduce from
+  `analysis/stats/rq/figure_input.csv`.
 - 378 DP utility rows carry `n_runs == 30`; the other 36 carry no `n_runs` at
   all (§3.1) — an absent field, not a disagreeing value.
 

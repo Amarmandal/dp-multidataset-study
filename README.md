@@ -30,7 +30,7 @@ Python 3.13, managed with [`uv`](https://docs.astral.sh/uv/).
 
 ```bash
 git clone https://github.com/Amarmandal/dp-multidataset-study.git
-cd code
+cd dp-multidataset-study
 uv sync                      # creates .venv/ from pyproject.toml + uv.lock
 ```
 

@@ -1,7 +1,7 @@
 [project]
 name = "multidataset-study"
 version = "0.1.0"
-description = "Add your description here"
+description = "Code and research artifacts for a multi-dataset study of differential privacy trade-offs in health informatics"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.13"
