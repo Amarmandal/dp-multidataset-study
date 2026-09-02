@@ -4,6 +4,8 @@ message: >-
   metadata below.
 title: "Privacy-Preserving Health Informatics: A Multi-Dataset Study of Differential Privacy Trade-offs"
 type: software
+version: 1.0.0
+date-released: 2026-09-02
 license: MIT
 authors:
   - family-names: "Mandal"

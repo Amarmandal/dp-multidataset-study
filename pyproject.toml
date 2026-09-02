@@ -1,6 +1,6 @@
 [project]
 name = "multidataset-study"
-version = "0.1.0"
+version = "1.0.0"
 description = "Code and research artifacts for a multi-dataset study of differential privacy trade-offs in health informatics"
 readme = "README.md"
 license = "MIT"
