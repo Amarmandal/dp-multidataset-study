@@ -1,4 +1,4 @@
-# The Privacy–Utility Trade-off in Differentially Private Classifiers
+# Privacy-Preserving Health Informatics: A Multi-Dataset Study of Differential Privacy Trade-offs
 
 Code and results for the **journal extension** of _"An Empirical Study of the
 Privacy-Utility Trade-off in Differentially Private Classifiers"_ (CIIT 2026).
@@ -44,6 +44,9 @@ uv run jupyter lab           # for the notebooks
 Pinned versions live in [pyproject.toml](pyproject.toml); `uv.lock` fixes the exact
 resolution. Key libraries: `diffprivlib` 0.6.6 (DP-RF/LR/GNB), `torch` 2.11 +
 `opacus` 1.6 (DP-SGD for the DNN), `scikit-learn` 1.6.1.
+
+See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for the complete record of data
+splits, seeds, repetitions, software, hardware, runtime, and attack settings.
 
 > **Trained models are not in this repository.** Every artifact under
 > `<DATASET>/<FAMILY>/output/model/` is gitignored — 210 MB of `.pkl`/`.pt` that
@@ -267,7 +270,24 @@ describes two different models.
 
 ## Citation
 
-Journal extension of the CIIT 2026 conference paper. Authors: Amar Kumar Mandal,
-S M Dedar Alam, Bimbo Lawrence Damitan, Bisola Favour Adediji (Kadir Has
-University, Istanbul); Zivko Atanaskoski, Zorica Karapancheva, Mila Dodevska,
-Vesna Dimitrova (Ss. Cyril and Methodius University, Skopje).
+Software and research-artifact authors: Amar Kumar Mandal and S M Dedar Alam.
+Machine-readable citation metadata is available in
+[CITATION.cff](CITATION.cff).
+
+This repository accompanies the journal extension of the CIIT 2026 conference
+paper. Manuscript authors: Amar Kumar Mandal, S M Dedar Alam, Bimbo Lawrence
+Damitan, Bisola Favour Adediji (Kadir Has University, Istanbul); Zivko
+Atanaskoski, Zorica Karapancheva, Mila Dodevska, Vesna Dimitrova (Ss. Cyril and
+Methodius University, Skopje).
+
+---
+
+## License
+
+Original software and repository-authored documentation are available under the
+[MIT License](LICENSE), copyright 2026 Amar Kumar Mandal and S M Dedar Alam.
+
+Third-party datasets and their processed derivatives are excluded from the MIT
+grant and remain governed by their source licenses. See
+[DATA_LICENSES.md](DATA_LICENSES.md) for the dataset-by-dataset terms and source
+links. Third-party dependencies retain their own licenses.
