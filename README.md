@@ -1,4 +1,4 @@
-# The Privacy–Utility Trade-off in Differentially Private Classifiers
+# Privacy-Preserving Health Informatics: A Multi-Dataset Study of Differential Privacy Trade-offs
 
 Code and results for the **journal extension** of _"An Empirical Study of the
 Privacy-Utility Trade-off in Differentially Private Classifiers"_ (CIIT 2026).
@@ -30,7 +30,7 @@ Python 3.13, managed with [`uv`](https://docs.astral.sh/uv/).
 
 ```bash
 git clone https://github.com/Amarmandal/dp-multidataset-study.git
-cd code
+cd dp-multidataset-study
 uv sync                      # creates .venv/ from pyproject.toml + uv.lock
 ```
 
@@ -44,6 +44,9 @@ uv run jupyter lab           # for the notebooks
 Pinned versions live in [pyproject.toml](pyproject.toml); `uv.lock` fixes the exact
 resolution. Key libraries: `diffprivlib` 0.6.6 (DP-RF/LR/GNB), `torch` 2.11 +
 `opacus` 1.6 (DP-SGD for the DNN), `scikit-learn` 1.6.1.
+
+See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for the complete record of data
+splits, seeds, repetitions, software, hardware, runtime, and attack settings.
 
 > **Trained models are not in this repository.** Every artifact under
 > `<DATASET>/<FAMILY>/output/model/` is gitignored — 210 MB of `.pkl`/`.pt` that
@@ -201,11 +204,13 @@ uv run python make_roc_grid.py
 uv run python make_manifest.py              # -> ../MANIFEST.csv
 ```
 
-**`verify.py` is a gate** — it re-derives every numeric table cell from its
-primary source and exits non-zero on any mismatch beyond 1e-06. It currently
-reports `checks=2121 failures=186`; all 186 are one known issue with
-author-supplied constants, documented in [analysis/README.md](analysis/README.md).
-No measured quantity disagrees.
+**`verify.py` is a gate** — it re-derives table cells from their primary
+sources and exits non-zero on any mismatch beyond 1e-06. The current committed
+run passes all 2,307 comparisons with zero failures and one informational note.
+Software versions are checked against the exact project pins (with Python 3.13
+author-confirmed), and real/synthetic dataset classifications are checked
+verbatim against the explicitly identified author-supplied provenance mapping.
+See [analysis/README.md](analysis/README.md) for details.
 
 [analysis/README.md](analysis/README.md) lists the **preconditions** — which
 upstream files must exist before this stage will produce a complete result, and
@@ -265,7 +270,24 @@ describes two different models.
 
 ## Citation
 
-Journal extension of the CIIT 2026 conference paper. Authors: Amar Kumar Mandal,
-S M Dedar Alam, Bimbo Lawrence Damitan, Bisola Favour Adediji (Kadir Has
-University, Istanbul); Zivko Atanaskoski, Zorica Karapancheva, Mila Dodevska,
-Vesna Dimitrova (Ss. Cyril and Methodius University, Skopje).
+Software and research-artifact authors: Amar Kumar Mandal and S M Dedar Alam.
+Machine-readable citation metadata is available in
+[CITATION.cff](CITATION.cff).
+
+This repository accompanies the journal extension of the CIIT 2026 conference
+paper. Manuscript authors: Amar Kumar Mandal, S M Dedar Alam, Bimbo Lawrence
+Damitan, Bisola Favour Adediji (Kadir Has University, Istanbul); Zivko
+Atanaskoski, Zorica Karapancheva, Mila Dodevska, Vesna Dimitrova (Ss. Cyril and
+Methodius University, Skopje).
+
+---
+
+## License
+
+Original software and repository-authored documentation are available under the
+[MIT License](LICENSE), copyright 2026 Amar Kumar Mandal and S M Dedar Alam.
+
+Third-party datasets and their processed derivatives are excluded from the MIT
+grant and remain governed by their source licenses. See
+[DATA_LICENSES.md](DATA_LICENSES.md) for the dataset-by-dataset terms and source
+links. Third-party dependencies retain their own licenses.

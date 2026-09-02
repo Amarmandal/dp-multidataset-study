@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software or its research artifacts, please cite it using the
+  metadata below.
+title: "Privacy-Preserving Health Informatics: A Multi-Dataset Study of Differential Privacy Trade-offs"
+type: software
+license: MIT
+authors:
+  - family-names: "Mandal"
+    given-names: "Amar Kumar"
+    affiliation: "Kadir Has University"
+  - family-names: "Alam"
+    given-names: "S M Dedar"
+    affiliation: "Kadir Has University"
+repository-code: "https://github.com/Amarmandal/dp-multidataset-study"

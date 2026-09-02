@@ -2,199 +2,13 @@ Verification of analysis/tables -- every numeric cell re-derived
 independently from its primary source.
 Tolerance: 1e-06.  Config: INCLUDE_LUNG_CANCER=True, RANDOM_FPR=0.01, EPS_TARGET=1.0.
 
-CHECKS PASSED: 2121
-FAILURES:      186
+CHECKS PASSED: 2307
+FAILURES:      0
 NOTES:         1
 
 ==============================================================================
-FAILURES
+FAILURES: none
 ==============================================================================
-FAIL  dataset_characteristics | GALLSTONE | real_or_synthetic | table='No' != source='[MISSING: real/synthetic]' | n/a | not recorded anywhere in the repository
-FAIL  dataset_characteristics | BCP | real_or_synthetic | table='No' != source='[MISSING: real/synthetic]' | n/a | not recorded anywhere in the repository
-FAIL  dataset_characteristics | CANCER_RISK | real_or_synthetic | table='Yes' != source='[MISSING: real/synthetic]' | n/a | not recorded anywhere in the repository
-FAIL  dataset_characteristics | KIDNEY_STONE | real_or_synthetic | table='Unknown' != source='[MISSING: real/synthetic]' | n/a | not recorded anywhere in the repository
-FAIL  dataset_characteristics | LUNG_CANCER | real_or_synthetic | table='Yes' != source='[MISSING: real/synthetic]' | n/a | not recorded anywhere in the repository
-FAIL  dataset_characteristics | DIABETES | real_or_synthetic | table='No' != source='[MISSING: real/synthetic]' | n/a | not recorded anywhere in the repository
-FAIL  config_inventory | Gallstone/RF | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/RF | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/RF | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/RF | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/RF | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/RF | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/LR | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/LR | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/LR | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/LR | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/LR | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/LR | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/GNB | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/GNB | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/GNB | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/GNB | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/GNB | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/GNB | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/SVM | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/SVM | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/SVM | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/SVM | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/SVM | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/SVM | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/DNN | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/DNN | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/DNN | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/DNN | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/DNN | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Gallstone/DNN | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/RF | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/RF | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/RF | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/RF | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/RF | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/RF | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/LR | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/LR | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/LR | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/LR | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/LR | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/LR | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/GNB | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/GNB | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/GNB | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/GNB | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/GNB | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/GNB | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/SVM | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/SVM | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/SVM | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/SVM | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/SVM | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/SVM | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/DNN | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/DNN | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/DNN | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/DNN | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/DNN | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Breast Cancer/DNN | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/RF | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/RF | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/RF | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/RF | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/RF | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/RF | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/LR | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/LR | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/LR | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/LR | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/LR | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/LR | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/GNB | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/GNB | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/GNB | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/GNB | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/GNB | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/GNB | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/SVM | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/SVM | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/SVM | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/SVM | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/SVM | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/SVM | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/DNN | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/DNN | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/DNN | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/DNN | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/DNN | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Cancer Risk/DNN | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/RF | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/RF | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/RF | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/RF | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/RF | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/RF | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/LR | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/LR | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/LR | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/LR | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/LR | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/LR | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/GNB | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/GNB | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/GNB | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/GNB | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/GNB | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/GNB | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/SVM | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/SVM | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/SVM | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/SVM | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/SVM | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/SVM | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/DNN | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/DNN | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/DNN | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/DNN | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/DNN | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Kidney Stone/DNN | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/RF | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/RF | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/RF | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/RF | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/RF | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/RF | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/LR | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/LR | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/LR | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/LR | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/LR | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/LR | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/GNB | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/GNB | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/GNB | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/GNB | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/GNB | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/GNB | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/SVM | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/SVM | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/SVM | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/SVM | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/SVM | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/SVM | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/DNN | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/DNN | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/DNN | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/DNN | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/DNN | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Lung Cancer/DNN | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/RF | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/RF | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/RF | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/RF | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/RF | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/RF | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/LR | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/LR | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/LR | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/LR | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/LR | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/LR | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/GNB | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/GNB | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/GNB | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/GNB | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/GNB | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/GNB | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/SVM | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/SVM | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/SVM | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/SVM | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/SVM | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/SVM | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/DNN | version_python | table=3.13 != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/DNN | version_numpy | table='2.4.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/DNN | version_scikit_learn | table='1.6.1' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/DNN | version_pytorch | table='2.11.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/DNN | version_opacus | table='1.6.0' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
-FAIL  config_inventory | Diabetes/DNN | version_diffprivlib | table='0.6.6' != source='[MISSING: software version]' | n/a | not recorded in any report JSON; not read from this machine
 
 ==============================================================================
 NOTES (values that are absent at source rather than wrong)
@@ -215,6 +29,7 @@ dataset_characteristics | GALLSTONE | n_test (cross-check) | 64 | analysis/corre
 dataset_characteristics | GALLSTONE/class 0 | class_balance_pct | 50.5 | GALLSTONE/data/processed_data.pkl | class 0 count / N
 dataset_characteristics | GALLSTONE/class 1 | class_balance_pct | 49.5 | GALLSTONE/data/processed_data.pkl | class 1 count / N
 dataset_characteristics | GALLSTONE | source_url | https://archive.ics.uci.edu/dataset/1150/gallstone-1 | analysis/src/loaders.py:DATASET_URL | verbatim as supplied
+dataset_characteristics | GALLSTONE | real_or_synthetic | No | analysis/src/loaders.py:DATASET_PROVENANCE | verbatim author-supplied classification
 dataset_characteristics | BCP | n_samples | 569 | BCP/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | BCP | n_features | 30 | BCP/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | BCP | n_train | 455 | BCP/data/processed_data.pkl | y_train/y_test/X_train
@@ -225,6 +40,7 @@ dataset_characteristics | BCP | n_test (cross-check) | 114 | analysis/correlatio
 dataset_characteristics | BCP/class 0 | class_balance_pct | 62.7 | BCP/data/processed_data.pkl | class 0 count / N
 dataset_characteristics | BCP/class 1 | class_balance_pct | 37.3 | BCP/data/processed_data.pkl | class 1 count / N
 dataset_characteristics | BCP | source_url | https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic | analysis/src/loaders.py:DATASET_URL | verbatim as supplied
+dataset_characteristics | BCP | real_or_synthetic | No | analysis/src/loaders.py:DATASET_PROVENANCE | verbatim author-supplied classification
 dataset_characteristics | CANCER_RISK | n_samples | 1500 | CANCER_RISK/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | CANCER_RISK | n_features | 8 | CANCER_RISK/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | CANCER_RISK | n_train | 1200 | CANCER_RISK/data/processed_data.pkl | y_train/y_test/X_train
@@ -235,6 +51,7 @@ dataset_characteristics | CANCER_RISK | n_test (cross-check) | 300 | analysis/co
 dataset_characteristics | CANCER_RISK/class 0 | class_balance_pct | 62.9 | CANCER_RISK/data/processed_data.pkl | class 0 count / N
 dataset_characteristics | CANCER_RISK/class 1 | class_balance_pct | 37.1 | CANCER_RISK/data/processed_data.pkl | class 1 count / N
 dataset_characteristics | CANCER_RISK | source_url | https://www.kaggle.com/datasets/rabieelkharoua/cancer-prediction-dataset | analysis/src/loaders.py:DATASET_URL | verbatim as supplied
+dataset_characteristics | CANCER_RISK | real_or_synthetic | Yes | analysis/src/loaders.py:DATASET_PROVENANCE | verbatim author-supplied classification
 dataset_characteristics | KIDNEY_STONE | n_samples | 4000 | KIDNEY_STONE/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | KIDNEY_STONE | n_features | 23 | KIDNEY_STONE/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | KIDNEY_STONE | n_train | 3200 | KIDNEY_STONE/data/processed_data.pkl | y_train/y_test/X_train
@@ -245,6 +62,7 @@ dataset_characteristics | KIDNEY_STONE | n_test (cross-check) | 800 | analysis/c
 dataset_characteristics | KIDNEY_STONE/class 0 | class_balance_pct | 60.8 | KIDNEY_STONE/data/processed_data.pkl | class 0 count / N
 dataset_characteristics | KIDNEY_STONE/class 1 | class_balance_pct | 39.2 | KIDNEY_STONE/data/processed_data.pkl | class 1 count / N
 dataset_characteristics | KIDNEY_STONE | source_url | https://www.kaggle.com/datasets/omarayman15/kidney-stones | analysis/src/loaders.py:DATASET_URL | verbatim as supplied
+dataset_characteristics | KIDNEY_STONE | real_or_synthetic | Unknown | analysis/src/loaders.py:DATASET_PROVENANCE | verbatim author-supplied classification
 dataset_characteristics | LUNG_CANCER | n_samples | 50000 | LUNG_CANCER/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | LUNG_CANCER | n_features | 23 | LUNG_CANCER/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | LUNG_CANCER | n_train | 40000 | LUNG_CANCER/data/processed_data.pkl | y_train/y_test/X_train
@@ -256,6 +74,7 @@ dataset_characteristics | LUNG_CANCER/class 0 | class_balance_pct | 30.2 | LUNG_
 dataset_characteristics | LUNG_CANCER/class 1 | class_balance_pct | 32.9 | LUNG_CANCER/data/processed_data.pkl | class 1 count / N
 dataset_characteristics | LUNG_CANCER/class 2 | class_balance_pct | 36.9 | LUNG_CANCER/data/processed_data.pkl | class 2 count / N
 dataset_characteristics | LUNG_CANCER | source_url | https://www.kaggle.com/datasets/himabindumarpini/lung-cancer-datasets | analysis/src/loaders.py:DATASET_URL | verbatim as supplied
+dataset_characteristics | LUNG_CANCER | real_or_synthetic | Yes | analysis/src/loaders.py:DATASET_PROVENANCE | verbatim author-supplied classification
 dataset_characteristics | DIABETES | n_samples | 70692 | DIABETES/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | DIABETES | n_features | 21 | DIABETES/data/processed_data.pkl | y_train/y_test/X_train
 dataset_characteristics | DIABETES | n_train | 56553 | DIABETES/data/processed_data.pkl | y_train/y_test/X_train
@@ -266,6 +85,7 @@ dataset_characteristics | DIABETES | n_test (cross-check) | 14139 | analysis/cor
 dataset_characteristics | DIABETES/class 0.0 | class_balance_pct | 50 | DIABETES/data/processed_data.pkl | class 0.0 count / N
 dataset_characteristics | DIABETES/class 1.0 | class_balance_pct | 50 | DIABETES/data/processed_data.pkl | class 1.0 count / N
 dataset_characteristics | DIABETES | source_url | https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset?select=diabetes_binary_health_indicators_BRFSS2015.csv | analysis/src/loaders.py:DATASET_URL | verbatim as supplied
+dataset_characteristics | DIABETES | real_or_synthetic | No | analysis/src/loaders.py:DATASET_PROVENANCE | verbatim author-supplied classification
 baseline_accuracy_matrix | Gallstone/RF | test_accuracy | 0.828125 | GALLSTONE/RandomForest/output/std_rf_report.json | accuracy
 baseline_accuracy_matrix | Gallstone/RF | train_accuracy | 0.913725490196 | GALLSTONE/RandomForest/output/std_rf_report.json | train_accuracy
 baseline_accuracy_matrix | Gallstone/RF | train_test_gap | 0.0856004901961 | derived | train_accuracy - test_accuracy
@@ -2138,151 +1958,331 @@ config_inventory | Gallstone/RF | source_dp_report | GALLSTONE/RandomForest/outp
 config_inventory | Gallstone/RF | std_train_time_s | 0.0343106249929 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Gallstone, model=DP-RF
 config_inventory | Gallstone/RF | train_time_mean | 0.0202034542662 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
 config_inventory | Gallstone/RF | train_time_std | 0.00548017678825 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
+config_inventory | Gallstone/RF | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Gallstone/RF | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Gallstone/RF | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Gallstone/RF | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Gallstone/RF | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Gallstone/RF | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Gallstone/LR | source_std_report | GALLSTONE/LR/output/std_lr_report.json | filesystem glob | GALLSTONE/LR/**/std_*_report.json
 config_inventory | Gallstone/LR | source_dp_report | GALLSTONE/LR/output/dp_lr_report.json | filesystem glob | GALLSTONE/LR/**/dp_*_report.json
 config_inventory | Gallstone/LR | std_train_time_s | 0.00238799999352 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Gallstone, model=DP-LR
 config_inventory | Gallstone/LR | train_time_mean | 0.000634941732278 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
 config_inventory | Gallstone/LR | train_time_std | 5.76196478249e-05 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
+config_inventory | Gallstone/LR | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Gallstone/LR | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Gallstone/LR | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Gallstone/LR | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Gallstone/LR | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Gallstone/LR | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Gallstone/GNB | source_std_report | GALLSTONE/GaussianNB/output/std_gnb_report.json | filesystem glob | GALLSTONE/GaussianNB/**/std_*_report.json
 config_inventory | Gallstone/GNB | source_dp_report | GALLSTONE/GaussianNB/output/dp_gnb_report.json | filesystem glob | GALLSTONE/GaussianNB/**/dp_*_report.json
 config_inventory | Gallstone/GNB | std_train_time_s | 0.000565583002754 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Gallstone, model=DP-GNB
 config_inventory | Gallstone/GNB | train_time_mean | 0.00884584303324 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
 config_inventory | Gallstone/GNB | train_time_std | 0.00019665402112 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
+config_inventory | Gallstone/GNB | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Gallstone/GNB | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Gallstone/GNB | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Gallstone/GNB | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Gallstone/GNB | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Gallstone/GNB | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Gallstone/SVM | source_std_report | GALLSTONE/SVM/output/std_svm_report.json | filesystem glob | GALLSTONE/SVM/**/std_*_report.json
 config_inventory | Gallstone/SVM | source_dp_report | GALLSTONE/SVM/output/dp_svm_report.json | filesystem glob | GALLSTONE/SVM/**/dp_*_report.json
 config_inventory | Gallstone/SVM | std_train_time_s | 0.00521766699967 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Gallstone, model=DP-SVM
 config_inventory | Gallstone/SVM | train_time_mean | 0.000610049899979 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Gallstone/SVM | train_time_std | 0.000294615758372 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Gallstone/SVM | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Gallstone/SVM | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Gallstone/SVM | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Gallstone/SVM | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Gallstone/SVM | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Gallstone/SVM | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Gallstone/DNN | source_std_report | GALLSTONE/DNN/output/std_dnn_report.json | filesystem glob | GALLSTONE/DNN/**/std_*_report.json
 config_inventory | Gallstone/DNN | source_dp_report | GALLSTONE/DNN/output/dp_dnn_report.json | filesystem glob | GALLSTONE/DNN/**/dp_*_report.json
 config_inventory | Gallstone/DNN | std_train_time_s | 0.142544025033 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Gallstone, model=DP-DNN
 config_inventory | Gallstone/DNN | train_time_mean | 0.298563902833 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
 config_inventory | Gallstone/DNN | train_time_std | 0.000971480290296 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
+config_inventory | Gallstone/DNN | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Gallstone/DNN | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Gallstone/DNN | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Gallstone/DNN | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Gallstone/DNN | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Gallstone/DNN | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Breast Cancer/RF | source_std_report | BCP/RandomForest/output/std_rf_report.json | filesystem glob | BCP/RandomForest/**/std_*_report.json
 config_inventory | Breast Cancer/RF | source_dp_report | BCP/RandomForest/output/dp_rf_report.json | filesystem glob | BCP/RandomForest/**/dp_*_report.json
 config_inventory | Breast Cancer/RF | std_train_time_s | 0.018279305633 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Breast Cancer, model=DP-RF
 config_inventory | Breast Cancer/RF | train_time_mean | 0.0192723652348 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
 config_inventory | Breast Cancer/RF | train_time_std | 0.00422825069824 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
+config_inventory | Breast Cancer/RF | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Breast Cancer/RF | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Breast Cancer/RF | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Breast Cancer/RF | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Breast Cancer/RF | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Breast Cancer/RF | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Breast Cancer/LR | source_std_report | BCP/LR/output/std_lr_report.json | filesystem glob | BCP/LR/**/std_*_report.json
 config_inventory | Breast Cancer/LR | source_dp_report | BCP/LR/output/dp_lr_report.json | filesystem glob | BCP/LR/**/dp_*_report.json
 config_inventory | Breast Cancer/LR | std_train_time_s | 0.00202600000193 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Breast Cancer, model=DP-LR
 config_inventory | Breast Cancer/LR | train_time_mean | 0.000853034734124 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
 config_inventory | Breast Cancer/LR | train_time_std | 0.00024011700399 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
+config_inventory | Breast Cancer/LR | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Breast Cancer/LR | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Breast Cancer/LR | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Breast Cancer/LR | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Breast Cancer/LR | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Breast Cancer/LR | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Breast Cancer/GNB | source_std_report | BCP/GaussianNB/output/std_gnb_report.json | filesystem glob | BCP/GaussianNB/**/std_*_report.json
 config_inventory | Breast Cancer/GNB | source_dp_report | BCP/GaussianNB/output/dp_gnb_report.json | filesystem glob | BCP/GaussianNB/**/dp_*_report.json
 config_inventory | Breast Cancer/GNB | std_train_time_s | 0.000178738966739 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Breast Cancer, model=DP-GNB
 config_inventory | Breast Cancer/GNB | train_time_mean | 0.00626503479919 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
 config_inventory | Breast Cancer/GNB | train_time_std | 0.000124683720251 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
+config_inventory | Breast Cancer/GNB | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Breast Cancer/GNB | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Breast Cancer/GNB | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Breast Cancer/GNB | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Breast Cancer/GNB | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Breast Cancer/GNB | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Breast Cancer/SVM | source_std_report | BCP/SVM/output/std_svm_report.json | filesystem glob | BCP/SVM/**/std_*_report.json
 config_inventory | Breast Cancer/SVM | source_dp_report | BCP/SVM/output/dp_svm_report.json | filesystem glob | BCP/SVM/**/dp_*_report.json
 config_inventory | Breast Cancer/SVM | std_train_time_s | 0.00352018059881 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Breast Cancer, model=DP-SVM
 config_inventory | Breast Cancer/SVM | train_time_mean | 0.00087775839999 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Breast Cancer/SVM | train_time_std | 0.000521181157208 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Breast Cancer/SVM | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Breast Cancer/SVM | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Breast Cancer/SVM | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Breast Cancer/SVM | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Breast Cancer/SVM | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Breast Cancer/SVM | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Breast Cancer/DNN | source_std_report | BCP/DNN/output/std_dnn_report.json | filesystem glob | BCP/DNN/**/std_*_report.json
 config_inventory | Breast Cancer/DNN | source_dp_report | BCP/DNN/output/dp_dnn_report.json | filesystem glob | BCP/DNN/**/dp_*_report.json
 config_inventory | Breast Cancer/DNN | std_train_time_s | 0.189789798634 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Breast Cancer, model=DP-DNN
 config_inventory | Breast Cancer/DNN | train_time_mean | 3.4750977362 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
 config_inventory | Breast Cancer/DNN | train_time_std | 0.189040656318 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
+config_inventory | Breast Cancer/DNN | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Breast Cancer/DNN | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Breast Cancer/DNN | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Breast Cancer/DNN | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Breast Cancer/DNN | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Breast Cancer/DNN | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Cancer Risk/RF | source_std_report | CANCER_RISK/RandomForest/output/std_rf_report.json | filesystem glob | CANCER_RISK/RandomForest/**/std_*_report.json
 config_inventory | Cancer Risk/RF | source_dp_report | CANCER_RISK/RandomForest/output/dp_rf_report.json | filesystem glob | CANCER_RISK/RandomForest/**/dp_*_report.json
 config_inventory | Cancer Risk/RF | std_train_time_s | 0.0847845829994 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Cancer Risk, model=DP-RF
 config_inventory | Cancer Risk/RF | train_time_mean | 0.0219798387353 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
 config_inventory | Cancer Risk/RF | train_time_std | 0.00127687204402 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
+config_inventory | Cancer Risk/RF | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Cancer Risk/RF | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Cancer Risk/RF | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Cancer Risk/RF | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Cancer Risk/RF | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Cancer Risk/RF | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Cancer Risk/LR | source_std_report | CANCER_RISK/LR/output/std_lr_report.json | filesystem glob | CANCER_RISK/LR/**/std_*_report.json
 config_inventory | Cancer Risk/LR | source_dp_report | CANCER_RISK/LR/output/dp_lr_report.json | filesystem glob | CANCER_RISK/LR/**/dp_*_report.json
 config_inventory | Cancer Risk/LR | std_train_time_s | 0.00232441700064 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Cancer Risk, model=DP-LR
 config_inventory | Cancer Risk/LR | train_time_mean | 0.000807140332957 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
 config_inventory | Cancer Risk/LR | train_time_std | 8.81008060609e-05 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
+config_inventory | Cancer Risk/LR | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Cancer Risk/LR | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Cancer Risk/LR | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Cancer Risk/LR | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Cancer Risk/LR | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Cancer Risk/LR | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Cancer Risk/GNB | source_std_report | CANCER_RISK/GaussianNB/output/std_gnb_report.json | filesystem glob | CANCER_RISK/GaussianNB/**/std_*_report.json
 config_inventory | Cancer Risk/GNB | source_dp_report | CANCER_RISK/GaussianNB/output/dp_gnb_report.json | filesystem glob | CANCER_RISK/GaussianNB/**/dp_*_report.json
 config_inventory | Cancer Risk/GNB | std_train_time_s | 0.00018564859735 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Cancer Risk, model=DP-GNB
 config_inventory | Cancer Risk/GNB | train_time_mean | 0.0016813792007 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
 config_inventory | Cancer Risk/GNB | train_time_std | 4.04204328752e-05 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
+config_inventory | Cancer Risk/GNB | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Cancer Risk/GNB | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Cancer Risk/GNB | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Cancer Risk/GNB | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Cancer Risk/GNB | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Cancer Risk/GNB | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Cancer Risk/SVM | source_std_report | CANCER_RISK/SVM/output/std_svm_report.json | filesystem glob | CANCER_RISK/SVM/**/std_*_report.json
 config_inventory | Cancer Risk/SVM | source_dp_report | CANCER_RISK/SVM/output/dp_svm_report.json | filesystem glob | CANCER_RISK/SVM/**/dp_*_report.json
 config_inventory | Cancer Risk/SVM | std_train_time_s | 0.0357240839949 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Cancer Risk, model=DP-SVM
 config_inventory | Cancer Risk/SVM | train_time_mean | 0.000816473666646 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Cancer Risk/SVM | train_time_std | 0.000305822625614 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Cancer Risk/SVM | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Cancer Risk/SVM | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Cancer Risk/SVM | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Cancer Risk/SVM | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Cancer Risk/SVM | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Cancer Risk/SVM | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Cancer Risk/DNN | source_std_report | CANCER_RISK/DNN/output/std_dnn_report.json | filesystem glob | CANCER_RISK/DNN/**/std_*_report.json
 config_inventory | Cancer Risk/DNN | source_dp_report | CANCER_RISK/DNN/output/dp_dnn_report.json | filesystem glob | CANCER_RISK/DNN/**/dp_*_report.json
 config_inventory | Cancer Risk/DNN | std_train_time_s | 0.503311251435 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Cancer Risk, model=DP-DNN
 config_inventory | Cancer Risk/DNN | train_time_mean | 1.07052494447 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
 config_inventory | Cancer Risk/DNN | train_time_std | 0.0134418968296 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
+config_inventory | Cancer Risk/DNN | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Cancer Risk/DNN | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Cancer Risk/DNN | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Cancer Risk/DNN | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Cancer Risk/DNN | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Cancer Risk/DNN | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Kidney Stone/RF | source_std_report | KIDNEY_STONE/RandomForest/output/std_rf_report.json | filesystem glob | KIDNEY_STONE/RandomForest/**/std_*_report.json
 config_inventory | Kidney Stone/RF | source_dp_report | KIDNEY_STONE/RandomForest/output/dp_rf_report.json | filesystem glob | KIDNEY_STONE/RandomForest/**/dp_*_report.json
 config_inventory | Kidney Stone/RF | std_train_time_s | 0.0603655840096 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Kidney Stone, model=DP-RF
 config_inventory | Kidney Stone/RF | train_time_mean | 0.0232926429667 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
 config_inventory | Kidney Stone/RF | train_time_std | 0.00124027023966 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
+config_inventory | Kidney Stone/RF | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Kidney Stone/RF | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Kidney Stone/RF | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Kidney Stone/RF | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Kidney Stone/RF | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Kidney Stone/RF | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Kidney Stone/LR | source_std_report | KIDNEY_STONE/LR/output/std_lr_report.json | filesystem glob | KIDNEY_STONE/LR/**/std_*_report.json
 config_inventory | Kidney Stone/LR | source_dp_report | KIDNEY_STONE/LR/output/dp_lr_report.json | filesystem glob | KIDNEY_STONE/LR/**/dp_*_report.json
 config_inventory | Kidney Stone/LR | std_train_time_s | 0.00343008399068 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Kidney Stone, model=DP-LR
 config_inventory | Kidney Stone/LR | train_time_mean | 0.00191487920092 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
 config_inventory | Kidney Stone/LR | train_time_std | 0.00016596050501 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
+config_inventory | Kidney Stone/LR | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Kidney Stone/LR | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Kidney Stone/LR | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Kidney Stone/LR | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Kidney Stone/LR | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Kidney Stone/LR | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Kidney Stone/GNB | source_std_report | KIDNEY_STONE/GaussianNB/output/std_gnb_report.json | filesystem glob | KIDNEY_STONE/GaussianNB/**/std_*_report.json
 config_inventory | Kidney Stone/GNB | source_dp_report | KIDNEY_STONE/GaussianNB/output/dp_gnb_report.json | filesystem glob | KIDNEY_STONE/GaussianNB/**/dp_*_report.json
 config_inventory | Kidney Stone/GNB | std_train_time_s | 0.000343886200183 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Kidney Stone, model=DP-GNB
 config_inventory | Kidney Stone/GNB | train_time_mean | 0.0046392096323 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
 config_inventory | Kidney Stone/GNB | train_time_std | 8.0859763613e-05 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
+config_inventory | Kidney Stone/GNB | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Kidney Stone/GNB | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Kidney Stone/GNB | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Kidney Stone/GNB | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Kidney Stone/GNB | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Kidney Stone/GNB | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Kidney Stone/SVM | source_std_report | KIDNEY_STONE/SVM/output/std_svm_report.json | filesystem glob | KIDNEY_STONE/SVM/**/std_*_report.json
 config_inventory | Kidney Stone/SVM | source_dp_report | KIDNEY_STONE/SVM/output/dp_svm_report.json | filesystem glob | KIDNEY_STONE/SVM/**/dp_*_report.json
 config_inventory | Kidney Stone/SVM | std_train_time_s | 0.186989084003 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Kidney Stone, model=DP-SVM
 config_inventory | Kidney Stone/SVM | train_time_mean | 0.00182093333334 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Kidney Stone/SVM | train_time_std | 0.000614664272054 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Kidney Stone/SVM | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Kidney Stone/SVM | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Kidney Stone/SVM | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Kidney Stone/SVM | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Kidney Stone/SVM | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Kidney Stone/SVM | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Kidney Stone/DNN | source_std_report | KIDNEY_STONE/DNN/output/std_dnn_report.json | filesystem glob | KIDNEY_STONE/DNN/**/std_*_report.json
 config_inventory | Kidney Stone/DNN | source_dp_report | KIDNEY_STONE/DNN/output/dp_dnn_report.json | filesystem glob | KIDNEY_STONE/DNN/**/dp_*_report.json
 config_inventory | Kidney Stone/DNN | std_train_time_s | 1.20927071251 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Kidney Stone, model=DP-DNN
 config_inventory | Kidney Stone/DNN | train_time_mean | 1.989150739 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
 config_inventory | Kidney Stone/DNN | train_time_std | 0.224222689647 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
+config_inventory | Kidney Stone/DNN | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Kidney Stone/DNN | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Kidney Stone/DNN | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Kidney Stone/DNN | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Kidney Stone/DNN | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Kidney Stone/DNN | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Lung Cancer/RF | source_std_report | LUNG_CANCER/RandomForest/output/std_rf_report.json | filesystem glob | LUNG_CANCER/RandomForest/**/std_*_report.json
 config_inventory | Lung Cancer/RF | source_dp_report | LUNG_CANCER/RandomForest/output/dp_rf_report.json | filesystem glob | LUNG_CANCER/RandomForest/**/dp_*_report.json
 config_inventory | Lung Cancer/RF | std_train_time_s | 0.0954360000032 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Lung Cancer, model=DP-RF
 config_inventory | Lung Cancer/RF | train_time_mean | 0.0462061291658 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
 config_inventory | Lung Cancer/RF | train_time_std | 0.00116902481474 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
+config_inventory | Lung Cancer/RF | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Lung Cancer/RF | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Lung Cancer/RF | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Lung Cancer/RF | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Lung Cancer/RF | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Lung Cancer/RF | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Lung Cancer/LR | source_std_report | LUNG_CANCER/LR/output/std_lr_report.json | filesystem glob | LUNG_CANCER/LR/**/std_*_report.json
 config_inventory | Lung Cancer/LR | source_dp_report | LUNG_CANCER/LR/output/dp_lr_report.json | filesystem glob | LUNG_CANCER/LR/**/dp_*_report.json
 config_inventory | Lung Cancer/LR | std_train_time_s | 0.0643224160012 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Lung Cancer, model=DP-LR
 config_inventory | Lung Cancer/LR | train_time_mean | 0.0576549708339 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
 config_inventory | Lung Cancer/LR | train_time_std | 0.00430961247954 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
+config_inventory | Lung Cancer/LR | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Lung Cancer/LR | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Lung Cancer/LR | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Lung Cancer/LR | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Lung Cancer/LR | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Lung Cancer/LR | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Lung Cancer/GNB | source_std_report | LUNG_CANCER/GaussianNB/output/std_gnb_report.json | filesystem glob | LUNG_CANCER/GaussianNB/**/std_*_report.json
 config_inventory | Lung Cancer/GNB | source_dp_report | LUNG_CANCER/GaussianNB/output/dp_gnb_report.json | filesystem glob | LUNG_CANCER/GaussianNB/**/dp_*_report.json
 config_inventory | Lung Cancer/GNB | std_train_time_s | 0.00432279100642 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Lung Cancer, model=DP-GNB
 config_inventory | Lung Cancer/GNB | train_time_mean | 0.0100402597328 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
 config_inventory | Lung Cancer/GNB | train_time_std | 0.000502831434217 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
+config_inventory | Lung Cancer/GNB | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Lung Cancer/GNB | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Lung Cancer/GNB | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Lung Cancer/GNB | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Lung Cancer/GNB | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Lung Cancer/GNB | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Lung Cancer/SVM | source_std_report | LUNG_CANCER/SVM/output/std_svm_report.json | filesystem glob | LUNG_CANCER/SVM/**/std_*_report.json
 config_inventory | Lung Cancer/SVM | source_dp_report | LUNG_CANCER/SVM/output/dp_svm_report.json | filesystem glob | LUNG_CANCER/SVM/**/dp_*_report.json
 config_inventory | Lung Cancer/SVM | std_train_time_s | 0.433801166015 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Lung Cancer, model=DP-SVM
 config_inventory | Lung Cancer/SVM | train_time_mean | 0.0548833861666 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Lung Cancer/SVM | train_time_std | 0.0017975661191 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Lung Cancer/SVM | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Lung Cancer/SVM | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Lung Cancer/SVM | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Lung Cancer/SVM | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Lung Cancer/SVM | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Lung Cancer/SVM | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Lung Cancer/DNN | source_std_report | LUNG_CANCER/DNN/output/std_dnn_report.json | filesystem glob | LUNG_CANCER/DNN/**/std_*_report.json
 config_inventory | Lung Cancer/DNN | source_dp_report | LUNG_CANCER/DNN/output/dp_dnn_report.json | filesystem glob | LUNG_CANCER/DNN/**/dp_*_report.json
 config_inventory | Lung Cancer/DNN | std_train_time_s | 5.6570836584 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Lung Cancer, model=DP-DNN
 config_inventory | Lung Cancer/DNN | train_time_mean | 12.8728648096 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
 config_inventory | Lung Cancer/DNN | train_time_std | 0.472054724998 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
+config_inventory | Lung Cancer/DNN | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Lung Cancer/DNN | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Lung Cancer/DNN | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Lung Cancer/DNN | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Lung Cancer/DNN | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Lung Cancer/DNN | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Diabetes/RF | source_std_report | DIABETES/RandomForest/output/std_rf_report.json | filesystem glob | DIABETES/RandomForest/**/std_*_report.json
 config_inventory | Diabetes/RF | source_dp_report | DIABETES/RandomForest/output/dp_rf_report.json | filesystem glob | DIABETES/RandomForest/**/dp_*_report.json
 config_inventory | Diabetes/RF | std_train_time_s | 0.109118915992 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Diabetes, model=DP-RF
 config_inventory | Diabetes/RF | train_time_mean | 0.0506650570353 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
 config_inventory | Diabetes/RF | train_time_std | 0.00181684186031 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-RF
+config_inventory | Diabetes/RF | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Diabetes/RF | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Diabetes/RF | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Diabetes/RF | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Diabetes/RF | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Diabetes/RF | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Diabetes/LR | source_std_report | DIABETES/LR/output/std_lr_report.json | filesystem glob | DIABETES/LR/**/std_*_report.json
 config_inventory | Diabetes/LR | source_dp_report | DIABETES/LR/output/dp_lr_report.json | filesystem glob | DIABETES/LR/**/dp_*_report.json
 config_inventory | Diabetes/LR | std_train_time_s | 0.0328322909918 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Diabetes, model=DP-LR
 config_inventory | Diabetes/LR | train_time_mean | 0.0301176499003 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
 config_inventory | Diabetes/LR | train_time_std | 0.00315868858217 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-LR
+config_inventory | Diabetes/LR | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Diabetes/LR | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Diabetes/LR | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Diabetes/LR | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Diabetes/LR | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Diabetes/LR | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Diabetes/GNB | source_std_report | DIABETES/GaussianNB/output/std_gnb_report.json | filesystem glob | DIABETES/GaussianNB/**/std_*_report.json
 config_inventory | Diabetes/GNB | source_dp_report | DIABETES/GaussianNB/output/dp_gnb_report.json | filesystem glob | DIABETES/GaussianNB/**/dp_*_report.json
 config_inventory | Diabetes/GNB | std_train_time_s | 0.00356744859891 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Diabetes, model=DP-GNB
 config_inventory | Diabetes/GNB | train_time_mean | 0.00761496110257 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
 config_inventory | Diabetes/GNB | train_time_std | 0.000104876164305 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-GNB
+config_inventory | Diabetes/GNB | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Diabetes/GNB | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Diabetes/GNB | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Diabetes/GNB | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Diabetes/GNB | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Diabetes/GNB | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Diabetes/SVM | source_std_report | DIABETES/SVM/output/std_svm_report.json | filesystem glob | DIABETES/SVM/**/std_*_report.json
 config_inventory | Diabetes/SVM | source_dp_report | DIABETES/SVM/output/dp_svm_report.json | filesystem glob | DIABETES/SVM/**/dp_*_report.json
 config_inventory | Diabetes/SVM | std_train_time_s | 140.315896125 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Diabetes, model=DP-SVM
 config_inventory | Diabetes/SVM | train_time_mean | 0.0237101972667 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
 config_inventory | Diabetes/SVM | train_time_std | 0.00106420904466 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-SVM
+config_inventory | Diabetes/SVM | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Diabetes/SVM | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Diabetes/SVM | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Diabetes/SVM | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Diabetes/SVM | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Diabetes/SVM | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 config_inventory | Diabetes/DNN | source_std_report | DIABETES/DNN/output/std_dnn_report.json | filesystem glob | DIABETES/DNN/**/std_*_report.json
 config_inventory | Diabetes/DNN | source_dp_report | DIABETES/DNN/output/dp_dnn_report.json | filesystem glob | DIABETES/DNN/**/dp_*_report.json
 config_inventory | Diabetes/DNN | std_train_time_s | 6.0675743874 | Results/dataset_results/consolidated_data.csv | variant=standard, dataset=Diabetes, model=DP-DNN
 config_inventory | Diabetes/DNN | train_time_mean | 20.6899074513 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
 config_inventory | Diabetes/DNN | train_time_std | 1.1010142194 | Results/dataset_results/consolidated_data.csv | variant=dp, epsilon=1.0, model=DP-DNN
+config_inventory | Diabetes/DNN | version_python | 3.13 | analysis/src/extract_provenance.py:SOFTWARE_VERSIONS | Python 3.13 author-confirmed
+config_inventory | Diabetes/DNN | version_numpy | 2.4.6 | pyproject.toml:project.dependencies | numpy== exact pin
+config_inventory | Diabetes/DNN | version_scikit_learn | 1.6.1 | pyproject.toml:project.dependencies | scikit-learn== exact pin
+config_inventory | Diabetes/DNN | version_pytorch | 2.11.0 | pyproject.toml:project.dependencies | torch== exact pin
+config_inventory | Diabetes/DNN | version_opacus | 1.6.0 | pyproject.toml:project.dependencies | opacus== exact pin
+config_inventory | Diabetes/DNN | version_diffprivlib | 0.6.6 | pyproject.toml:project.dependencies | diffprivlib== exact pin
 global | all DP utility rows | n_runs == 30 | 378 | Results/dataset_results/consolidated_data.csv | variant=dp
 global | DP utility rows without n_runs | count | 36 | Results/dataset_results/consolidated_data.csv | variant=dp and n_runs is NaN
 d16_correlations | L4  yeom_adv_base vs lira_auc_base | rho | 0.601779755284 | analysis/figures/figure_input.csv | cluster-aware Spearman(yeom_adv_base, lira_auc_base), n=30
